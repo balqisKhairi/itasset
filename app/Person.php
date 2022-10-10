@@ -10,7 +10,7 @@ class Person extends Model
     public $table = "persons";
  
      protected $fillable = [
-         'categoryID','assignedTo','deviceHostname',
+       'person_id', 'category_id','assignedTo','deviceHostname'
      ]
  ;
 }

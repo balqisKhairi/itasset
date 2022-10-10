@@ -10,7 +10,7 @@ class Category extends Model
     public $table = "categories";
  
      protected $fillable = [
-         'categoryID','categoryName'
+         'category_id','categoryName'
      ]
  ;
     
