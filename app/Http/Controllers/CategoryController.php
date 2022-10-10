@@ -24,7 +24,10 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        $jobs = Category::all();
+        //dd($jobs);
+        return view('categories.index', compact('categories'));
+       // return view('jobs.index');
     }
 
     /**
