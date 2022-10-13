@@ -6,10 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Desktop extends Model
 {
- //protected $guarded =[];
- public $table = "desktops";
+ protected $guarded =[];
+ //public $table = "desktops";
  
- protected $fillable = [
+ /*protected $fillable = [
      'id','assignedTo','deviceHostname','deviceIPaddress', 
      'deviceManufacturer','deviceModel','deviceSerielNumber','warrantyDate',
      'department','deviceLocation','level','operatingSystem', 
@@ -18,5 +18,5 @@ class Desktop extends Model
      'condition(monitor)','deployment','monitorModel','monitorManufacturer', 
      'monitorSize','monitorSerielNumber',
  ]
-;
+; */
 }

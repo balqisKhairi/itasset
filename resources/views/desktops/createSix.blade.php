@@ -21,7 +21,7 @@
    
 
 
-<form action="{{ route('desktops.create.step.six.post') }}" method="POST">
+<form action="{{ route('desktops.storeSix') }}" method="POST">
     @csrf
                             <div class="form-group">
                                 <label for="description">Condition(CPU):</label>

@@ -21,7 +21,7 @@
    
 
 
-<form action="{{ route('desktops.create.step.two.post') }}" method="POST">
+<form action="{{ route('desktops.storeTwo') }}" method="POST">
     @csrf
                             <div class="form-group">
                                 <label for="description">Device IP Address:</label>

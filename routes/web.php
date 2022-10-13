@@ -33,7 +33,7 @@ Route::delete('categorys/{category}', 'CategoryController@destroy')->name('categ
 //Route::resource('categorys', 'CategoryController');
 
 //Desktops
-Route::get('/desktops', 'DesktopController@index')->name('desktops.index');
+//Route::get('/desktops', 'DesktopController@index')->name('desktops.index');
 //Route::get('/desktops/create', 'DesktopController@create')->name('desktops.create');
 //Route::post('/desktops', 'DesktopController@store')->name('desktops.store');
 Route::get('desktops/{desktop}', 'DesktopController@show')->name('desktops.show');
@@ -44,14 +44,14 @@ Route::delete('desktops/{category}', 'DesktopController@destroy')->name('desktop
 
 
 //Test
-Route::get('/desktops/create-step-one', 'DesktopController@createStepOne')->name('desktops.create.step.one');
-Route::post('/desktops/create-step-one', 'DesktopController@postCreateStepOne')->name('desktops.create.step.one.post');
+Route::get('/desktops/createOne', 'DesktopController@createOne')->name('desktops.createOne');
+Route::post('/desktops', 'DesktopController@storeOne')->name('desktops.storeOne');
   
-Route::get('desktops/create-step-two', 'DesktopController@createStepTwo')->name('desktops.create.step.two');
-Route::post('desktops/create-step-two', 'DesktopController@postCreateStepTwo')->name('desktops.create.step.two.post');
+Route::get('desktops/createTwo', 'DesktopController@createTwo')->name('desktops.createTwo');
+Route::post('desktops', 'DesktopController@storeTwo')->name('desktops.storeTwo');
   
-Route::get('desktops/create-step-three', 'DesktopController@createStepThree')->name('desktops.create.step.three');
-Route::post('desktops/create-step-three', 'DesktopController@postCreateStepThree')->name('desktops.create.step.three.post');
+Route::get('desktops/createThree', 'DesktopController@createThree')->name('desktops.createThree');
+Route::post('desktops/createThree', 'DesktopController@storeThree')->name('desktops.storeThree');
 
 Route::get('desktops/create-step-four', 'DesktopController@createStepFour')->name('desktops.create.step.four');
 Route::post('desktops/create-step-four', 'DesktopController@postCreateStepFour')->name('desktops.create.step.four.post');
@@ -61,3 +61,4 @@ Route::post('desktops/create-step-five', 'DesktopController@postCreateStepFive')
   
 Route::get('desktops/create-step-six', 'DesktopController@createStepSix')->name('desktops.create.step.six');
 Route::post('desktops/create-step-six', 'DesktopController@postCreateStepSix')->name('desktops.create.step.six.post');
+Route::resource('desktops', 'DesktopController');

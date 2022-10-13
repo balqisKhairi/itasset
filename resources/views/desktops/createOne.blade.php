@@ -22,7 +22,7 @@
    
 
 
-<form action="{{ route('desktops.create-step-one-post') }}" method="POST">
+<form action="{{ route('desktops.storeOne') }}" method="POST">
     @csrf
 <div class="form-group">
                                 <label for="title">Assigned To:</label>

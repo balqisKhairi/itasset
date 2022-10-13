@@ -100,11 +100,9 @@ class DesktopController extends Controller
 
  /**TRYING IT OUT */
 
-    public function createStepOne(Request $request)
+    public function createOne()
     {
-        $desktop = $request->get('desktop');
-  
-        return view('desktops.create.step.one',compact('desktop'));
+        return view('desktops.createOne');
     }
   
     /**  
@@ -113,25 +111,26 @@ class DesktopController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function postCreateStepOne(Request $request)
+    public function storeOne(Request $request)
     {
-        $validatedData = $request->validate([
-            'assignedTo' => 'required',
-            'deviceHostname' => 'required',
+       // $validatedData = $request->validate([
+                //'assignedTo' => 'required',
+            //'deviceHostname' => 'required',
            
-        ]);
+       // ]); 
+       Desktop::create($request->all());
   
-        if(empty($request->session()->get('desktop'))){
+        if(empty($request->get('desktop'))){
             $desktop = new Desktop();
             $desktop->fill($validatedData);
-            $request->session()->put('desktop', $desktop);
+            $request->put('desktop', $desktop);
         }else{
-            $desktop = $request->session()->get('desktop');
+            $desktop = $request->get('desktop');
             $desktop->fill($validatedData);
-            $request->session()->put('desktop', $desktop);
+            $request->put('desktop', $desktop);
         }
   
-        return redirect()->route('desktops.create.step.two');
+        return redirect()->route('desktops.createTwo');
     }
   
     /**
@@ -139,11 +138,11 @@ class DesktopController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function createStepTwo(Request $request)
+    public function createTwo(Request $request)
     {
         $desktop = $request->session()->get('desktop');
   
-        return view('desktops.create-step-two',compact('desktop'));
+        return view('desktops.createTwo',compact('desktop'));
     }
   
     /**
@@ -151,26 +150,15 @@ class DesktopController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function postCreateStepTwo(Request $request)
+    public function storeTwo(Request $request)
     {
-        $validatedData = $request->validate([
-            'deviceIPaddress' => 'required',
-            'deviceManufacturer' => 'required',
-            'deviceModel' => 'required',
-            'deviceSerielNumber' => 'required',
-            'warrantyDate' => 'required',
-
-            'monitorModel' => 'required',
-            'monitorManufacturer' => 'required',
-            'monitorSize' => 'required',
-            'monitorSerielNumber' => 'required',
-        ]);
+        Desktop::create($request->all());
   
         $desktop = $request->session()->get('desktop');
         $desktop->fill($validatedData);
         $request->session()->put('desktop', $desktop);
   
-        return redirect()->route('desktops.create.step.three');
+        return redirect()->route('desktops.createThree');
     }
   
     /**
@@ -178,11 +166,11 @@ class DesktopController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function createStepThree(Request $request)
+    public function createThree(Request $request)
     {
         $desktop = $request->session()->get('desktop');
   
-        return view('desktops.create-step-three',compact('desktop'));
+        return view('desktops.createThree',compact('desktop'));
     }
   
     /**
@@ -190,28 +178,23 @@ class DesktopController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function postCreateStepThree(Request $request)
+    public function storeThree(Request $request)
     {
-        $validatedData = $request->validate([
-            'department' => 'required',
-            'deviceLocation' => 'required',
-            'level' => 'required',
-            
-        ]);
+        Desktop::create($request->all());
   
-        $desktop = $request->session()->get('desktop');
+        $desktop = $request->get('desktop');
         $desktop->fill($validatedData);
         $request->session()->put('desktop', $desktop);
   
-        return redirect()->route('desktops.create.step.four');
+        return redirect()->route('desktops.createFour');
     }
 
 
-    public function createStepFour(Request $request)
+    public function createFour(Request $request)
     {
         $product = $request->session()->get('desktop');
   
-        return view('desktops.create-step-four',compact('desktop'));
+        return view('desktops.createFour',compact('desktop'));
     }
   
     /**  
@@ -220,15 +203,9 @@ class DesktopController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function postCreateStepFour(Request $request)
+    public function storeFour(Request $request)
     {
-        $validatedData = $request->validate([
-            'operatingSystem' => 'required|unique:products',
-            'windowVersion' => 'required|numeric',
-            'msOfficeAndVersion' => 'required',
-            'officeSerielKey' => 'required|numeric',
-            'antivirusAndVersion' => 'required',
-        ]);
+        Desktop::create($request->all());
   
         if(empty($request->session()->get('desktop'))){
             $desktop = new Desktop();
@@ -240,7 +217,7 @@ class DesktopController extends Controller
             $request->session()->put('desktop', $desktop);
         }
   
-        return redirect()->route('desktops.create.step.five');
+        return redirect()->route('desktops.createFive');
     }
   
     /**
@@ -248,11 +225,11 @@ class DesktopController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function createStepFive(Request $request)
+    public function createFive(Request $request)
     {
         $desktop = $request->session()->get('desktop');
   
-        return view('desktops.create-step-five',compact('desktop'));
+        return view('desktops.createFive',compact('desktop'));
     }
   
     /**
@@ -260,19 +237,15 @@ class DesktopController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function postCreateStepFive(Request $request)
+    public function storeFive(Request $request)
     {
-        $validatedData = $request->validate([
-            'domain' => 'required',
-            'internetConnection' => 'required',
-            'policyRebootAndShutdown' => 'required',
-        ]);
+        Desktop::create($request->all());
   
         $desktop = $request->session()->get('desktop');
         $desktop->fill($validatedData);
         $request->session()->put('desktop', $desktop);
   
-        return redirect()->route('desktops.create.step.six');
+        return redirect()->route('desktops.createSix');
     }
   
     /**
@@ -280,11 +253,11 @@ class DesktopController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function createStepSix(Request $request)
+    public function createSix(Request $request)
     {
         $desktop = $request->session()->get('desktop');
   
-        return view('desktops.create-step-six',compact('desktop'));
+        return view('desktops.createSix',compact('desktop'));
     }
   
     /**
@@ -292,13 +265,9 @@ class DesktopController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function postCreateStepSix(Request $request)
+    public function storeSix(Request $request)
     {
-        $validatedData = $request->validate([
-            'condition(CPU)' => 'required',
-            'condition(monitor) ' => 'required',
-            'deployment' => 'required',
-        ]);
+        Desktop::create($request->all());
   
         $desktop = $request->session()->get('desktop');
         $desktop->save($validatedData);

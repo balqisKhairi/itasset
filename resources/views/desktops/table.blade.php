@@ -5,7 +5,7 @@
                 <h2>List of Desktops</h2>
             </div>
             <div class="pull-right">
-                <a class="btn btn-success" href="{{ route('desktops.create.step.one') }}"> Add New Desktops</a>
+                <a class="btn btn-success" href="{{ route('desktops.createOne') }}"> Add New Desktops</a>
             </div>
         </div>
     </div>
