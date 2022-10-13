@@ -7,10 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     //protected $guarded =[];
-    public $table = "categories";
+    public $table = "categorys";
  
      protected $fillable = [
-         'category_id','categoryName'
+         'id','category_id','categoryName',
      ]
  ;
     
