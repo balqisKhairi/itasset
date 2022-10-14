@@ -38,11 +38,11 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'category_id' => 'required',
-            'categoryName' => 'required',
+        //$request->validate([
+          //  'category_id' => 'required',
+            //'categoryName' => 'required',
            
-        ]);
+        //]);
   
         Category::create($request->all());
    

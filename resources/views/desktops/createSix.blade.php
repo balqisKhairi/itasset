@@ -1,13 +1,19 @@
 @extends('layouts.template')
 @section('content')
 
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-10">
+<div class="row">
+    <div class="col-lg-12 margin-tb">
+        <div class="pull-left">
+            
+        </div>
+       
+    </div>
+</div>
           
                 <div class="card">
                     <div class="card-header">Condition And Status Device</div>
    
+</div>
 @if ($errors->any())
     <div class="alert alert-danger">
         <strong>Whoops!</strong> There were some problems with your input.<br><br>
@@ -21,15 +27,15 @@
    
 
 
-<form action="{{ route('desktops.storeSix') }}" method="POST">
+<form action="{{ route('desktops.storesix') }}" method="POST">
     @csrf
                             <div class="form-group">
                                 <label for="description">Condition(CPU):</label>
-                                <input type="text"  value="{{{ $desktop->condition(CPU) ?? '' }}}" class="form-control"  name="deviceIPaddress"/>
+                                <input type="text"  value="{{{ $desktop->cpu ?? '' }}}" class="form-control"  name="deviceIPaddress"/>
                             </div>
                             <div class="form-group">
                                 <label for="title">Condition(monitor):</label>
-                                <input type="text" value="{{ $desktop->condition(monitor) ?? '' }}" class="form-control"  name="deviceManufacturer">
+                                <input type="text" value="{{ $desktop->monitor?? '' }}" class="form-control"  name="deviceManufacturer">
                             </div>
                             <div class="form-group">
                                 <label for="description">Deployment:</label>
@@ -48,3 +54,4 @@
         </div>
     </div>
 </div>
+@endsection

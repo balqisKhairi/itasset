@@ -1,10 +1,14 @@
 @extends('layouts.template')
 @section('content')
 
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-10">
-          
+<div class="row">
+    <div class="col-lg-12 margin-tb">
+        <div class="pull-left">
+            
+        </div>
+       
+    </div>
+</div>
                 <div class="card">
                     <div class="card-header">Device Details </div>
    
@@ -21,7 +25,7 @@
    
 
 
-<form action="{{ route('desktops.storeTwo') }}" method="POST">
+<form action="{{ route('desktops.storetwo') }}" method="POST">
     @csrf
                             <div class="form-group">
                                 <label for="description">Device IP Address:</label>
@@ -41,7 +45,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="description">Warranty Date:</label>
-                                <input type="text"  value="{{{ $desktop->warrantyDate ?? '' }}}" class="form-control"  name="deviceModel"/>
+                                <input type="date"  value="{{{ $desktop->warrantyDate ?? '' }}}" class="form-control"  name="deviceModel"/>
                             </div>
                        </div>
 
@@ -75,3 +79,4 @@
         </div>
     </div>
 </div>
+@endsection

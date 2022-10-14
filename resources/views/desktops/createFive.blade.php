@@ -1,12 +1,17 @@
 @extends('layouts.template')
 @section('content')
 
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-10">
-          
+<div class="row">
+    <div class="col-lg-12 margin-tb">
+        <div class="pull-left">
+            
+        </div>
+       
+    </div>
+</div>
                 <div class="card">
                     <div class="card-header">Others</div>
+</div>
    
 @if ($errors->any())
     <div class="alert alert-danger">
@@ -21,7 +26,7 @@
    
 
 
-<form action="{{ route('desktops.create.step.five.post') }}" method="POST">
+<form action="{{ route('desktops.storefive') }}" method="POST">
     @csrf
                             <div class="form-group">
                                 <label for="description">Domain:</label>
@@ -48,3 +53,4 @@
         </div>
     </div>
 </div>
+@endsection

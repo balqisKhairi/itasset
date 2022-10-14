@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Desktop;
 use Illuminate\Http\Request;
 
+
 class DesktopController extends Controller
 {
     /**
@@ -98,39 +99,38 @@ class DesktopController extends Controller
     
     }
 
- /**TRYING IT OUT */
-
-    public function createOne()
+     /**TRYING IT OUT */
+    public function createone()
     {
-        return view('desktops.createOne');
+        return view('desktops.createone');
     }
-  
+
     /**  
      * Post Request to store step1 info in session
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function storeOne(Request $request)
+    public function storeone(Request $request)
     {
-       // $validatedData = $request->validate([
-                //'assignedTo' => 'required',
-            //'deviceHostname' => 'required',
+        $validatedData = $request->validate([
+                'assignedTo' => 'required',
+            'deviceHostname' => 'required',
            
-       // ]); 
+        ]); 
        Desktop::create($request->all());
   
         if(empty($request->get('desktop'))){
             $desktop = new Desktop();
             $desktop->fill($validatedData);
-            $request->put('desktop', $desktop);
+            $request->session()->put('desktop', $desktop);
         }else{
             $desktop = $request->get('desktop');
             $desktop->fill($validatedData);
-            $request->put('desktop', $desktop);
+            $request->session()->put('desktop', $desktop);
         }
   
-        return redirect()->route('desktops.createTwo');
+        return redirect()->route('desktops.createtwo');
     }
   
     /**
@@ -138,7 +138,7 @@ class DesktopController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function createTwo(Request $request)
+    public function createtwo(Request $request)
     {
         $desktop = $request->session()->get('desktop');
   
@@ -150,15 +150,15 @@ class DesktopController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function storeTwo(Request $request)
+    public function storetwo(Request $request)
     {
         Desktop::create($request->all());
   
         $desktop = $request->session()->get('desktop');
-        $desktop->fill($validatedData);
+       
         $request->session()->put('desktop', $desktop);
   
-        return redirect()->route('desktops.createThree');
+        return redirect()->route('desktops.createthree');
     }
   
     /**
@@ -166,11 +166,11 @@ class DesktopController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function createThree(Request $request)
+    public function createthree(Request $request)
     {
         $desktop = $request->session()->get('desktop');
   
-        return view('desktops.createThree',compact('desktop'));
+        return view('desktops.createthree',compact('desktop'));
     }
   
     /**
@@ -178,23 +178,23 @@ class DesktopController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function storeThree(Request $request)
+    public function storethree(Request $request)
     {
         Desktop::create($request->all());
   
         $desktop = $request->get('desktop');
-        $desktop->fill($validatedData);
+        
         $request->session()->put('desktop', $desktop);
   
-        return redirect()->route('desktops.createFour');
+        return redirect()->route('desktops.createfour');
     }
 
 
-    public function createFour(Request $request)
+    public function createfour(Request $request)
     {
-        $product = $request->session()->get('desktop');
+        $desktop = $request->session()->get('desktop');
   
-        return view('desktops.createFour',compact('desktop'));
+        return view('desktops.createfour',compact('desktop'));
     }
   
     /**  
@@ -203,21 +203,21 @@ class DesktopController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function storeFour(Request $request)
+    public function storefour(Request $request)
     {
         Desktop::create($request->all());
   
         if(empty($request->session()->get('desktop'))){
             $desktop = new Desktop();
-            $desktop->fill($validatedData);
+           
             $request->session()->put('desktop', $desktop);
         }else{
             $desktop = $request->session()->get('desktop');
-            $desktop->fill($validatedData);
+           
             $request->session()->put('desktop', $desktop);
         }
   
-        return redirect()->route('desktops.createFive');
+        return redirect()->route('desktops.createfive');
     }
   
     /**
@@ -225,11 +225,11 @@ class DesktopController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function createFive(Request $request)
+    public function createfive(Request $request)
     {
         $desktop = $request->session()->get('desktop');
   
-        return view('desktops.createFive',compact('desktop'));
+        return view('desktops.createfive',compact('desktop'));
     }
   
     /**
@@ -237,15 +237,15 @@ class DesktopController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function storeFive(Request $request)
+    public function storefive(Request $request)
     {
         Desktop::create($request->all());
   
         $desktop = $request->session()->get('desktop');
-        $desktop->fill($validatedData);
+    
         $request->session()->put('desktop', $desktop);
   
-        return redirect()->route('desktops.createSix');
+        return redirect()->route('desktops.createsix');
     }
   
     /**
@@ -253,11 +253,11 @@ class DesktopController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function createSix(Request $request)
+    public function createsix(Request $request)
     {
         $desktop = $request->session()->get('desktop');
   
-        return view('desktops.createSix',compact('desktop'));
+        return view('desktops.createsix',compact('desktop'));
     }
   
     /**
@@ -265,12 +265,12 @@ class DesktopController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function storeSix(Request $request)
+    public function storesix(Request $request)
     {
         Desktop::create($request->all());
   
         $desktop = $request->session()->get('desktop');
-        $desktop->save($validatedData);
+       
   
         $request->session()->forget('desktop');
   

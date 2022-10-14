@@ -1,13 +1,17 @@
 @extends('layouts.template')
 @section('content')
 
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-10">
-          
+<div class="row">
+    <div class="col-lg-12 margin-tb">
+        <div class="pull-left">
+            
+        </div>
+       
+    </div>
+</div>
                 <div class="card">
                     <div class="card-header" >Location Device</div>
-   
+</div>
 @if ($errors->any())
     <div class="alert alert-danger">
         <strong>Whoops!</strong> There were some problems with your input.<br><br>
@@ -21,7 +25,7 @@
    
 
 
-<form action="{{ route('desktops.create.step.three.post') }}" method="POST">
+<form action="{{ route('desktops.storethree') }}" method="POST">
     @csrf
                             <div class="form-group">
                                 <label for="description">Department:</label>
@@ -60,3 +64,4 @@
         </div>
     </div>
 </div>
+@endsection

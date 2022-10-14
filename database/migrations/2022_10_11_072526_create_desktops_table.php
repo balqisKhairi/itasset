@@ -43,6 +43,7 @@ class CreateDesktopsTable extends Migration
             $table->string('monitorSize')->nullable();
             $table->string('monitorSerielNumber')->nullable();
            
+           
         });
     }
 
