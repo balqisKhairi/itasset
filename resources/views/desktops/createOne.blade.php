@@ -9,6 +9,11 @@
        
     </div>
 </div>
+
+
+<div class="card">
+                    <div class="card-header">Human Information</div>
+   
 @if ($errors->any())
     <div class="alert alert-danger">
         <strong>Whoops!</strong> There were some problems with your input.<br><br>
@@ -20,29 +25,27 @@
     </div>
 @endif
    
-
+<div class="card-body">
 
 <form action="{{ route('desktops.storeone') }}" method="POST">
     @csrf
-    <div class="row">
-        <div class="col-xs-6 col-sm-6 col-md-12">
+   
+        
             <div class="form-group">
                                 <label for="title">Assigned To:</label>
                                 <input type="text" value="{{ $desktop->assignedTo ?? '' }}" class="form-control"  name="assignedTo">
                             </div>
-                            <div class="col-xs-6 col-sm-6 col-md-12">
+                      
                             <div class="form-group">
                                 <label for="description">Device Hostname:</label>
                                 <input type="text"  value="{{{ $desktop->deviceHostname ?? '' }}}" class="form-control"  name="deviceHostname"/>
                             </div>
                            
    
-   
-                           
-                          
-                    </div>
+                </div>
+                  </div>
   
-                    <div class="card-footer text-right">
+                  <div class="card-footer text-right">
                         <button type="submit" class="btn btn-primary">Next</button>
                     </div>
                 </div>

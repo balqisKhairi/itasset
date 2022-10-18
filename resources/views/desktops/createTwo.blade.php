@@ -9,6 +9,8 @@
        
     </div>
 </div>
+
+
                 <div class="card">
                     <div class="card-header">Device Details </div>
    
@@ -23,7 +25,7 @@
     </div>
 @endif
    
-
+<div class="card-body">
 
 <form action="{{ route('desktops.storetwo') }}" method="POST">
     @csrf
@@ -45,38 +47,50 @@
                             </div>
                             <div class="form-group">
                                 <label for="description">Warranty Date:</label>
-                                <input type="date"  value="{{{ $desktop->warrantyDate ?? '' }}}" class="form-control"  name="deviceModel"/>
+                                <input type="date"  value="{{{ $desktop->warrantyDate ?? '' }}}" class="form-control"  name="warrantyDate"/>
                             </div>
                        </div>
+                </div>
 
                 <div class="card">
+             
                     <div class="card-header">Monitor Details</div>
-
+                    <div class="card-body">
                     <div class="form-group">
                                 <label for="description">Monitor Model:</label>
-                                <input type="text"  value="{{{ $desktop->monitorModel ?? '' }}}" class="form-control"  name="deviceIPaddress"/>
+                                <input type="text"  value="{{{ $desktop->monitorModel ?? '' }}}" class="form-control"  name="monitorModel"/>
                             </div>
                             <div class="form-group">
                                 <label for="title">Monitor Manufacturer:</label>
-                                <input type="text" value="{{ $desktop->monitorManufacturer ?? '' }}" class="form-control"  name="deviceManufacturer">
+                                <input type="text" value="{{ $desktop->monitorManufacturer ?? '' }}" class="form-control"  name="monitorManufacturer">
                             </div>
                             <div class="form-group">
                                 <label for="description">Monitor Size:</label>
-                                <input type="text"  value="{{{ $desktop->monitorSize ?? '' }}}" class="form-control"  name="deviceModel"/>
+                                <input type="text"  value="{{{ $desktop->monitorSize ?? '' }}}" class="form-control"  name="monitorSize"/>
                             </div>
                             <div class="form-group">
                                 <label for="description">Monitor Seriel Number:</label>
-                                <input type="text"  value="{{{ $desktop->monitorSerielNumber ?? '' }}}" class="form-control"  name="deviceSerielNumber"/>
+                                <input type="text"  value="{{{ $desktop->monitorSerielNumber ?? '' }}}" class="form-control"  name="monitorSerielNumber"/>
                             </div>
                           
-                    </div>
+</div>
+</div>
+
+                    <div class="card-footer">
+                        <div class="row">
+
+                    <div class="col-md-6 text-left">
+                                <a href="{{ route('desktops.createone') }}" class="btn btn-danger pull-right">Previous</a>
+                            </div>
   
-                    <div class="card-footer text-right">
+                    <div class="col-md-6 text-right">
                         <button type="submit" class="btn btn-primary">Next</button>
                     </div>
                 </div>
             </form>
+
         </div>
+    </div>
     </div>
 </div>
 @endsection

@@ -85,23 +85,55 @@ class DesktopController extends Controller
     }
 
     /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Desktop  $desktop
+     * @return \Illuminate\Http\Response
+     */
+    public function editone(Desktop $desktop)
+    {
+        return view('desktops.editone',compact('desktop'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Desktop  $desktop
+     * @return \Illuminate\Http\Response
+     */
+    public function updateone(Request $request, Desktop $desktop)
+    {
+        $desktop->update($request->all());
+  
+        return redirect()->route('desktops.index')
+                        ->with('success','Desktop updated successfully');
+   
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Desktop  $desktop
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Desktop $desktop)
+    public function destroy(Request $request, Desktop $desktop)
     {
-        $desktop->delete();
+       // $desktop->delete();
+        //$desktop = $request->session()->delete();
 
+        $request->session()->forget('desktop');
         return redirect()->route('desktops.index')
         ->with('success','Desktop deleted successfully');
     
     }
 
      /**TRYING IT OUT */
-    public function createone()
+
+    public function createone(Request $request)
     {
+        
+        $desktop = $request->session()->get('desktop');
         return view('desktops.createone');
     }
 
@@ -113,16 +145,21 @@ class DesktopController extends Controller
      */
     public function storeone(Request $request)
     {
-        $validatedData = $request->validate([
-                'assignedTo' => 'required',
-            'deviceHostname' => 'required',
-           
-        ]); 
-       Desktop::create($request->all());
+       
+        $validatedData = $request->all();
+        //$validatedData = $request->validate([
+            //'assignedTo' => 'required',
+            //'deviceHostname' => 'required',
+            
+        //]);
   
+       
+       
         if(empty($request->get('desktop'))){
             $desktop = new Desktop();
+          //  $desktop = Desktop::create($validatedData);
             $desktop->fill($validatedData);
+            //Desktop::create($validatedData);
             $request->session()->put('desktop', $desktop);
         }else{
             $desktop = $request->get('desktop');
@@ -142,7 +179,7 @@ class DesktopController extends Controller
     {
         $desktop = $request->session()->get('desktop');
   
-        return view('desktops.createTwo',compact('desktop'));
+        return view('desktops.createtwo',compact('desktop'));
     }
   
     /**
@@ -152,9 +189,24 @@ class DesktopController extends Controller
      */
     public function storetwo(Request $request)
     {
-        Desktop::create($request->all());
+
+        $validatedData = $request->all();
+        /**$validatedData = $request->validate([
+
+            'deviceIPaddress' => 'required',
+            'deviceManufacturer' => 'required',
+            'deviceModel' => 'required',
+            'deviceSerielNumber' => 'required',
+            'warrantyDate' => 'required',
+            'monitorModel' => 'required',
+            'monitorManufacturer' => 'required',
+            'monitorSize' => 'required',
+            'monitorSerielNumber' => 'required',
+
+        ]); **/
   
         $desktop = $request->session()->get('desktop');
+        $desktop -> fill($validatedData);
        
         $request->session()->put('desktop', $desktop);
   
@@ -180,10 +232,20 @@ class DesktopController extends Controller
      */
     public function storethree(Request $request)
     {
-        Desktop::create($request->all());
-  
-        $desktop = $request->get('desktop');
         
+        $validatedData = $request->all();
+        /**$validatedData = $request->validate([
+
+            'department' => 'required',
+            'deviceLocation' => 'required',
+            'level' => 'required',
+
+        ]); **/
+  
+        $desktop = $request->session()->get('desktop');
+        //$desktop = Desktop::create($validatedData);
+        $desktop -> fill($validatedData);
+
         $request->session()->put('desktop', $desktop);
   
         return redirect()->route('desktops.createfour');
@@ -205,17 +267,23 @@ class DesktopController extends Controller
      */
     public function storefour(Request $request)
     {
-        Desktop::create($request->all());
+
+        $validatedData = $request->all();
+        /**$validatedData = $request->validate([
+
+            'operatingSystem' => 'required',
+            'windowVersion' => 'required',
+            'msOfficeAndVersion' => 'required',
+
+            'officeSerielKey' => 'required',
+            'antivirusAndVersion' => 'required',
+            
+        ]); **/
   
-        if(empty($request->session()->get('desktop'))){
-            $desktop = new Desktop();
-           
-            $request->session()->put('desktop', $desktop);
-        }else{
-            $desktop = $request->session()->get('desktop');
-           
-            $request->session()->put('desktop', $desktop);
-        }
+        $desktop = $request->session()->get('desktop');
+        //$desktop = Desktop::create($validatedData);
+        $desktop -> fill($validatedData);
+       $request->session()->put('desktop', $desktop);
   
         return redirect()->route('desktops.createfive');
     }
@@ -239,12 +307,22 @@ class DesktopController extends Controller
      */
     public function storefive(Request $request)
     {
-        Desktop::create($request->all());
+
+        $validatedData = $request->all();
+       /**$validatedData = $request->validate([
+
+            'domain' => 'required',
+            'internetConnection' => 'required',
+            'policyRebootAndShutdown' => 'required',
+
+            
+        ]); **/
   
         $desktop = $request->session()->get('desktop');
-    
+        //$desktop = Desktop::create($validatedData);
+        $desktop -> fill($validatedData);
         $request->session()->put('desktop', $desktop);
-  
+
         return redirect()->route('desktops.createsix');
     }
   
@@ -267,11 +345,20 @@ class DesktopController extends Controller
      */
     public function storesix(Request $request)
     {
-        Desktop::create($request->all());
+        $validatedData = $request->all();
+        /**$validatedData = $request->validate([
+
+            'cpu' => 'required',
+            'monitor' => 'required',
+            'deployment' => 'required',
+
+            
+        ]); **/
   
         $desktop = $request->session()->get('desktop');
-       
-  
+        //$desktop = Desktop::create($validatedData);
+        $desktop -> fill($validatedData);
+        $desktop->save();
         $request->session()->forget('desktop');
   
         return redirect()->route('desktops.index');

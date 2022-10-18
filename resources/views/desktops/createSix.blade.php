@@ -12,8 +12,7 @@
           
                 <div class="card">
                     <div class="card-header">Condition And Status Device</div>
-   
-</div>
+  
 @if ($errors->any())
     <div class="alert alert-danger">
         <strong>Whoops!</strong> There were some problems with your input.<br><br>
@@ -25,29 +24,59 @@
     </div>
 @endif
    
-
+<div class="card-body">
 
 <form action="{{ route('desktops.storesix') }}" method="POST">
     @csrf
-                            <div class="form-group">
-                                <label for="description">Condition(CPU):</label>
-                                <input type="text"  value="{{{ $desktop->cpu ?? '' }}}" class="form-control"  name="deviceIPaddress"/>
-                            </div>
-                            <div class="form-group">
-                                <label for="title">Condition(monitor):</label>
-                                <input type="text" value="{{ $desktop->monitor?? '' }}" class="form-control"  name="deviceManufacturer">
-                            </div>
-                            <div class="form-group">
-                                <label for="description">Deployment:</label>
-                                <input type="text"  value="{{{ $desktop->deployment ?? '' }}}" class="form-control"  name="deviceModel"/>
-                            </div>
                             
+
+                            <div class="form-group">
+                                
+                                <label>Condition(CPU) :&nbsp; &nbsp;</label>
+                                <select name="cpu" id="cpu"class="form-control">
+                                <option value=""> --SELECT--</option>
+                                <option value="Good">Good</option>
+                                <option value="Faulty">Faulty</option>
+                                </select> 
+                            </div>
+
+
+
+                            <div class="form-group">
+                               
+                                <label>Condition(monitor) : &nbsp; &nbsp;</label>
+                                <select name="monitor" id="cpu"class="form-control">
+                                <option value=""> --SELECT--</option>
+                                <option value="Good">Good</option>
+                                <option value="Faulty">Faulty</option>
+                                </select> 
+                            </div>
+
+                            
+                            <div class="form-group">
+                               
+                                <label>Deplyement :&nbsp; &nbsp;</label>
+                                <select name="deployment" id="deployment"class="form-control">
+                                <option value=""> --SELECT--</option>
+                                <option value="Ready Deploy">Ready Deploy</option>
+                                <option value="Pending">Pending</option>
+                                <option value="Not Deploy">Not Deploy</option>
+                                </select> 
+                            </div>
+
                        </div>
 
-                
+                       </div>
   
-                    <div class="card-footer text-right">
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                       <div class="card-footer">
+                        <div class="row">
+
+                    <div class="col-md-6 text-left">
+                                <a href="{{ route('desktops.createfive') }}" class="btn btn-danger pull-right">Previous</a>
+                            </div>
+  
+                    <div class="col-md-6 text-right">
+                        <button type="submit" onclick="return confirm('Are you sure want to submit this?')" class="btn btn-primary">Submit</button>
                     </div>
                 </div>
             </form>

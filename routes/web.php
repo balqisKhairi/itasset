@@ -50,6 +50,9 @@ Route::post('desktops/storefive', 'DesktopController@storefive')->name('desktops
 Route::get('desktops/createsix', 'DesktopController@createsix')->name('desktops.createsix');
 Route::post('desktops/storesix', 'DesktopController@storesix')->name('desktops.storesix');
 
+Route::get('desktops/{desktop}/editone', 'DesktopController@editone')->name('desktops.editone');
+Route::put('desktops/{desktop}', 'DesktopController@updateone')->name('desktops.updateone');
+
 Route::get('desktops/{desktop}', 'DesktopController@show')->name('desktops.show');
 Route::get('desktops/{desktop}/edit', 'DesktopController@edit')->name('desktops.edit');
 Route::put('desktops/{desktop}', 'DesktopController@update')->name('desktops.update');

@@ -36,7 +36,7 @@
             <td>{{ $s->deviceIPaddress }}</td>
             
             <td>
-                <form action="" method="POST">
+            <form action="{{ route('desktops.destroy',$s->id) }}" method="POST">
    
                     <a class="btn btn-info" href="">View Full Details</a>
     
@@ -52,7 +52,7 @@
 
                     <a class="btn btn-info" href="">Status</a> -->
     
-                    <a class="btn btn-primary" href="">Edit</a>
+                    <a class="btn btn-primary" href="{{ route('desktops.edit',$s->id) }}">Edit</a>
     
    
                     @csrf

@@ -11,7 +11,7 @@
 </div>
                 <div class="card">
                     <div class="card-header">Others</div>
-</div>
+
    
 @if ($errors->any())
     <div class="alert alert-danger">
@@ -24,28 +24,56 @@
     </div>
 @endif
    
-
+<div class="card-body">
 
 <form action="{{ route('desktops.storefive') }}" method="POST">
-    @csrf
+    @csrf  
+    
                             <div class="form-group">
-                                <label for="description">Domain:</label>
-                                <input type="text"  value="{{{ $desktop->domain ?? '' }}}" class="form-control"  name="deviceIPaddress"/>
+                               
+                                <label>Domain : &nbsp; &nbsp;</label>
+                                <select name="domain" id="domain"class="form-control">
+                                <option value=""> --SELECT--</option>
+                                <option value="kpjhealth.local">kpjhealth.local</option>
+                                <option value="No">No</option>
+                                </select> 
                             </div>
-                            <div class="form-group">
-                                <label for="title">Internet Connection:</label>
-                                <input type="text" value="{{ $desktop->internetConnection ?? '' }}" class="form-control"  name="deviceManufacturer">
-                            </div>
-                            <div class="form-group">
-                                <label for="description">Policy Reboot And Shtudown:</label>
-                                <input type="text"  value="{{{ $desktop->policyRebootAndShutdown ?? '' }}}" class="form-control"  name="deviceModel"/>
+
+                       
+                                <div class="form-group">
+                               
+                                <label>Internet Connection : &nbsp; &nbsp;</label>
+                                <select name="internetConnection" id="internetConnection"class="form-control">
+                                <option value=""> --SELECT--</option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                                <option value="N/A">N/A</option>
+                                </select> 
+                                </div>
+
+                                <div class="form-group">
+                               
+                                <label>Policy Reboot And Shutdown :&nbsp; &nbsp;</label>
+                                <select name="policyRebootAndShutdown" id="policyRebootAndShutdown"class="form-control">
+                                <option value=""> --SELECT--</option>
+                                <option value="Reboot">Reboot</option>
+                                <option value="Shutdown">Shutdown</option>
+                                <option value="N/A">N/A</option>
+                                </select> 
                             </div>
                             
                        </div>
-
+                       </div>
                 
   
-                    <div class="card-footer text-right">
+                       <div class="card-footer">
+                        <div class="row">
+
+                    <div class="col-md-6 text-left">
+                                <a href="{{ route('desktops.createfour') }}" class="btn btn-danger pull-right">Previous</a>
+                            </div>
+  
+                    <div class="col-md-6 text-right">
                         <button type="submit" class="btn btn-primary">Next</button>
                     </div>
                 </div>

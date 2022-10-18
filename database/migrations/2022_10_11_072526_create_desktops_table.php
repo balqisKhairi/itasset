@@ -35,8 +35,8 @@ class CreateDesktopsTable extends Migration
             $table->string('internetConnection')->nullable();
             $table->string('policyRebootAndShutdown')->nullable();
            
-            $table->string('condition(CPU)')->nullable();
-            $table->string('condition(monitor)')->nullable();
+            $table->string('cpu')->nullable();
+            $table->string('monitor')->nullable();
             $table->string('deployment')->nullable();
             $table->string('monitorModel')->nullable();
             $table->string('monitorManufacturer')->nullable();

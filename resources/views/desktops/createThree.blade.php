@@ -11,7 +11,7 @@
 </div>
                 <div class="card">
                     <div class="card-header" >Location Device</div>
-</div>
+
 @if ($errors->any())
     <div class="alert alert-danger">
         <strong>Whoops!</strong> There were some problems with your input.<br><br>
@@ -24,21 +24,21 @@
 @endif
    
 
-
+<div class="card-body">
 <form action="{{ route('desktops.storethree') }}" method="POST">
     @csrf
                             <div class="form-group">
                                 <label for="description">Department:</label>
-                                <input type="text"  value="{{{ $desktop->department ?? '' }}}" class="form-control"  name="deviceIPaddress"/>
+                                <input type="text"  value="{{{ $desktop->department ?? '' }}}" class="form-control"  name="department"/>
                             </div>
+
                             <div class="form-group">
                                 <label for="title">Device Location:</label>
-                                <input type="text" value="{{ $desktop->deviceLocation ?? '' }}" class="form-control"  name="deviceManufacturer">
+                                <input type="text" value="{{ $desktop->deviceLocation ?? '' }}" class="form-control"  name="deviceLocation">
                             </div>
+
                             <div class="form-group">
-                                <label for="description">Level:</label>
-                                <label>Level &nbsp; &nbsp;</label>
-                               
+                                <label>Level :&nbsp; &nbsp;</label>
                                 <select name="level" id="level"class="form-control">
                                 <option value=""> --SELECT--</option>
                                 <option value="1"> 1</option>
@@ -48,15 +48,20 @@
                                 <option value="5">5</option>
                                 <option value="6"> 6</option>
                                 <option value="7"> 7</option>
-                                
                                 </select>
-                           
-                           
                             </div>
-                           
-                    </div>
+
+                        </div>
+                </div>
+
+                <div class="card-footer">
+                        <div class="row">
+
+                    <div class="col-md-6 text-left">
+                                <a href="{{ route('desktops.createtwo') }}" class="btn btn-danger pull-right">Previous</a>
+                            </div>
   
-                    <div class="card-footer text-right">
+                    <div class="col-md-6 text-right">
                         <button type="submit" class="btn btn-primary">Next</button>
                     </div>
                 </div>
@@ -64,4 +69,6 @@
         </div>
     </div>
 </div>
+</div>
+
 @endsection

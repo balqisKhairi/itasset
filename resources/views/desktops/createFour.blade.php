@@ -12,7 +12,7 @@
           
                 <div class="card">
                     <div class="card-header">OS Version and Software</div>
-</div>
+
 @if ($errors->any())
     <div class="alert alert-danger">
         <strong>Whoops!</strong> There were some problems with your input.<br><br>
@@ -25,34 +25,41 @@
 @endif
    
 
-
+<div class="card-body">
 <form action="{{ route('desktops.storefour') }}" method="POST">
     @csrf
                             <div class="form-group">
                                 <label for="description">Operating System:</label>
-                                <input type="text"  value="{{{ $desktop->operatingSystem ?? '' }}}" class="form-control"  name="deviceIPaddress"/>
+                                <input type="text"  value="{{{ $desktop->operatingSystem ?? '' }}}" class="form-control"  name="operatingSystem"/>
                             </div>
                             <div class="form-group">
                                 <label for="title">Window Version:</label>
-                                <input type="text" value="{{ $desktop->windowVersion ?? '' }}" class="form-control"  name="deviceManufacturer">
+                                <input type="text" value="{{ $desktop->windowVersion ?? '' }}" class="form-control"  name="windowVersion"/>
                             </div>
                             <div class="form-group">
                                 <label for="description">Microsoft Office And Version:</label>
-                                <input type="text"  value="{{{ $desktop->msOfficeAndVersion ?? '' }}}" class="form-control"  name="deviceModel"/>
+                                <input type="text"  value="{{{ $desktop->msOfficeAndVersion ?? '' }}}" class="form-control"  name="msOfficeAndVersion"/>
                             </div>
                             <div class="form-group">
                                 <label for="description">Office Seriel Key:</label>
-                                <input type="text"  value="{{{ $desktop->officeSerielKey ?? '' }}}" class="form-control"  name="deviceSerielNumber"/>
+                                <input type="text"  value="{{{ $desktop->officeSerielKey ?? '' }}}" class="form-control"  name="officeSerielKey"/>
                             </div>
                             <div class="form-group">
                                 <label for="description">Antivirus And Version:</label>
-                                <input type="text"  value="{{{ $desktop->antivirusAndVersion ?? '' }}}" class="form-control"  name="deviceModel"/>
+                                <input type="text"  value="{{{ $desktop->antivirusAndVersion ?? '' }}}" class="form-control"  name="antivirusAndVersion"/>
                             </div>
-                       </div>
-
-                
+                     
+                </div>
+                  </div>
   
-                    <div class="card-footer text-right">
+                  <div class="card-footer">
+                        <div class="row">
+
+                    <div class="col-md-6 text-left">
+                                <a href="{{ route('desktops.createthree') }}" class="btn btn-danger pull-right">Previous</a>
+                            </div>
+  
+                    <div class="col-md-6 text-right">
                         <button type="submit" class="btn btn-primary">Next</button>
                     </div>
                 </div>
