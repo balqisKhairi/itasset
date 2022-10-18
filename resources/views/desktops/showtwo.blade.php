@@ -11,19 +11,27 @@
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>Manufacturer:</strong>
-                {{ $desktop->deviceManufacturer }}
+                <strong>IP Address:</strong>
+                {{ $desktop->deviceIPaddress }}
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>Model:</strong>
+                <strong>Device Manufacturer:</strong>
+                {{ $desktop->deviceManufacturer }}
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>Device Model:</strong>
                 {{ $desktop->deviceModel }}
             </div>
-
-            <div class="col-xs-12 col-sm-12 col-md-12">
+        </div>
+      
+        <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>Seriel Number:</strong>
+                <strong>Device Seriel Number:</strong>
                 {{ $desktop->deviceSerielNumber }}
             </div>
         </div>
@@ -33,9 +41,8 @@
                 <strong>Warranty Date:</strong>
                 {{ $desktop->warrantyDate }}
             </div>
-      
-        <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('desktops.index') }}"> Back</a>
         </div>
+       
+        
     </div>
 @endsection

@@ -20,16 +20,21 @@
                 <strong>Internet Connection:</strong>
                 {{ $desktop->internetConnection }}
             </div>
+        </div>
 
-            <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>Policy Reboot & Shutdown:</strong>
+                <strong>Policy Reboot And Shutdown:</strong>
                 {{ $desktop->policyRebootAndShutdown }}
             </div>
         </div>
-       
-        <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('desktops.index') }}"> Back</a>
-        </div>
+
+        <div class="col-md-6 text-right">
+                        <button href="{{ route('desktops.editfive') }}"  class="btn btn-primary">Edit</button>
+                    </div>
+
+                    <div class="col-md-6 text-right">
+                        <button href="{{ route('desktops.showsix') }}"  class="btn btn-primary">Next</button>
+                    </div>
     </div>
 @endsection

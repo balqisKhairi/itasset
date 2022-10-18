@@ -45,7 +45,7 @@
                             <div class="form-group">
                                
                                 <label>Condition(monitor) : &nbsp; &nbsp;</label>
-                                <select name="monitor" id="cpu"class="form-control">
+                                <select name="monitor" id="monitor"class="form-control">
                                 <option value=""> --SELECT--</option>
                                 <option value="Good">Good</option>
                                 <option value="Faulty">Faulty</option>
@@ -55,7 +55,7 @@
                             
                             <div class="form-group">
                                
-                                <label>Deplyement :&nbsp; &nbsp;</label>
+                                <label>Deployement :&nbsp; &nbsp;</label>
                                 <select name="deployment" id="deployment"class="form-control">
                                 <option value=""> --SELECT--</option>
                                 <option value="Ready Deploy">Ready Deploy</option>
