@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTabletsTable extends Migration
+class CreateOsdesktopsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateTabletsTable extends Migration
      */
     public function up()
     {
-        Schema::create('tablets', function (Blueprint $table) {
+        Schema::create('osdesktops', function (Blueprint $table) {
             $table->id();
             $table->string('assignedTo')->nullable();
             $table->string('deviceHostname')->nullable();
@@ -31,18 +31,24 @@ class CreateTabletsTable extends Migration
             $table->string('officeSerielKey')->nullable();
             $table->string('antivirusAndVersion')->nullable();
             $table->string('domain')->nullable();
-        
             $table->string('internetConnection')->nullable();
             $table->string('policyRebootAndShutdown')->nullable();
-           
-            $table->string('condition(CPU)')->nullable();
-            $table->string('condition(monitor)')->nullable();
+            $table->string('taggingcpu')->nullable();
+            $table->string('taggingmonitor')->nullable();
+            $table->string('purchaseOrder')->nullable();
+            $table->string('deliveryOrder')->nullable();
+            $table->string('noInvoice')->nullable();
+            $table->string('supplier')->nullable();
+            $table->string('pricePerUnit')->nullable();
+            $table->string('statusAsset')->nullable();
+            $table->string('cpu')->nullable();
+            $table->string('monitor')->nullable();
             $table->string('deployment')->nullable();
             $table->string('monitorModel')->nullable();
             $table->string('monitorManufacturer')->nullable();
             $table->string('monitorSize')->nullable();
             $table->string('monitorSerielNumber')->nullable();
-           
+            $table->timestamps();
         });
     }
 
@@ -53,6 +59,6 @@ class CreateTabletsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tablets');
+        Schema::dropIfExists('osdesktops');
     }
 }

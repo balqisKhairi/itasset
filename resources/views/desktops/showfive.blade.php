@@ -30,11 +30,11 @@
         </div>
 
         <div class="col-md-6 text-right">
-                        <button href="{{ route('desktops.editfive') }}"  class="btn btn-primary">Edit</button>
+                        <button href="{{ route('desktops.editfive',$desktop->id) }}"  class="btn btn-primary">Edit</button>
                     </div>
 
                     <div class="col-md-6 text-right">
-                        <button href="{{ route('desktops.showsix') }}"  class="btn btn-primary">Next</button>
+                        <button href=""  class="btn btn-primary">Next</button>
                     </div>
     </div>
 @endsection

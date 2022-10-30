@@ -38,19 +38,9 @@
             <td>
             <form action="{{ route('desktops.destroy',$s->id) }}" method="POST">
    
-                    <a class="btn btn-info" href="{{ route('desktops.viewOne',$s->id) }}">View Full Details</a>
+                    <a class="btn btn-info" href="{{ route('desktops.show',$s->id) }}">View Full Details</a>
     
-                    <!--<a class="btn btn-primary" href="">Monitor</a>
-
-                    <a class="btn btn-info" href="">Location</a>
-    
-                    <a class="btn btn-primary" href="">OS</a>
-                    
-                    <a class="btn btn-info" href="">Others</a>
-    
-                    <a class="btn btn-primary" href="">Condition</a>
-
-                    <a class="btn btn-info" href="">Status</a> -->
+                 
     
                     <a class="btn btn-primary" href="{{ route('desktops.edit',$s->id) }}">Edit</a>
     

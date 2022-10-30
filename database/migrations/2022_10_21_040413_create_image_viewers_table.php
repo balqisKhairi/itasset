@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOsDekstopsTable extends Migration
+class CreateImageViewersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateOsDekstopsTable extends Migration
      */
     public function up()
     {
-        Schema::create('os_dekstops', function (Blueprint $table) {
+        Schema::create('image_viewers', function (Blueprint $table) {
             $table->id();
             $table->string('assignedTo')->nullable();
             $table->string('deviceHostname')->nullable();
@@ -31,23 +31,18 @@ class CreateOsDekstopsTable extends Migration
             $table->string('officeSerielKey')->nullable();
             $table->string('antivirusAndVersion')->nullable();
             $table->string('domain')->nullable();
+        
             $table->string('internetConnection')->nullable();
             $table->string('policyRebootAndShutdown')->nullable();
-            $table->string('taggingNo(CPU)')->nullable();
-            $table->string('taggingNo(monitor)')->nullable();
-            $table->string('purchaseOrder(PO)')->nullable();
-            $table->string('deliveryOrder(DO)')->nullable();
-            $table->string('noInvoice')->nullable();
-            $table->string('supplier')->nullable();
-            $table->string('pricePerUnit')->nullable();
-            $table->string('statusAsset')->nullable();
-            $table->string('condition(CPU)')->nullable();
-            $table->string('condition(monitor)')->nullable();
+           
+            $table->string('cpu')->nullable();
+            $table->string('monitor')->nullable();
             $table->string('deployment')->nullable();
             $table->string('monitorModel')->nullable();
             $table->string('monitorManufacturer')->nullable();
             $table->string('monitorSize')->nullable();
             $table->string('monitorSerielNumber')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -58,6 +53,6 @@ class CreateOsDekstopsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('os_dekstops');
+        Schema::dropIfExists('image_viewers');
     }
 }

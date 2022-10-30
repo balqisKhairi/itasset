@@ -42,7 +42,7 @@ class CreateLaptopsTable extends Migration
             $table->string('monitorManufacturer')->nullable();
             $table->string('monitorSize')->nullable();
             $table->string('monitorSerielNumber')->nullable();
-           
+            $table->timestamps();
         });
     }
 

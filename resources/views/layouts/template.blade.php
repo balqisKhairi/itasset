@@ -4,6 +4,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>IT Asset KPJBP</title>
+  <style>
+    .body{
+      line-height: none;
+    }
+    </style>
  
 	<link rel="shortcut icon" type="image/x-icon" href="{{ asset('admin/dist/img/logo1.jpeg') }}">
      
@@ -150,43 +155,43 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="" class="nav-link">
+                <a href="{{ route('osdesktops.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>OS Desktops</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="" class="nav-link">
+                <a href="{{ route('imageviewers.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Image Viewer</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="" class="nav-link">
+                <a href="{{ route('aiodesktops.index') }}"  class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>AiO Desktops</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="" class="nav-link">
+                <a href="{{ route('tablets.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Tablet</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="" class="nav-link">
+                <a href="{{ route('laptops.index') }}"class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Laptop</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="" class="nav-link">
+                <a href="{{ route('printers.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Printer</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="" class="nav-link">
+                <a href="{{ route('tvsharps.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>TV Sharp</p>
                 </a>
@@ -210,7 +215,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="" class="nav-link">
+                <a href="{{ route('mposs.index') }}"class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>MPOS</p>
                 </a>

@@ -44,11 +44,11 @@
         </div>
       
         <div class="col-md-6 text-right">
-                        <button href="{{ route('desktops.editthree') }}"  class="btn btn-primary">Edit</button>
+                        <button href="{{ route('desktops.editthree',$desktop->id) }}"  class="btn btn-primary">Edit</button>
                     </div>
 
                     <div class="col-md-6 text-right">
-                        <button href="{{ route('desktops.showfour') }}"  class="btn btn-primary">Next</button>
+                        <button href="{{ route('desktops.showfive',$desktop->id) }}"  class="btn btn-primary">Next</button>
                     </div>
     </div>
 @endsection

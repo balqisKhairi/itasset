@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateImageViewersTable extends Migration
+class CreateAiodesktopsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateImageViewersTable extends Migration
      */
     public function up()
     {
-        Schema::create('image_viewers', function (Blueprint $table) {
+        Schema::create('aiodesktops', function (Blueprint $table) {
             $table->id();
             $table->string('assignedTo')->nullable();
             $table->string('deviceHostname')->nullable();
@@ -35,14 +35,14 @@ class CreateImageViewersTable extends Migration
             $table->string('internetConnection')->nullable();
             $table->string('policyRebootAndShutdown')->nullable();
            
-            $table->string('condition(CPU)')->nullable();
-            $table->string('condition(monitor)')->nullable();
+            $table->string('cpu')->nullable();
+            $table->string('monitor')->nullable();
             $table->string('deployment')->nullable();
             $table->string('monitorModel')->nullable();
             $table->string('monitorManufacturer')->nullable();
             $table->string('monitorSize')->nullable();
             $table->string('monitorSerielNumber')->nullable();
-           
+            $table->timestamps();
         });
     }
 
@@ -53,6 +53,6 @@ class CreateImageViewersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('image_viewers');
+        Schema::dropIfExists('aiodesktops');
     }
 }

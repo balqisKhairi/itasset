@@ -17,7 +17,7 @@
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>Coniditiom (monitor):</strong>
+                <strong>Condition (monitor):</strong>
                 {{ $desktop->monitor }}
             </div>
         </div>
@@ -32,11 +32,11 @@
        
       
         <div class="col-md-6 text-left">
-                                <a href="{{ route('desktops.showfive') }}" class="btn btn-danger pull-right">Previous</a>
+                                <a href="{{ route('desktops.showfive',$desktop->id) }}" class="btn btn-danger pull-right">Previous</a>
                             </div>
   
                     <div class="col-md-6 text-right">
-                        <button href="{{ route('desktops.editsix') }}"  class="btn btn-primary">Edit</button>
+                        <button href="{{ route('desktops.editsix',$desktop->id) }}"  class="btn btn-primary">Edit</button>
                     </div>
 
                     

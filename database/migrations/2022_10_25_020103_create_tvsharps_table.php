@@ -15,28 +15,29 @@ class CreateTvsharpsTable extends Migration
     {
         Schema::create('tvsharps', function (Blueprint $table) {
             $table->id();
-          
+
             $table->string('deviceManufacturer')->nullable();
             $table->string('deviceModel')->nullable();
             $table->string('deviceSerielNumber')->nullable();
             $table->string('warrantyDate')->nullable();
+            $table->string('monitorSize')->nullable();
             $table->string('department')->nullable();
             $table->string('deviceLocation')->nullable();
             $table->string('level')->nullable();
           
          
-            $table->string('taggingNo(CPU)')->nullable();
-            $table->string('taggingNo(monitor)')->nullable();
-            $table->string('purchaseOrder(PO)')->nullable();
-            $table->string('deliveryOrder(DO)')->nullable();
+            $table->string('taggingMonitor')->nullable();
+           
+            $table->string('purchaseOrder')->nullable();
+            $table->string('deliveryOrder')->nullable();
             $table->string('noInvoice')->nullable();
             $table->string('supplier')->nullable();
             $table->string('pricePerUnit')->nullable();
             $table->string('statusAsset')->nullable();
-            $table->string('condition(CPU)')->nullable();
-            $table->string('condition(monitor)')->nullable();
+            $table->string('cpu')->nullable();
+            $table->string('monitor')->nullable();
             $table->string('deployment')->nullable();
-           
+            $table->timestamps();
         });
     }
 

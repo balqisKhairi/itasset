@@ -125,17 +125,17 @@
             <div class="info">
               <div>
                 <i class="ri-map-pin-line"></i>
-                <p>A108 Adam Street<br>New York, NY 535022</p>
+                <p>No 1, Jalan Mutiara Gading 1 Taman Mutiara Gading Sri Gading, <br>83000 Batu Pahat, Johor</p>
               </div>
 
               <div>
                 <i class="ri-mail-send-line"></i>
-                <p>info@example.com</p>
+                <p>bpsh@kpjbatupahat.com</p>
               </div>
 
               <div>
                 <i class="ri-phone-line"></i>
-                <p>+1 5589 55488 55s</p>
+                <p>07-459 1000</p>
               </div>
 
             </div>

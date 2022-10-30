@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAioDesktopsTable extends Migration
+class CreateTabletsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,8 @@ class CreateAioDesktopsTable extends Migration
      */
     public function up()
     {
-        Schema::create('aio_desktops', function (Blueprint $table) {
+        Schema::create('tablets', function (Blueprint $table) {
+           
             $table->id();
             $table->string('assignedTo')->nullable();
             $table->string('deviceHostname')->nullable();
@@ -35,14 +36,14 @@ class CreateAioDesktopsTable extends Migration
             $table->string('internetConnection')->nullable();
             $table->string('policyRebootAndShutdown')->nullable();
            
-            $table->string('condition(CPU)')->nullable();
-            $table->string('condition(monitor)')->nullable();
+            $table->string('cpu')->nullable();
+            $table->string('monitor')->nullable();
             $table->string('deployment')->nullable();
             $table->string('monitorModel')->nullable();
             $table->string('monitorManufacturer')->nullable();
             $table->string('monitorSize')->nullable();
             $table->string('monitorSerielNumber')->nullable();
-           
+            $table->timestamps();
         });
     }
 
@@ -53,6 +54,6 @@ class CreateAioDesktopsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('aio_desktops');
+        Schema::dropIfExists('tablets');
     }
 }

@@ -50,10 +50,12 @@ class DesktopController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Desktop  $desktop
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Desktop $desktop)
+    public function show(Request $request, Desktop $desktop)
     {
+        $desktop = $request->session()->get('desktop');
         return view('desktops.show',compact('desktop'));
     }
 
@@ -63,36 +65,33 @@ class DesktopController extends Controller
      * @param  \App\Desktop  $desktop
      * @return \Illuminate\Http\Response
      */
-    public function viewOne(Desktop $desktop)
-    {
-       // $desktop = $request->session()->get('desktop');
-        return view('desktops.viewOne',compact('desktop'));
-    }
+    
 
     public function showtwo(Desktop $desktop)
     {
+          //$desktop = $request->session()->get('desktop');
         return view('desktops.showtwo',compact('desktop'));
     }
 
     public function showthree(Desktop $desktop)
     {
-        $desktop = $request->session()->get('desktop');
+        //$desktop = $request->session()->get('desktop');
         return view('desktops.showthree',compact('desktop'));
     }
 
     public function showfour(Desktop $desktop)
     {
-        $desktop = $request->session()->get('desktop');
+        //$desktop = $request->session()->get('desktop');
         return view('desktops.showfour',compact('desktop'));
     }
     public function showfive(Desktop $desktop)
     {
-        $desktop = $request->session()->get('desktop');
+        //$desktop = $request->session()->get('desktop');
         return view('desktops.showfive',compact('desktop'));
     }
     public function showsix(Desktop $desktop)
     {
-        $desktop = $request->session()->get('desktop');
+        //$desktop = $request->session()->get('desktop');
         return view('desktops.showsix',compact('desktop'));
     }
     /**
@@ -185,13 +184,6 @@ class DesktopController extends Controller
     {
        
         $validatedData = $request->all();
-        //$validatedData = $request->validate([
-            //'assignedTo' => 'required',
-            //'deviceHostname' => 'required',
-            
-        //]);
-  
-       
        
         if(empty($request->get('desktop'))){
             $desktop = new Desktop();
@@ -347,15 +339,7 @@ class DesktopController extends Controller
     {
 
         $validatedData = $request->all();
-       /**$validatedData = $request->validate([
-
-            'domain' => 'required',
-            'internetConnection' => 'required',
-            'policyRebootAndShutdown' => 'required',
-
-            
-        ]); **/
-  
+       
         $desktop = $request->session()->get('desktop');
         //$desktop = Desktop::create($validatedData);
         $desktop -> fill($validatedData);
