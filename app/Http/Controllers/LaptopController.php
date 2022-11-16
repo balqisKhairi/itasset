@@ -63,7 +63,8 @@ class LaptopController extends Controller
      */
     public function edit(Laptop $laptop)
     {
-        //
+        return view('laptops.edit',compact('laptop'));
+
     }
 
     /**
@@ -75,7 +76,11 @@ class LaptopController extends Controller
      */
     public function update(Request $request, Laptop $laptop)
     {
-        //
+        $laptop->update($request->all());
+  
+        return redirect()->route('laptops.index')
+                        ->with('success','laptop updated successfully');
+   
     }
 
     /**
@@ -86,7 +91,11 @@ class LaptopController extends Controller
      */
     public function destroy(Laptop $laptop)
     {
-        //
+        $laptop->delete();
+
+        return redirect()->route('laptops.index')
+        ->with('success','laptop deleted successfully');
+   
     }
 
      /**TRYING IT OUT */

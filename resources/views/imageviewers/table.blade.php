@@ -38,7 +38,7 @@
             <td>
             <form action="{{ route('imageviewers.destroy',$s->id) }}" method="POST">
    
-                    <a class="btn btn-info" href="">View Full Details</a>
+                    <a class="btn btn-info" href="{{ route('imageviewers.show',$s->id) }}">View Full Details</a>
     
                     <!--<a class="btn btn-primary" href="">Monitor</a>
 

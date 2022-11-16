@@ -63,7 +63,7 @@ class AiodesktopController extends Controller
      */
     public function edit(Aiodesktop $aiodesktop)
     {
-        //
+        return view('aiodesktops.edit',compact('aiodesktop'));
     }
 
     /**
@@ -75,7 +75,11 @@ class AiodesktopController extends Controller
      */
     public function update(Request $request, Aiodesktop $aiodesktop)
     {
-        //
+        $aiodesktop->update($request->all());
+  
+        return redirect()->route('aiodesktops.index')
+                        ->with('success','aiodesktop updated successfully');
+   
     }
 
     /**
@@ -86,7 +90,11 @@ class AiodesktopController extends Controller
      */
     public function destroy(Aiodesktop $aiodesktop)
     {
-        //
+        $aiodesktop->delete();
+
+        return redirect()->route('aiodesktops.index')
+        ->with('success','aiodesktop deleted successfully');
+   
     }
 
 

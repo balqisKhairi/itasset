@@ -63,7 +63,7 @@ class TvsharpController extends Controller
      */
     public function edit(Tvsharp $tvsharp)
     {
-        //
+        return view('tvsharps.edit',compact('tvsharp'));
     }
 
     /**
@@ -75,7 +75,11 @@ class TvsharpController extends Controller
      */
     public function update(Request $request, Tvsharp $tvsharp)
     {
-        //
+        $tvsharp->update($request->all());
+  
+        return redirect()->route('tvsharps.index')
+                        ->with('success','TV Sharp updated successfully');
+   
     }
 
     /**
@@ -86,7 +90,11 @@ class TvsharpController extends Controller
      */
     public function destroy(Tvsharp $tvsharp)
     {
-        //
+        $tvsharp->delete();
+
+        return redirect()->route('tvsharps.index')
+        ->with('success','tvsharp deleted successfully');
+   
     }
 
      /**TRYING IT OUT */

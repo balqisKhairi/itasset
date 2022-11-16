@@ -3,6 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Desktop;
+use App\Aiodesktop;
+use App\Biometric;
+use App\CardReader;
+use App\Encoremed;
+use App\Imageviewer;
+use App\Laptop;
+use App\Mpos;
+use App\Osdesktop;
+use App\Printer;
+use App\Tablet;
+use App\Tvsharp;
 use Illuminate\Http\Request;
 
 
@@ -39,6 +50,13 @@ class DesktopController extends Controller
      */
     public function store(Request $request)
     {
+        
+
+        $fileName = $request->file('image')->getClientOriginalName();
+        $path = $request->file('image')->storeAs('images',$fileName,'public');
+        $requestData["image"] = '/storage/'.$path; 
+
+
         Desktop::create($request->all());
    
         return redirect()->route('desktops.index')
@@ -53,47 +71,14 @@ class DesktopController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, Desktop $desktop)
-    {
-        $desktop = $request->session()->get('desktop');
-        return view('desktops.show',compact('desktop'));
+    public function show(Desktop $desktop )
+    { 
+    // $desktop = $request->session()->get('desktop');
+        return view('desktops.show1',compact('desktop'));
     }
 
-/**
-     * Display the specified resource.
-     *
-     * @param  \App\Desktop  $desktop
-     * @return \Illuminate\Http\Response
-     */
-    
 
-    public function showtwo(Desktop $desktop)
-    {
-          //$desktop = $request->session()->get('desktop');
-        return view('desktops.showtwo',compact('desktop'));
-    }
-
-    public function showthree(Desktop $desktop)
-    {
-        //$desktop = $request->session()->get('desktop');
-        return view('desktops.showthree',compact('desktop'));
-    }
-
-    public function showfour(Desktop $desktop)
-    {
-        //$desktop = $request->session()->get('desktop');
-        return view('desktops.showfour',compact('desktop'));
-    }
-    public function showfive(Desktop $desktop)
-    {
-        //$desktop = $request->session()->get('desktop');
-        return view('desktops.showfive',compact('desktop'));
-    }
-    public function showsix(Desktop $desktop)
-    {
-        //$desktop = $request->session()->get('desktop');
-        return view('desktops.showsix',compact('desktop'));
-    }
+   
     /**
      * Show the form for editing the specified resource.
      *
@@ -114,6 +99,18 @@ class DesktopController extends Controller
      */
     public function update(Request $request, Desktop $desktop)
     {
+       
+
+
+        if($request->hasFile('image'))
+        {
+           
+            $fileName = $request->file('image')->getClientOriginalName();
+            $path = $request->file('image')->storeAs('images',$fileName,'public');
+            $desktop["image"] = '/storage/'.$path; 
+           
+        }
+
         $desktop->update($request->all());
   
         return redirect()->route('desktops.index')
@@ -121,33 +118,7 @@ class DesktopController extends Controller
    
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Desktop  $desktop
-     * @return \Illuminate\Http\Response
-     */
-    public function editone(Desktop $desktop)
-    {
-        return view('desktops.editone',compact('desktop'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Desktop  $desktop
-     * @return \Illuminate\Http\Response
-     */
-    public function updateone(Request $request, Desktop $desktop)
-    {
-        $desktop->update($request->all());
   
-        return redirect()->route('desktops.index')
-                        ->with('success','Desktop updated successfully');
-   
-    }
-
     /**
      * Remove the specified resource from storage.
      *
@@ -156,12 +127,10 @@ class DesktopController extends Controller
      */
     public function destroy(Request $request, Desktop $desktop)
     {
-       // $desktop->delete();
-        //$desktop = $request->session()->delete();
+        $desktop->delete();
 
-        $request->session()->forget('desktop');
         return redirect()->route('desktops.index')
-        ->with('success','Desktop deleted successfully');
+        ->with('success','desktop deleted successfully');
     
     }
 
@@ -182,8 +151,11 @@ class DesktopController extends Controller
      */
     public function storeone(Request $request)
     {
-       
         $validatedData = $request->all();
+        
+        $fileName = $request->file('image')->getClientOriginalName();
+        $path = $request->file('image')->storeAs('images',$fileName,'public');
+        $validatedData["image"] = '/storage/'.$path; 
        
         if(empty($request->get('desktop'))){
             $desktop = new Desktop();
@@ -221,19 +193,19 @@ class DesktopController extends Controller
     {
 
         $validatedData = $request->all();
-        /**$validatedData = $request->validate([
+       // $validatedData = $request->validate([
 
-            'deviceIPaddress' => 'numeric',
-            'deviceManufacturer' => 'required',
-            'deviceModel' => 'required',
-            'deviceSerielNumber' => 'required',
-            'warrantyDate' => 'required',
-            'monitorModel' => 'required',
-            'monitorManufacturer' => 'required',
-            'monitorSize' => 'numeric',
-            'monitorSerielNumber' => 'required',
+           // 'deviceIPaddress' => 'numeric',
+            //'deviceManufacturer' => 'required',
+            //'deviceModel' => 'required',
+            //'deviceSerielNumber' => 'required',
+            //'warrantyDate' => 'required',
+            //'monitorModel' => 'required',
+            //'monitorManufacturer' => 'required',
+           // 'monitorSize' => 'numeric',
+            //'monitorSerielNumber' => 'required',
 
-        ]); **/
+       // ]); 
   
         $desktop = $request->session()->get('desktop');
         $desktop -> fill($validatedData);
@@ -385,6 +357,36 @@ class DesktopController extends Controller
   
         return redirect()->route('desktops.index');
     }
+
+
+    public function showStati(){
+        $totalDesk = Desktop ::count();
+        $totalOsdesk = Osdesktop ::count();
+        $totalImageViewer = Imageviewer ::count();
+        $totalAiodesk = Aiodesktop ::count();
+        $totalTablet = Tablet ::count();
+        $totalLaptop = Laptop ::count();
+        $totalPrinter = Printer ::count();
+        $totalTvsharp = Tvsharp ::count();
+        $totalCardreader = CardReader ::count();
+        $totalBiometric = Biometric ::count();
+        $totalEncoremed = Encoremed ::count();
+        $totalMpos = Mpos ::count();
+
+       // $getJob = Studdent::where('studStatus','0')->count();
+        //$notJob = Studdent::where('studStatus','1')->count();
+        //$needcerti = Certificate::where('certiStatus','')->count();
+        //$needjob = Job::where('jobStatus','')->count();
+
+        return view('desktops.statics',compact('totalDesk','totalOsdesk','totalImageViewer','totalAiodesk','totalTablet','totalLaptop','totalPrinter',
+    'totalTvsharp','totalCardreader','totalBiometric','totalEncoremed','totalMpos'));
+}
+
+
+/**public function myfolder(){
+    $studdents = Certificate::where('user_id',auth()->user()->id)->get();
+    return view('studdents.mycerti',compact('studdents'));
+}**/
 }
 
 

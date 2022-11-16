@@ -64,7 +64,7 @@ class MposController extends Controller
      */
     public function edit(Mpos $mpos)
     {
-        //
+        return view('mposs.edit',compact('mpos'));
     }
 
     /**
@@ -76,7 +76,11 @@ class MposController extends Controller
      */
     public function update(Request $request, Mpos $mpos)
     {
-        //
+        $mpos->update($request->all());
+  
+        return redirect()->route('mposs.index')
+                        ->with('success','mpos updated successfully');
+   
     }
 
     /**
@@ -87,7 +91,10 @@ class MposController extends Controller
      */
     public function destroy(Mpos $mpos)
     {
-        //
+        $mpos->delete();
+
+        return redirect()->route('mposs.index')
+        ->with('success','MPOS deleted successfully');
     }
 
 

@@ -4,10 +4,24 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>IT Asset KPJBP</title>
+  
   <style>
     .body{
       line-height: none;
     }
+
+    .layout-fixed .main-sidebar {
+    background-color: #002a56;
+}
+
+.inline-block {
+    color: #ffffff;
+
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: rgb(0 0 0);
+}
     </style>
  
 	<link rel="shortcut icon" type="image/x-icon" href="{{ asset('admin/dist/img/logo1.jpeg') }}">
@@ -103,7 +117,7 @@
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
       <img src="{{ asset('admin/dist/img/logo1.jpeg') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">IT Asset</span>
+      <span class="brand-text font-weight-light">IT ASSET</span>
     </a>
 
     <!-- Sidebar -->
@@ -124,7 +138,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{ route('desktops.showStati') }}" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
@@ -133,7 +147,7 @@
           </li>      
           <li class="nav-item">
             <a href="{{ route('categorys.index') }}"class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <i class="nav-icon fa fa-file"></i>
               <p>
                 Category
               </p>
@@ -141,87 +155,95 @@
           </li>     
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-edit"></i>
+              <i class="nav-icon fa fa-folder-open"></i>
               <p>
-                Category
+                Record
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="{{ route('desktops.index') }}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
+                  <i class="fa fa-desktop"></i>
                   <p>Desktops</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="{{ route('osdesktops.index') }}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
+                  <i class="fa fa-desktop"></i>
                   <p>OS Desktops</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="{{ route('imageviewers.index') }}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
+                  <i class="fa fa-eye"></i>
                   <p>Image Viewer</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="{{ route('aiodesktops.index') }}"  class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
+                  <i class="fa fa-window-maximize"></i>
                   <p>AiO Desktops</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="{{ route('tablets.index') }}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
+                  <i class="fa fa-tablet"></i>
                   <p>Tablet</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="{{ route('laptops.index') }}"class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
+                  <i class="fa fa-laptop"></i>
                   <p>Laptop</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="{{ route('printers.index') }}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
+                  <i class="fa fa-print"></i>
                   <p>Printer</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="{{ route('tvsharps.index') }}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
+                  <i class="fa fa-window-maximize"></i>
                   <p>TV Sharp</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
+                  <i class="fa fa-credit-card"></i>
                   <p>Card Reader</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
+                  <i class="fa fa-eye-slash"></i>
                   <p>Biometric</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
+                  <i class="fa fa-medkit"></i>
                   <p>Encoremed</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="{{ route('mposs.index') }}"class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
+                  <i class="fa fa-book"></i>
                   <p>MPOS</p>
                 </a>
               </li>
             </ul>
           </li>
+          <li class="nav-item">
+            <a href=""class="nav-link">
+              <i class="nav-icon fa fa-users"></i>
+              <p>
+                Vendor
+              </p>
+            </a>
+          </li>  
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -261,6 +283,7 @@
     </section>
     <!-- /.content -->
   </div>
+  <br></br>
   <!-- /.content-wrapper -->
   <footer class="main-footer">
     <strong>Copyright &copy; 2022 IT Department KPJBP</a>.</strong>

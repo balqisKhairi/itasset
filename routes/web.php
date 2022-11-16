@@ -33,9 +33,6 @@ Route::delete('categorys/{category}', 'CategoryController@destroy')->name('categ
 
 //Desktops
 Route::get('/desktops', 'DesktopController@index')->name('desktops.index');
-//Route::get('/desktops/create', 'DesktopController@create')->name('desktops.create');
-//Route::post('/desktops', 'DesktopController@store')->name('desktops.store');
-
 Route::get('desktops/createone', 'DesktopController@createone')->name('desktops.createone');
 Route::post('desktops/storeone', 'DesktopController@storeone')->name('desktops.storeone');
 Route::get('desktops/createtwo', 'DesktopController@createtwo')->name('desktops.createtwo');
@@ -50,22 +47,14 @@ Route::get('desktops/createsix', 'DesktopController@createsix')->name('desktops.
 Route::post('desktops/storesix', 'DesktopController@storesix')->name('desktops.storesix');
 
 
-Route::get('desktops/{desktop}/editone', 'DesktopController@editone')->name('desktops.editone');
-Route::get('desktops/{desktop}/edittwo', 'DesktopController@edittwo')->name('desktops.edittwo');
-Route::get('desktops/{desktop}/editthree', 'DesktopController@editthree')->name('desktops.editthree');
-Route::get('desktops/{desktop}/editfour', 'DesktopController@editfour')->name('desktops.editfour');
-Route::get('desktops/{desktop}/editfive', 'DesktopController@editfive')->name('desktops.editfive');
-//Route::put('desktops/{desktop}', 'DesktopController@updateone')->name('desktops.updateone');
-Route::get('desktops/{desktop}/editsix', 'DesktopController@editsix')->name('desktops.editsix');
-
-
-//desktop
 Route::get('desktops/{desktop}/edit', 'DesktopController@edit')->name('desktops.edit');
 Route::put('desktops/{desktop}', 'DesktopController@update')->name('desktops.update');
 Route::delete('desktops/{desktop}', 'DesktopController@destroy')->name('desktops.destroy');
 Route::get('desktops/{desktop}', 'DesktopController@show')->name('desktops.show');
-
+Route::get('desktops/{desktop}', 'DesktopController@show')->name('desktops.show1');
+Route::get('desktops/showStati', 'DesktopController@showStati')->name('desktops.showStati');
 //Route::resource('desktops', 'DesktopController');
+
 
 // OS Desktops
 Route::get('/osdesktops', 'OsdesktopController@index')->name('osdesktops.index');
@@ -87,18 +76,11 @@ Route::post('osdesktops/storesix', 'OsdesktopController@storesix')->name('osdesk
 Route::get('osdesktops/createseven', 'OsdesktopController@createseven')->name('osdesktops.createseven');
 Route::post('osdesktops/storeseven', 'OsdesktopController@storeseven')->name('osdesktops.storeseven');
 
-Route::get('osdesktops/{desktop}/editone', 'OsdesktopController@editone')->name('osdesktops.editone');
-Route::get('osdesktops/{desktop}/edittwo', 'OsdesktopController@edittwo')->name('osdesktops.edittwo');
-Route::get('osdesktops/{desktop}/editthree', 'OsdesktopController@editthree')->name('osdesktops.editthree');
-Route::get('osdesktops/{desktop}/editfour', 'OsdesktopController@editfour')->name('osdesktops.editfour');
-Route::get('osdesktops/{desktop}/editfive', 'OsdesktopController@editfive')->name('osdesktops.editfive');
-//Route::put('desktops/{desktop}', 'DesktopController@updateone')->name('desktops.updateone');
-Route::get('osdesktops/{desktop}/editsix', 'OsdesktopController@editsix')->name('osdesktops.editsix');
 
-Route::get('osdesktops/{desktop}/edit', 'OsdesktopController@edit')->name('osdesktops.edit');
-Route::put('osdesktops/{desktop}', 'OsdesktopController@update')->name('osdesktops.update');
-Route::delete('osdesktops/{desktop}', 'OsdesktopController@destroy')->name('osdesktops.destroy');
-Route::get('osdesktops/{desktop}', 'OsdesktopController@show')->name('osdesktops.show');
+Route::get('osdesktops/{osdesktop}/edit', 'OsdesktopController@edit')->name('osdesktops.edit');
+Route::put('osdesktops/{osdesktop}', 'OsdesktopController@update')->name('osdesktops.update');
+Route::delete('osdesktops/{osdesktop}', 'OsdesktopController@destroy')->name('osdesktops.destroy');
+Route::get('osdesktops/{osdesktop}', 'OsdesktopController@show')->name('osdesktops.show');
 
 //Image Viewer
 Route::get('/imageviewers', 'ImageViewerController@index')->name('imageviewers.index');
@@ -118,12 +100,11 @@ Route::post('imageviewers/storefive', 'ImageViewerController@storefive')->name('
 Route::get('imageviewers/createsix', 'ImageViewerController@createsix')->name('imageviewers.createsix');
 Route::post('imageviewers/storesix', 'ImageViewerController@storesix')->name('imageviewers.storesix');
 
-
-
 Route::get('imageviewers/{imageviewer}/edit', 'ImageviewerController@edit')->name('imageviewers.edit');
 Route::put('imageviewers/{imageviewer}', 'ImageviewerController@update')->name('imageviewers.update');
 Route::delete('imageviewers/{imageviewer}', 'ImageviewerController@destroy')->name('imageviewers.destroy');
 Route::get('imageviewers/{imageviewer}', 'ImageviewerController@show')->name('imageviewers.show');
+
 //Aiodesktop
 Route::get('/aiodesktops', 'AiodesktopController@index')->name('aiodesktops.index');
 //Route::get('/desktops/create', 'DesktopController@create')->name('desktops.create');
@@ -146,6 +127,9 @@ Route::get('aiodesktops/{aiodesktop}/edit', 'AiodesktopController@edit')->name('
 Route::put('aiodesktops/{aiodesktop}', 'AiodesktopController@update')->name('aiodesktops.update');
 Route::delete('aiodesktops/{aiodesktop}', 'AiodesktopController@destroy')->name('aiodesktops.destroy');
 Route::get('aiodesktops/{aiodesktop}', 'AiodesktopController@show')->name('aiodesktops.show');
+
+
+
 
 //Tablet
 Route::get('/tablets', 'TabletController@index')->name('tablets.index');
@@ -269,3 +253,4 @@ Route::get('tvsharps/{tvsharp}', 'TvsharpController@show')->name('tvsharps.show'
  Route::delete('mposs/{mpos}', 'MposController@destroy')->name('mposs.destroy');
  Route::get('mposs/{mpos}', 'MposController@show')->name('mposs.show');
  
+

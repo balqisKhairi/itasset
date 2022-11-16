@@ -64,7 +64,7 @@ class PrinterController extends Controller
      */
     public function edit(Printer $printer)
     {
-        //
+        return view('printers.edit',compact('printer'));
     }
 
     /**
@@ -76,7 +76,12 @@ class PrinterController extends Controller
      */
     public function update(Request $request, Printer $printer)
     {
-        //
+        $printer->update($request->all());
+  
+        return redirect()->route('printers.index')
+                        ->with('success','printer updated successfully');
+   
+
     }
 
     /**
@@ -87,7 +92,11 @@ class PrinterController extends Controller
      */
     public function destroy(Printer $printer)
     {
-        //
+        $printer->delete();
+
+        return redirect()->route('printers.index')
+        ->with('success','printer deleted successfully');
+   
     }
 
     /**TRYING IT OUT */

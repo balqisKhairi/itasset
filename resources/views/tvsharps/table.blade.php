@@ -38,7 +38,7 @@
             <td>
             <form action="{{ route('tvsharps.destroy',$s->id) }}" method="POST">
    
-                    <a class="btn btn-info" href="">View Full Details</a>
+                    <a class="btn btn-info" href="{{ route('tvsharps.show',$s->id) }}">View Full Details</a>
     
                     <!--<a class="btn btn-primary" href="">Monitor</a>
 

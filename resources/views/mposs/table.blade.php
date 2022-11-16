@@ -38,7 +38,7 @@
             <td>
             <form action="{{ route('mposs.destroy',$s->id) }}" method="POST">
    
-                    <a class="btn btn-info" href="">View Full Details</a>
+                    <a class="btn btn-info" href="{{ route('mposs.show',$s->id) }}">View Full Details</a>
     
                     <!--<a class="btn btn-primary" href="">Monitor</a>
 

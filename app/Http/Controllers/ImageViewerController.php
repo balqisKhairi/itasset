@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\ImageViewer;
+use App\imageviewer;
 use Illuminate\Http\Request;
 
-class ImageViewerController extends Controller
+class imageviewerController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class ImageViewerController extends Controller
      */
     public function index()
     {
-        $imageviewers = ImageViewer::all();
+        $imageviewers = imageviewer::all();
         //dd($desktops);
         return view('imageviewers.index',compact('imageviewers'));
     }
@@ -37,7 +37,7 @@ class ImageViewerController extends Controller
      */
     public function store(Request $request)
     {
-        ImageViewer::create($request->all());
+        imageviewer::create($request->all());
    
         return redirect()->route('imageviewers.index')
                         ->with('success','New image viewer added successfully.');
@@ -47,10 +47,10 @@ class ImageViewerController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\ImageViewer  $imageViewer
+     * @param  \App\imageviewer  $imageviewer
      * @return \Illuminate\Http\Response
      */
-    public function show(ImageViewer $imageViewer)
+    public function show(imageviewer $imageviewer)
     {
         return view('imageviewers.show',compact('imageviewer'));
     }
@@ -58,35 +58,45 @@ class ImageViewerController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\ImageViewer  $imageViewer
+     * @param  \App\imageviewer  $imageviewer
      * @return \Illuminate\Http\Response
      */
-    public function edit(ImageViewer $imageViewer)
+    public function edit(imageviewer $imageviewer)
     {
-        //
+        return view('imageviewers.edit',compact('imageviewer'));
+
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\ImageViewer  $imageViewer
+     * @param  \App\imageviewer  $imageviewer
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ImageViewer $imageViewer)
+    public function update(Request $request, imageviewer $imageviewer)
     {
-        //
+        $imageviewer->update($request->all());
+  
+        return redirect()->route('imageviewers.index')
+                        ->with('success','imageviewer updated successfully');
+   
+
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\ImageViewer  $imageViewer
+     * @param  \App\imageviewer  $imageviewer
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ImageViewer $imageViewer)
+    public function destroy(imageviewer $imageviewer)
     {
-        //
+        $imageviewer->delete();
+
+        return redirect()->route('imageviewers.index')
+        ->with('success','imageviewer deleted successfully');
+   
     }
 
     /**TRYING IT OUT */
@@ -110,7 +120,7 @@ class ImageViewerController extends Controller
         $validatedData = $request->all();
        
         if(empty($request->get('imageviewer'))){
-            $imageviewer = new ImageViewer();
+            $imageviewer = new imageviewer();
           //  $desktop = Desktop::create($validatedData);
             $imageviewer->fill($validatedData);
             //Desktop::create($validatedData);

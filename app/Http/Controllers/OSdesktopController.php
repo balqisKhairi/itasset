@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Osdesktop;
+use App\osdesktop;
 use Illuminate\Http\Request;
 
-class OsdesktopController extends Controller
+class osdesktopController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class OsdesktopController extends Controller
      */
     public function index()
     {
-        $osdesktops = Osdesktop::all();
+        $osdesktops = osdesktop::all();
         //dd($desktops);
         return view('osdesktops.index',compact('osdesktops'));
     }
@@ -37,7 +37,7 @@ class OsdesktopController extends Controller
      */
     public function store(Request $request)
     {
-        Osdesktop::create ($request->all());
+        osdesktop::create ($request->all());
 
         return redirect()->route('osdesktops.index')->with('success','New Os desktop addes succesfully');
     }
@@ -45,10 +45,10 @@ class OsdesktopController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\OSdesktop  $oSdesktop
+     * @param  \App\osdesktop  $osdesktop
      * @return \Illuminate\Http\Response
      */
-    public function show(OSdesktop $oSdesktop)
+    public function show(osdesktop $osdesktop)
     {
      return view ('osdesktops.show',compact('osdesktop'));
     }
@@ -56,10 +56,10 @@ class OsdesktopController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\OSdesktop  $oSdesktop
+     * @param  \App\osdesktop  $osdesktop
      * @return \Illuminate\Http\Response
      */
-    public function edit(OSdesktop $oSdesktop)
+    public function edit(osdesktop $osdesktop)
     {
         return view('osdesktops.edit',compact('osdesktop'));
     }
@@ -68,10 +68,10 @@ class OsdesktopController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\OSdesktop  $oSdesktop
+     * @param  \App\osdesktop  $osdesktop
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, OSdesktop $oSdesktop)
+    public function update(Request $request, osdesktop $osdesktop)
     {
         $osdesktop->update($request->all());
   
@@ -82,14 +82,15 @@ class OsdesktopController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\OSdesktop  $oSdesktop
+     * @param  \App\osdesktop  $osdesktop
      * @return \Illuminate\Http\Response
      */
-    public function destroy(OSdesktop $oSdesktop)
+    public function destroy(osdesktop $osdesktop)
     {
-        $request->session()->forget('osdesktop');
+        $osdesktop->delete();
+
         return redirect()->route('osdesktops.index')
-        ->with('success','Desktop deleted successfully');
+        ->with('success','osdesktop deleted successfully');
     }
 
     public function createone(Request $request)
@@ -103,7 +104,7 @@ class OsdesktopController extends Controller
         $validatedData= $request->all();
 
         if(empty($request->get('osdesktop'))){
-            $osdesktop = new Osdesktop();
+            $osdesktop = new osdesktop();
             $osdesktop->fill($validatedData);
             $request->session()->put('osdesktop', $osdesktop);
         }else{

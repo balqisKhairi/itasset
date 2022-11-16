@@ -63,7 +63,7 @@ class TabletController extends Controller
      */
     public function edit(Tablet $tablet)
     {
-        //
+        return view('tablets.edit',compact('tablet'));
     }
 
     /**
@@ -75,7 +75,12 @@ class TabletController extends Controller
      */
     public function update(Request $request, Tablet $tablet)
     {
-        //
+        $tablet->update($request->all());
+  
+        return redirect()->route('tablets.index')
+                        ->with('success','tablet updated successfully');
+   
+
     }
 
     /**
@@ -86,7 +91,11 @@ class TabletController extends Controller
      */
     public function destroy(Tablet $tablet)
     {
-        //
+        $tablet->delete();
+
+        return redirect()->route('tablets.index')
+        ->with('success','tablet deleted successfully');
+   
     }
 
 

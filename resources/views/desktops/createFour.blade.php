@@ -1,6 +1,16 @@
 @extends('layouts.template')
 @section('content')
 
+
+<style>
+
+.form-control {
+    
+    color: #000000;
+    background-color: #dee2e6;
+}
+    </style>
+    
 <div class="row">
     <div class="col-lg-12 margin-tb">
         <div class="pull-left">

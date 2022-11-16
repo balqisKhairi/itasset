@@ -1,6 +1,17 @@
 @extends('layouts.template')
 @section('content')
 
+<style>
+
+.form-control {
+    
+    color: #000000;
+    background-color: #dee2e6;
+    
+}
+
+
+    </style>
 <div class="row">
     <div class="col-lg-12 margin-tb">
         <div class="pull-left">
@@ -27,11 +38,18 @@
    
 <div class="card-body">
 
-<form action="{{ route('desktops.storeone') }}" method="POST">
+<form action="{{ route('desktops.storeone') }}" method="POST" enctype="multipart/form-data">
     @csrf
    
         
             <div class="form-group">
+
+            <label for="title">Picture:</label>
+            <input class="form-control "  name="image" type="file" />
+            <div class="small text-muted mt-2">Upload your picture. Max file size 50 MB</div>
+
+           
+
                                 <label for="title">Assigned To:</label>
                                 <input type="text" value="{{ $desktop->assignedTo ?? '' }}" class="form-control"  name="assignedTo">
                             </div>
