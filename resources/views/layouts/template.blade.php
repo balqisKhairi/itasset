@@ -152,7 +152,18 @@
                 Category
               </p>
             </a>
-          </li>     
+          </li>   
+          
+          <li class="nav-item">
+            <a href="{{ route('departments.index') }}"class="nav-link">
+              <i class="nav-icon fa fa-building"></i>
+              <p>
+                Department
+              </p>
+            </a>
+          </li>  
+
+
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fa fa-folder-open"></i>

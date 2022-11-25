@@ -164,6 +164,12 @@ p {
     background-color: #baddff;
 }
 
+a {
+    
+    text-decoration: bold;
+    background-color: transparent;
+}
+
 </style>
 
 
@@ -331,7 +337,7 @@ p {
                  
                 <tr class="table-warning"> 
                 <th scope="row">Department:</th>
-                <td>{{ $desktop->department }}</td>
+                <td> </td>
                 </tr>
 
                 <tr>
@@ -463,17 +469,24 @@ p {
                  
                 <tr class="table-warning"> 
                 <th scope="row">Purchase Order(PO):</th>
-                <td>{{ $desktop->purchaseOrder }}</td>
+                <td>
+                <a href ="{{ route('desktops.viewFolder',$desktop->id) }}">{{ $desktop->purchaseOrder }}</a>    
+                </td>
                 </tr>
 
                 <tr>
                 <th scope="row">Delivery Order(DO):</th>
-                <td>{{ $desktop->deliveryOrder }}</td>
+                <td>
+                <a href ="{{ route('desktops.viewFolder',$desktop->id) }}">{{ $desktop->deliveryOrder }}</a>    
+                </td>
                 </tr>
 
                 <tr class="table-warning"> 
                 <th scope="row">Invoive No:</th>
-                <td>{{ $desktop->invoiceNo }}</td>
+                <td>
+                <a href ="{{ route('desktops.viewFolder',$desktop->id) }}">{{ $desktop->invoiceNo }}</a>    
+              
+                </td>
                 </tr>
 
                 <tr>
@@ -486,11 +499,7 @@ p {
                 <td>{{ $desktop->pricePerUnit }}</td>
                 </tr>
 
-                <tr>
-                <th scope="row">File:</th>
-                <td>{{ $desktop->folder }}</td>
-                </tr>
-
+               
                 </tbody>
                 </table>
                 </div>

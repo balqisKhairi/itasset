@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\DB;
 
 use App\Desktop;
 use App\Aiodesktop;
@@ -14,8 +15,9 @@ use App\Osdesktop;
 use App\Printer;
 use App\Tablet;
 use App\Tvsharp;
+use App\Department;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\File;
 
 class DesktopController extends Controller
 {
@@ -27,6 +29,7 @@ class DesktopController extends Controller
     public function index()
     {
         $desktops = Desktop::all();
+       // $selectedRole = Department::first()->id;
         //dd($desktops);
         return view('desktops.index',compact('desktops'));
       
@@ -50,19 +53,36 @@ class DesktopController extends Controller
      */
     public function store(Request $request)
     {
+        $desktop = $request->all();
         
-
+        if($request->hasFile('image')){
         $fileName = $request->file('image')->getClientOriginalName();
         $path = $request->file('image')->storeAs('images',$fileName,'public');
-        $requestData["image"] = '/storage/'.$path; 
+        $desktop["image"] = '/storage/'.$path; 
+        }
 
+        if($request->hasFile('folder'))
+        { 
+             foreach($request->file('folder') as $file) 
+             {
+                $name=$file->getClientOriginalName();
+                $file->move('assets',$name);
+                $desktop['folder']='assets/'.$name;
+            }
+        }
 
-        Desktop::create($request->all());
+        Desktop::create($desktop);
+        $file->certiType=json_encode($desktop); 
    
         return redirect()->route('desktops.index')
                         ->with('success','New desktops added successfully.');
  
     }
+
+    public function download(Request $request, $file){
+
+         return response()->download(public_path('assets/'.$file));
+     }
 
     /**
      * Display the specified resource.
@@ -73,11 +93,34 @@ class DesktopController extends Controller
      */
     public function show(Desktop $desktop )
     { 
-    // $desktop = $request->session()->get('desktop');
+   
+    $departments = DB::table('departments')->select('id')->distinct()->get()->pluck('id');
+    
         return view('desktops.show1',compact('desktop'));
     }
 
+    public function studView(Request $request){
+        $skills = DB::table('jobs')->select('skill_id')->distinct()->get()->pluck('skill_id');
+        $locations = DB::table('jobs')->select('jobLocation')->distinct()->get()->pluck('jobLocation');
+        $post = Job::query();
+    
+     
+        return view('jobs.studView', [
+        'skills' => $skills,
+        'locations' => $locations,
+        //'jobs'=>$jobs,
+        'posts' => $post->get(),
+    
+        ]);
+        
+        }
 
+
+        public function viewFolder($id)
+        {
+            $data= Desktop::find($id);
+            return view('desktops.viewFolder',compact('data'));
+        }
    
     /**
      * Show the form for editing the specified resource.
@@ -87,6 +130,7 @@ class DesktopController extends Controller
      */
     public function edit(Desktop $desktop)
     {
+
         return view('desktops.edit',compact('desktop'));
     }
 
@@ -99,20 +143,8 @@ class DesktopController extends Controller
      */
     public function update(Request $request, Desktop $desktop)
     {
-       
-
-
-        if($request->hasFile('image'))
-        {
-           
-            $fileName = $request->file('image')->getClientOriginalName();
-            $path = $request->file('image')->storeAs('images',$fileName,'public');
-            $desktop["image"] = '/storage/'.$path; 
-           
-        }
-
         $desktop->update($request->all());
-  
+        
         return redirect()->route('desktops.index')
                         ->with('success','Desktop updated successfully');
    
@@ -152,6 +184,8 @@ class DesktopController extends Controller
     public function storeone(Request $request)
     {
         $validatedData = $request->all();
+        
+
         
         $fileName = $request->file('image')->getClientOriginalName();
         $path = $request->file('image')->storeAs('images',$fileName,'public');
@@ -378,7 +412,7 @@ class DesktopController extends Controller
         //$needcerti = Certificate::where('certiStatus','')->count();
         //$needjob = Job::where('jobStatus','')->count();
 
-        return view('desktops.statics',compact('totalDesk','totalOsdesk','totalImageViewer','totalAiodesk','totalTablet','totalLaptop','totalPrinter',
+        return view('desktops.showStati',compact('totalDesk','totalOsdesk','totalImageViewer','totalAiodesk','totalTablet','totalLaptop','totalPrinter',
     'totalTvsharp','totalCardreader','totalBiometric','totalEncoremed','totalMpos'));
 }
 

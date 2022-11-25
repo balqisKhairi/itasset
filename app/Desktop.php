@@ -1,6 +1,7 @@
 <?php
 
 namespace App;
+use App\Department;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -19,4 +20,11 @@ class Desktop extends Model
      'monitorSize','monitorSerielNumber',
  ]
 ; */
+
+
+public function department(){
+    //One to many(inverse)
+    return $this->belongsTo('App\Department');
+}
+
 }

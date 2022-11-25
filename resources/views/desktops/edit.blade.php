@@ -133,11 +133,10 @@ top: 13px;
               <div class="col-xs-12 col-sm-12 col-md-12">
               <div class="form-outline">
               <label for="title">Picture:</label>
-            <input class="form-control "  name="image" type="file" />
-             <img src="{{ asset($desktop->image) }}"  alt=""/>
+            
+             <input type="file" name="image" value="{{ asset($desktop->image) }}" class="form-control form-control-lg" alt="">
+            </div>
           </div>
-
-                        </div>
 
 
 
@@ -199,10 +198,14 @@ top: 13px;
                 <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-outline">
                   <label class="form-label" >Department</label>
-                    <input type="text" name="department" value="{{ $desktop->department }}" class="form-control form-control-lg" />
-                  </div>
-                </div>
+                <select name="department"  class="form-control form-control-lg">
+                
 
+                    @foreach(App\Department::all() as $cat)
+                    <option value="{{ $cat->id }}" {{ $desktop->department== $cat->id  ? 'selected="selected"' : '' }}>{{ $cat->departName }}</option>    
+
+                    @endforeach
+                  </select>
 
 
 
@@ -376,12 +379,6 @@ top: 13px;
         </div>
     </form>
           
-</section>
-    
-
-
-
-
 @endsection
 
 

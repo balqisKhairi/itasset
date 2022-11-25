@@ -34,7 +34,7 @@ tr:nth-child(odd) {
                 <h2>List of Desktops</h2>
             </div>
             <div class="pull-right">
-                <a class="btn btn-success" href="{{ route('desktops.createone') }}"> Add New Desktops</a>
+                <a class="btn btn-success" href="{{ route('desktops.create') }}"> Add New Desktops</a>
             </div>
         </div>
     </div>
@@ -70,7 +70,7 @@ tr:nth-child(odd) {
             <td>
             <form action="{{ route('desktops.destroy',$s->id) }}" method="POST">
    
-                    <a class="btn btn-info" href="{{ route('desktops.show1',$s->id) }}">View Full Details</a>
+                    <a class="btn btn-info" href="{{ route('desktops.show',$s->id) }}">View Full Details</a>
     
                  
     
@@ -82,9 +82,7 @@ tr:nth-child(odd) {
       
                     <button type="submit" onclick="return confirm('Are you sure want to delete this?')" class="btn btn-danger remove-user">Delete</button>
 
-                    <a href="#" class="btn btn-warning">
-          <span class="glyphicon glyphicon-upload" ></span> Upload
-        </a>
+                  
                 </form>
             </td>
         </tr>

@@ -31,8 +31,22 @@ Route::put('categorys/{category}', 'CategoryController@update')->name('categorys
 Route::delete('categorys/{category}', 'CategoryController@destroy')->name('categorys.destroy');
 //Route::resource('categorys', 'CategoryController');
 
+
+
+//department
+Route::get('/departments', 'departmentController@index')->name('departments.index');
+Route::get('/departments/create', 'departmentController@create')->name('departments.create');
+Route::post('/departments', 'departmentController@store')->name('departments.store');
+Route::get('departments/{department}', 'departmentController@show')->name('departments.show');
+Route::get('departments/{department}/edit', 'departmentController@edit')->name('departments.edit');
+Route::put('departments/{department}', 'departmentController@update')->name('departments.update');
+Route::delete('departments/{department}', 'departmentController@destroy')->name('departments.destroy');
+
+
 //Desktops
 Route::get('/desktops', 'DesktopController@index')->name('desktops.index');
+Route::post('desktops/store', 'DesktopController@store')->name('desktops.store');
+Route::get('desktops/create', 'DesktopController@create')->name('desktops.create');
 Route::get('desktops/createone', 'DesktopController@createone')->name('desktops.createone');
 Route::post('desktops/storeone', 'DesktopController@storeone')->name('desktops.storeone');
 Route::get('desktops/createtwo', 'DesktopController@createtwo')->name('desktops.createtwo');
@@ -51,9 +65,10 @@ Route::get('desktops/{desktop}/edit', 'DesktopController@edit')->name('desktops.
 Route::put('desktops/{desktop}', 'DesktopController@update')->name('desktops.update');
 Route::delete('desktops/{desktop}', 'DesktopController@destroy')->name('desktops.destroy');
 Route::get('desktops/{desktop}', 'DesktopController@show')->name('desktops.show');
-Route::get('desktops/{desktop}', 'DesktopController@show')->name('desktops.show1');
+//Route::get('desktops/{desktop}', 'DesktopController@show')->name('desktops.show1');
 Route::get('desktops/showStati', 'DesktopController@showStati')->name('desktops.showStati');
 //Route::resource('desktops', 'DesktopController');
+Route::get('certificates/viewFolder/{id}', 'DesktopController@viewFolder')->name('desktops.viewFolder');
 
 
 // OS Desktops
