@@ -1,11 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\DB;
 
-use App\Laptop;
+use App\laptop;
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
-class LaptopController extends Controller
+class laptopController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +17,11 @@ class LaptopController extends Controller
      */
     public function index()
     {
-        $laptops = Laptop::all();
-        //dd($desktops);
+        $laptops = laptop::all();
+       // $selectedRole = Department::first()->id;
+        //dd($laptops);
         return view('laptops.index',compact('laptops'));
+      
     }
 
     /**
@@ -37,257 +42,210 @@ class LaptopController extends Controller
      */
     public function store(Request $request)
     {
-        Laptop::create($request->all());
+        $laptop = $request->all();
+        
+        if($request->hasFile('image')){
+        $fileName = $request->file('image')->getClientOriginalName();
+        $path = $request->file('image')->storeAs('images',$fileName,'public');
+        $laptop["image"] = '/storage/'.$path; 
+        }
+
+        if($request->hasFile('folder'))
+        { 
+             foreach($request->file('folder') as $file) 
+             {
+                $name=$file->getClientOriginalName();
+                $file->move('assets',$name);
+                $laptop['folder']='assets/'.$name;
+            }
+        }
+
+        laptop::create($laptop);
+        //$file->folder=json_encode($laptop); 
    
         return redirect()->route('laptops.index')
-                        ->with('success','New Laptop added successfully.');
+                        ->with('success','New laptops added successfully.');
  
     }
+
+    public function download(Request $request, $file){
+
+         return response()->download(public_path('assets/'.$file));
+     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Laptop  $laptop
+     * @param  \App\laptop  $laptop
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Laptop $laptop)
-    {
+    public function show(laptop $laptop )
+    { 
+   
+    $departments = DB::table('departments')->select('id')->distinct()->get()->pluck('id');
+    
         return view('laptops.show',compact('laptop'));
     }
 
+    public function studView(Request $request){
+        $skills = DB::table('jobs')->select('skill_id')->distinct()->get()->pluck('skill_id');
+        $locations = DB::table('jobs')->select('jobLocation')->distinct()->get()->pluck('jobLocation');
+        $post = Job::query();
+    
+     
+        return view('jobs.studView', [
+        'skills' => $skills,
+        'locations' => $locations,
+        //'jobs'=>$jobs,
+        'posts' => $post->get(),
+    
+        ]);
+        
+        }
+
+
+        public function viewFolder($id)
+        {
+            $data= laptop::find($id);
+            return view('laptops.viewFolder',compact('data'));
+        }
+   
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Laptop  $laptop
+     * @param  \App\laptop  $laptop
      * @return \Illuminate\Http\Response
      */
-    public function edit(Laptop $laptop)
+    public function edit(laptop $laptop)
     {
-        return view('laptops.edit',compact('laptop'));
 
+        return view('laptops.edit',compact('laptop'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Laptop  $laptop
+     * @param  \App\laptop  $laptop
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Laptop $laptop)
+    public function update(Request $request, laptop $laptop)
     {
-        $laptop->update($request->all());
-  
+        //$laptop->update($request->all());
+
+
+        $post = [
+        
+            'assignedTo' =>$request['assignedTo'],
+            'deviceHostname' =>$request['deviceHostname'],
+            'deviceIPaddress' =>$request['deviceIPaddress'],
+            'deviceManufacturer'=>$request['deviceManufacturer'],
+            'deviceModel'=>$request['deviceModel'],
+            'deviceSerielNumber'=>$request['deviceSerielNumber'],
+            'warrantyDate'=>$request['warrantyDate'],
+    
+            
+            'department'=>$request['department'],
+            'deviceLocation'=>$request['deviceLocation'],
+            'level'=>$request['level'],
+    
+            'operatingSystem'=>$request['operatingSystem'],
+            'windowVersion'=>$request['windowVersion'],
+            'msOfficeAndVersion'=>$request['msOfficeAndVersion'],
+            'officeSerielKey'=>$request['officeSerielKey'],
+            'antivirusAndVersion'=>$request['antivirusAndVersion'],
+    
+            'domain'=>$request['domain'],
+            'internetConnection'=>$request['internetConnection'],
+            'policyRebootAndShutdown'=>$request['policyRebootAndShutdown'],
+    
+            'cpu'=>$request['cpu'],
+            'monitor'=>$request['monitor'],
+            'deployment'=>$request['deployment'],
+    
+            'purchaseOrder'=>$request['purchaseOrder'],
+            'deliveryOrder'=>$request['deliveryOrder'],
+            'invoiceNo' =>$request['invoiceNo'],
+            'supplier'=>$request['supplier'],
+            'pricePerUnit'=>$request['pricePerUnit'],
+    
+           
+            
+        ];
+    
+        if($request->hasFile('image')){
+            $fileName = $request->file('image')->getClientOriginalName();
+            $path = $request->file('image')->storeAs('images',$fileName,'public');
+            $post["image"] = '/storage/'.$path; 
+    
+        }
+    
+    
+        if($request->hasFile('folder'))
+        { 
+             foreach($request->file('folder') as $file) 
+             {
+                $name=$file->getClientOriginalName();
+                $file->move('assets',$name);
+                $post['folder']='assets/'.$name;
+            }
+        }
+            $laptop->update($post);
+       
+        
         return redirect()->route('laptops.index')
                         ->with('success','laptop updated successfully');
    
     }
 
+  
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Laptop  $laptop
+     * @param  \App\laptop  $laptop
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Laptop $laptop)
+    public function destroy(Request $request, laptop $laptop)
     {
         $laptop->delete();
 
         return redirect()->route('laptops.index')
         ->with('success','laptop deleted successfully');
-   
+    
     }
 
-     /**TRYING IT OUT */
+    
 
-     public function createone(Request $request)
-     {
-         
-         $laptop = $request->session()->get('laptop');
-         return view('laptops.createone');
-     }
- 
-     /**  
-      * Post Request to store step1 info in session
-      *
-      * @param  \Illuminate\Http\Request  $request
-      * @return \Illuminate\Http\Response
-      */
-     public function storeone(Request $request)
-     {
-        
-         $validatedData = $request->all();
-        
-         if(empty($request->get('laptop'))){
-             $laptop = new Laptop();
-           //  $desktop = Desktop::create($validatedData);
-             $laptop->fill($validatedData);
-             //Desktop::create($validatedData);
-             $request->session()->put('laptop', $laptop);
-         }else{
-             $laptop = $request->get('laptop');
-             $laptop->fill($validatedData);
-             $request->session()->put('laptop', $laptop);
-         }
-   
-         return redirect()->route('laptops.createtwo');
-     }
-   
-     /**
-      * Show the step One Form for creating a new product.
-      *
-      * @return \Illuminate\Http\Response
-      */
-     public function createtwo(Request $request)
-     {
-         $laptop = $request->session()->get('laptop');
-   
-         return view('laptops.createtwo',compact('laptop'));
-     }
-   
-     /**
-      * Show the step One Form for creating a new product.
-      *
-      * @return \Illuminate\Http\Response
-      */
-     public function storetwo(Request $request)
-     {
- 
-         $validatedData = $request->all();
-         
-   
-         $laptop = $request->session()->get('laptop');
-         $laptop -> fill($validatedData);
-        
-         $request->session()->put('laptop', $laptop);
-   
-         return redirect()->route('laptops.createthree');
-     }
-   
-     /**
-      * Show the step One Form for creating a new product.
-      *
-      * @return \Illuminate\Http\Response
-      */
-     public function createthree(Request $request)
-     {
-         $laptop = $request->session()->get('laptop');
-   
-         return view('laptops.createthree',compact('laptop'));
-     }
-   
-     /**
-      * Show the step One Form for creating a new product.
-      *
-      * @return \Illuminate\Http\Response
-      */
-     public function storethree(Request $request)
-     {
-         
-         $validatedData = $request->all();
-         /**$validatedData = $request->validate([
- 
-             'department' => 'required',
-             'deviceLocation' => 'required',
-             'level' => 'required',
- 
-         ]); **/
-   
-         $laptop = $request->session()->get('laptop');
-         //$desktop = Desktop::create($validatedData);
-         $laptop -> fill($validatedData);
- 
-         $request->session()->put('laptop', $laptop);
-   
-         return redirect()->route('laptops.createfour');
-     }
- 
- 
-     public function createfour(Request $request)
-     {
-         $laptop = $request->session()->get('laptop');
-   
-         return view('laptops.createfour',compact('laptop'));
-     }
-   
-     /**  
-      * Post Request to store step1 info in session
-      *
-      * @param  \Illuminate\Http\Request  $request
-      * @return \Illuminate\Http\Response
-      */
-     public function storefour(Request $request)
-     {
- 
-         $validatedData = $request->all();
-       
-   
-         $laptop = $request->session()->get('laptop');
-         //$desktop = Desktop::create($validatedData);
-         $laptop -> fill($validatedData);
-        $request->session()->put('laptop', $laptop);
-   
-         return redirect()->route('laptops.createfive');
-     }
-   
-     /**
-      * Show the step One Form for creating a new product.
-      *
-      * @return \Illuminate\Http\Response
-      */
-     public function createfive(Request $request)
-     {
-         $laptop = $request->session()->get('laptop');
-   
-         return view('laptops.createfive',compact('laptop'));
-     }
-   
-     /**
-      * Show the step One Form for creating a new product.
-      *
-      * @return \Illuminate\Http\Response
-      */
-     public function storefive(Request $request)
-     {
- 
-         $validatedData = $request->all();
-       
-         $laptop = $request->session()->get('laptop');
-         //$desktop = Desktop::create($validatedData);
-         $laptop -> fill($validatedData);
-         $request->session()->put('laptop', $laptop);
- 
-         return redirect()->route('laptops.createsix');
-     }
-   
-     /**
-      * Show the step One Form for creating a new product.
-      *
-      * @return \Illuminate\Http\Response
-      */
-     public function createsix(Request $request)
-     {
-         $laptop = $request->session()->get('laptop');
-   
-         return view('laptops.createsix',compact('laptop'));
-     }
-   
-     /**
-      * Show the step One Form for creating a new product.
-      *
-      * @return \Illuminate\Http\Response
-      */
-     public function storesix(Request $request)
-     {
-         $validatedData = $request->all();
-        
-   
-         $laptops = $request->session()->get('laptop');
-         //$desktop = Desktop::create($validatedData);
-         $laptops -> fill($validatedData);
-         $laptops->save();
-         $request->session()->forget('laptop');
-   
-         return redirect()->route('laptops.index');
-     }
+
+    public function showStati(){
+        $totalDesk = laptop ::count();
+        $totalOsdesk = Osdesk ::count();
+        $totalImageViewer = Imageviewer ::count();
+        $totalAiodesk = Aiolaptop ::count();
+        $totallaptop = laptop ::count();
+        $totalLaptop = Laptop ::count();
+        $totalPrinter = Printer ::count();
+        $totalTvsharp = Tvsharp ::count();
+        $totalCardreader = CardReader ::count();
+        $totalBiometric = Biometric ::count();
+        $totalEncoremed = Encoremed ::count();
+        $totalMpos = Mpos ::count();
+
+       // $getJob = Studdent::where('studStatus','0')->count();
+        //$notJob = Studdent::where('studStatus','1')->count();
+        //$needcerti = Certificate::where('certiStatus','')->count();
+        //$needjob = Job::where('jobStatus','')->count();
+
+        return view('laptops.showStati',compact('totalDesk','totalOsdesk','totalImageViewer','totalAiodesk','totallaptop','totalLaptop','totalPrinter',
+    'totalTvsharp','totalCardreader','totalBiometric','totalEncoremed','totalMpos'));
 }
+
+
+/**public function myfolder(){
+    $studdents = Certificate::where('user_id',auth()->user()->id)->get();
+    return view('studdents.mycerti',compact('studdents'));
+}**/
+}
+
+

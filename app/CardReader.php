@@ -6,5 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class CardReader extends Model
 {
-    //
+    
+    protected $guarded =[];
 }

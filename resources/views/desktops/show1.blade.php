@@ -337,7 +337,7 @@ a {
                  
                 <tr class="table-warning"> 
                 <th scope="row">Department:</th>
-                <td> </td>
+                <td> {{ $desktop->department }}</td>
                 </tr>
 
                 <tr>
@@ -470,7 +470,7 @@ a {
                 <tr class="table-warning"> 
                 <th scope="row">Purchase Order(PO):</th>
                 <td>
-                <a href ="{{ route('desktops.viewFolder',$desktop->id) }}">{{ $desktop->purchaseOrder }}</a>    
+                <a href ="{{ route('desktops.viewFolder',$desktop->id) }}" >{{ $desktop->purchaseOrder }} </a>    
                 </td>
                 </tr>
 
@@ -504,6 +504,12 @@ a {
                 </table>
                 </div>
                 </div>
+
+
+
+
+
+
 
 
 </div>

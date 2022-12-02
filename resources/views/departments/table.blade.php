@@ -1,20 +1,40 @@
 @section('content')
-
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+   
 <style>
-    thead, tbody, tfoot, tr, td, th {
-    border-color: inherit;
-    border-style: solid;
-    border-width: 0;
-    color: black;
+    .tr{
+        color:white;
+    }
+
+    .table-bordered th {
+    background-color: #71b8f5;
+    }
+
+.table-bordered td, .table-bordered th {
+    
+}
+
+.tr {
+    display: table-row;
+    vertical-align: inherit;
+    border-color: black;
+    background-color: black;
+}
+
+tr:nth-child(odd) {
+  background-color: #D6EEEE;
 }
     </style>
 <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>List of Department</h2>
+                <h2>List of departments</h2>
             </div>
             <div class="pull-right">
-                <a class="btn btn-success" href="{{ route('departments.create') }}"> Add New Department</a>
+                <a class="btn btn-success" href="{{ route('departments.create') }}"> Add New departments</a>
             </div>
         </div>
     </div>
@@ -27,11 +47,13 @@
     @endif
    
     <table class="table table-bordered">
-        <tr>
-            <th>ID</th>
-            <th>Description</th>
+    <tr class="table-active">
+      <th scope="row">ID</th>
+      
+            <th>Department Name</th>
            
-            <th width="280px">Action</th>
+           
+            <th width="500px">Action</th>
         </tr>
        @foreach ($departments as $s)
         <tr>
@@ -40,16 +62,21 @@
             <td>{{ $s->departName }}</td>
             
             <td>
-                <form action="{{ route('departments.destroy',$s->id) }}" method="POST">
+            <form action="{{ route('departments.destroy',$s->id) }}" method="POST">
    
-                    <a class="btn btn-info" href="{{ route('departments.show',$s->id) }}">Show</a>
+                    <a class="btn btn-info" href="{{ route('departments.show',$s->id) }}">View Full Details</a>
+    
+                 
     
                     <a class="btn btn-primary" href="{{ route('departments.edit',$s->id) }}">Edit</a>
+    
    
                     @csrf
                     @method('DELETE')
       
                     <button type="submit" onclick="return confirm('Are you sure want to delete this?')" class="btn btn-danger remove-user">Delete</button>
+
+                  
                 </form>
             </td>
         </tr>

@@ -14,7 +14,7 @@ class osdesktopController extends Controller
      */
     public function index()
     {
-        $osdesktops = osdesktop::all();
+        $osdesktops = Osdesktop::all();
         //dd($desktops);
         return view('osdesktops.index',compact('osdesktops'));
     }
@@ -26,7 +26,7 @@ class osdesktopController extends Controller
      */
     public function create()
     {
-        return view('osdesktops');
+        return view('osdesktops.create');
     }
 
     /**
@@ -37,9 +37,32 @@ class osdesktopController extends Controller
      */
     public function store(Request $request)
     {
-        osdesktop::create ($request->all());
+        $requestData = $request->all();
+        
+        if($request->hasFile('image')){
+            $fileName = $request->file('image')->getClientOriginalName();
+            $path = $request->file('image')->storeAs('images',$fileName,'public');
+            $requestData["image"] = '/storage/'.$path; 
+              }
 
+        if($request->hasFile('folder'))
+        { 
+             foreach($request->file('folder') as $file) 
+             {
+                $name=$file->getClientOriginalName();
+                $file->move('assets',$name);
+                $requestData['folder']='assets/'.$name;
+            }
+        }
+
+        Osdesktop::create($requestData);
         return redirect()->route('osdesktops.index')->with('success','New Os desktop addes succesfully');
+    }
+
+
+    public function download(Request $request, $file){
+
+        return response()->download(public_path('assets/'.$file));
     }
 
     /**
@@ -48,7 +71,7 @@ class osdesktopController extends Controller
      * @param  \App\osdesktop  $osdesktop
      * @return \Illuminate\Http\Response
      */
-    public function show(osdesktop $osdesktop)
+    public function show(Osdesktop $osdesktop)
     {
      return view ('osdesktops.show',compact('osdesktop'));
     }
@@ -71,10 +94,72 @@ class osdesktopController extends Controller
      * @param  \App\osdesktop  $osdesktop
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, osdesktop $osdesktop)
+    public function update(Request $request,Osdesktop $osdesktop)
     {
-        $osdesktop->update($request->all());
-  
+        $post = [
+        
+        'assignedTo' =>$request['assignedTo'],
+        'deviceHostname' =>$request['deviceHostname'],
+        'deviceIPaddress' =>$request['deviceIPaddress'],
+        'deviceManufacturer'=>$request['deviceManufacturer'],
+        'deviceModel'=>$request['deviceModel'],
+        'deviceSerielNumber'=>$request['deviceSerielNumber'],
+        'warrantyDate'=>$request['warrantyDate'],
+
+        'monitorModel'=>$request['monitorModel'],
+        'monitorManufacturer'=>$request['monitorManufacturer'],
+        'monitorSize'=>$request['monitorSize'],
+        'monitorSerielNumber'=>$request['monitorSerielNumber'],
+
+        'department'=>$request['department'],
+        'deviceLocation'=>$request['deviceLocation'],
+        'level'=>$request['level'],
+
+        'operatingSystem'=>$request['operatingSystem'],
+        'windowVersion'=>$request['windowVersion'],
+        'msOfficeAndVersion'=>$request['msOfficeAndVersion'],
+        'officeSerielKey'=>$request['officeSerielKey'],
+        'antivirusAndVersion'=>$request['antivirusAndVersion'],
+
+        'domain'=>$request['domain'],
+        'internetConnection'=>$request['internetConnection'],
+        'policyRebootAndShutdown'=>$request['policyRebootAndShutdown'],
+
+        'cpu'=>$request['cpu'],
+        'monitor'=>$request['monitor'],
+        'deployment'=>$request['deployment'],
+
+        'taggingcpu'=>$request['taggingcpu'],
+        'taggingmonitor'=>$request['taggingmonitor'],
+        'purchaseOrder'=>$request['purchaseOrder'],
+        'deliveryOrder'=>$request['deliveryOrder'],
+        'noInvoice' =>$request['noInvoice'],
+        'supplier'=>$request['supplier'],
+        'pricePerUnit'=>$request['pricePerUnit'],
+
+        'statusAsset' =>$request['statusAsset'],
+        
+    ];
+
+    if($request->hasFile('image')){
+        $fileName = $request->file('image')->getClientOriginalName();
+        $path = $request->file('image')->storeAs('images',$fileName,'public');
+        $post["image"] = '/storage/'.$path; 
+
+    }
+
+
+    if($request->hasFile('folder'))
+    { 
+         foreach($request->file('folder') as $file) 
+         {
+            $name=$file->getClientOriginalName();
+            $file->move('assets',$name);
+            $post['folder']='assets/'.$name;
+        }
+    }
+        $osdesktop->update($post);
+   
         return redirect()->route('osdesktops.index')
                         ->with('success',' OS Desktop updated successfully');
     }
@@ -93,134 +178,12 @@ class osdesktopController extends Controller
         ->with('success','osdesktop deleted successfully');
     }
 
-    public function createone(Request $request)
+    public function viewFolder($id)
     {
-        $osdesktop = $request->session()->get('osdesktop');
-        return view('osdesktops.createone');
+        $data= Osdesktop::find($id);
+        return view('osdesktops.viewFolder',compact('data'));
     }
 
-    public function storeone(Request $request)
-    {
-        $validatedData= $request->all();
 
-        if(empty($request->get('osdesktop'))){
-            $osdesktop = new osdesktop();
-            $osdesktop->fill($validatedData);
-            $request->session()->put('osdesktop', $osdesktop);
-        }else{
-            $osdesktop = $request->get('osdesktop');
-            $osdesktop->fill($validatedData);
-            $request->session()->put('osdesktop', $osdesktop);
-        }
-  
-        return redirect()->route('osdesktops.createtwo');
-    }
-
-    public function createtwo(Request $request)
-    {
-        $osdesktop = $request->session()->get('osdesktop');
-        return view('osdesktops.createtwo',compact('osdesktop'));
-    }
-
-    public function storetwo(Request $request)
-    {
-        $validatedData =$request->all();
-
-        $osdesktop = $request->session()->get('osdesktop');
-        $osdesktop -> fill($validatedData);
-       
-        $request->session()->put('osdesktop', $osdesktop);
-  
-        return redirect()->route('osdesktops.createthree');
-    }
-
-    public function createthree(Request $request)
-    {
-        $osdesktop = $request->session()->get('osdesktop');
-        return view('osdesktops.createthree',compact('osdesktop'));
-    }
-
-    public function storethree(Request $request)
-    {
-        $validatedData= $request->all();
-
-        $osdesktop = $request->session()->get('osdesktop');
-        $osdesktop -> fill($validatedData);
-       
-        $request->session()->put('osdesktop', $osdesktop);
-  
-        return redirect()->route('osdesktops.createfour');
-    }
-
-    public function createfour(Request $request)
-    {
-        $osdesktop = $request->session()->get('osdesktop');
-        return view('osdesktops.createfour',compact('osdesktop'));
-    }
-
-    public function storefour(Request $request)
-    {
-        $validatedData =$request->all();
-
-        $osdesktop = $request->session()->get('osdesktop');
-        $osdesktop -> fill($validatedData);
-       
-        $request->session()->put('osdesktop', $osdesktop);
-  
-        return redirect()->route('osdesktops.createfive');
-    }
-
-    public function createfive(Request $request)
-    {
-        $osdesktop = $request->session()->get('osdesktop');
-        return view('osdesktops.createfive',compact('osdesktop'));
-    }
-
-    public function storefive(Request $request)
-    {
-        $validatedData =$request->all();
-
-        $osdesktop = $request->session()->get('osdesktop');
-        $osdesktop -> fill($validatedData);
-       
-        $request->session()->put('osdesktop', $osdesktop);
-  
-        return redirect()->route('osdesktops.createsix');
-    }
-
-    public function createsix(Request $request)
-    {
-        $osdesktop = $request->session()->get('osdesktop');
-        return view('osdesktops.createsix',compact('osdesktop'));
-    }
-
-    public function storesix(Request $request)
-    {
-        $validatedData =$request->all();
-
-        $osdesktop = $request->session()->get('osdesktop');
-        $osdesktop -> fill($validatedData);
-       
-        $request->session()->put('osdesktop', $osdesktop);
-  
-        return redirect()->route('osdesktops.createseven');
-    }
-
-    public function createseven(Request $request)
-    {
-        $osdesktop = $request->session()->get('osdesktop');
-        return view('osdesktops.createseven',compact('osdesktop'));
-    }
-
-    public function storeseven(Request $request)
-    {
-        $validatedData =$request->all();
-
-        $osdesktop = $request->session()->get('osdesktop');
-        $osdesktop -> fill($validatedData);
-        $osdesktop->save();
-        $request->session()->forget('osdesktop');
-  
-        return redirect()->route('osdesktops.index');
-    }
+    
 }

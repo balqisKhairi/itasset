@@ -1,266 +1,292 @@
 @extends('layouts.template')
-   
 @section('content')
 
 <style>
-  .gradient-custom {
-/* fallback for old browsers */
-background: #f093fb;
 
-
-/* Chrome 10-25, Safari 5.1-6 */
-background: -webkit-linear-gradient(to bottom right, rgba(240, 147, 251, 1), rgba(245, 87, 108, 1));
-
-/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-background: linear-gradient(to bottom right, rgba(240, 147, 251, 1), rgba(245, 87, 108, 1))
+.form-control {
+    
+    color: #000000;
+    background-color: #dee2e6;
+    
 }
 
-.mb-4{
-    color:#000000;
-}
-
-.form-label{
-    color:#000000;
-    font-size: 16px;
-}
-
-.form-control{
-    color:#000000;
-    font-size: 16px;
-}
-
-.mb-2{
-    color:#000000;
-    font-size: 16px;
-}
-
-.form-check{
-    color:#000000;
-}
-
-.btn-primary1:hover {
-  background-color: #555555;
-  color: white;
-
-}
-
-.btn-primary1  {
-  background-color: #ffd338;
-  border: none;
-  color: black;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
+.img-rounded{
  
-  cursor: pointer;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
 }
-.card-registration .select-input.form-control[readonly]:not([disabled]) {
-font-size: 1rem;
-line-height: 2.15;
-padding-left: .50em;
-padding-right: .75em;
-}
-.card-registration .select-arrow {
-top: 13px;
-}
-</style>
 
-@if ($errors->any())
-        <div class="alert alert-danger">
-            <strong>Whoops!</strong> There were some problems with your input.<br><br>
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
+    </style>
+    
+<div class="row">
+    <div class="col-lg-12 margin-tb">
+        <div class="pull-left">
+            
         </div>
-    @endif
+       
+    </div>
+</div>
+
+
+<div class="card">
+                    <div class="card-header">Human Information</div>
+   
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <strong>Whoops!</strong> There were some problems with your input.<br><br>
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+   
+<div class="card-body">
+
+<form action="{{ route('tvsharps.update',$tvsharp->id) }}" method="POST" enctype="multipart/form-data">
+    @csrf
+    @method('PUT')
+        
+            <div class="form-group">
+
+            <div class="form-group avatar">
+                                <figure class="figure col-md-2 col-sm-3 col-xs-12">
+                                    <img class="img-rounded img-responsive" id="output" height="100%" width="100%" style="width:100%;" src="{{ asset($tvsharp->image) }}" alt="">
+                                </figure>
+
+              </div>
+
+              
+            <label for="image">Picture:</label>
+            <input class="form-control "  id="image" name="image" value="{{$tvsharp->image}}" src="{{ asset($tvsharp->image) }}"type="file" onchange="loadFile(event)"/>
+            <div class="small text-muted mt-2">Upload your picture. Max file size 50 MB</div>
+
+           
+   
+                </div>
+                  </div>
+  
+                    <div class="card">
+                        <div class="card-header">Device Details</div>
+                    <div class="card-body">
+                    <div class="form-group">
+
+                 
+                            <div class="form-group">
+                                <label for="title">Device Manufacturer:</label>
+                                <input type="text" value="{{ $tvsharp->deviceManufacturer }}" class="form-control"  name="deviceManufacturer">
+                            </div>
+                            <div class="form-group">
+                                <label for="description">Device Model:</label>
+                                <input type="text"  value="{{{ $tvsharp->deviceModel }}}" class="form-control"  name="deviceModel"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="description">Device Seriel Number:</label>
+                                <input type="text"  value="{{{ $tvsharp->deviceSerielNumber }}}" class="form-control"  name="deviceSerielNumber"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="description">Warranty Date:</label>
+                                <input type="date"  value="{{{ $tvsharp->warrantyDate }}}" class="form-control"  name="warrantyDate"/>
+                            </div>
+
+
+                        </div>
+                        </div>
+                    </div>
+                   
   
 
+                    <div class="card">
+                    <div class="card-header">Monitor Details</div>
+                    <div class="card-body">
+                    <div class="form-group">
 
-  <div class="container  h-50">
-    <div class="row justify-content-center align-items-center h-100">
-      <div class="col-xs-12 col-sm-12 col-md-12">
-        <div class="card shadow-2-strong card-registration">
-          <div class="card-body p-4 p-md-5">
-            <h3 class="mb-4 pb-2 pb-md-0 mb-md-2">Edit Detail</h3>
-           
-
-            <form action="{{ route('tvsharps.update',$tvsharp->id) }}" method="POST">
-        @csrf
-        @method('PUT')
-   
-              <div class="row">
-            
-               <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-outline">
-                  <label class="form-label" >Device Manufacturer</label>
-                    <input type="text" name="deviceManufacturer" value="{{ $tvsharp->deviceManufacturer }}" class="form-control form-control-lg" />
-                  </div>
-                </div>
-
-                <div class="col-xs-12 col-sm-12 col-md-12">
-              <div class="form-outline">
-                  <label class="form-label" >Device Model</label>
-                    <input type="text" name="deviceModel" value="{{ $tvsharp->deviceModel }}" class="form-control form-control-lg" />
-                  </div>
-                </div>
-
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-outline">
-                  <label class="form-label" >Device Seriel Number</label>
-                    <input type="text" name="deviceSerielNumber" value="{{ $tvsharp->deviceSerielNumber }}" class="form-control form-control-lg" />
-                  </div>
-                </div>
-
-
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-outline">
-                  <label class="form-label" >Warranty Date</label>
-                    <input type="date" name="warrantyDate" value="{{ $tvsharp->warrantyDate }}" class="form-control form-control-lg" />
-                  </div>
-                </div>
-
-
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-outline">
-                  <label class="form-label" >Monitor Size</label>
-                    <input type="text" name="monitorSize" value="{{ $tvsharp->monitorSize }}" class="form-control form-control-lg" />
-                  </div>
-                </div>
-
-                <div class="col-xs-12 col-sm-12 col-md-12">
-              <div class="form-outline">
-                  <label class="form-label" >Department</label>
-                    <input type="text" name="department" value="{{ $tvsharp->department }}" class="form-control form-control-lg" />
-                  </div>
-                </div>
-
-                <div class="col-xs-12 col-sm-12 col-md-12">
-              <div class="form-outline">
-                  <label class="form-label" >Device Location</label>
-                    <input type="text" name="deviceLocation" value="{{ $tvsharp->deviceLocation }}" class="form-control form-control-lg" />
-                  </div>
-                </div>
-
-
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-outline">
-                  <label class="form-label" >Level</label>
-                    <select name="level" class="form-control form-control-lg" >
-                    <option value="1" {{ $tvsharp->level == 1 ? 'selected' : '' }} >1</option>
-                    <option value="2" {{ $tvsharp->level == 2 ? 'selected' : '' }} > 2</option>
-                    <option value="3" {{ $tvsharp->level == 3 ? 'selected' : '' }}> 3</option>
-                    <option value="4" {{ $tvsharp->level == 4 ? 'selected' : '' }}> 4</option>
-                    <option value="5" {{ $tvsharp->level == 5 ? 'selected' : '' }}> 5</option>
-                    <option value="6" {{ $tvsharp->level == 6 ? 'selected' : '' }}> 6</option>
-                    <option value="7" {{ $tvsharp->level == 7 ? 'selected' : '' }}> 7</option>
-                </select>
-                </div>
-                </div>
-
-
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-outline">
-                  <label class="form-label" >Tagging Number(Monitor)</label>
-                    <input type="text" name="taggingMonitor" value="{{ $tvsharp->taggingMonitor }}" class="form-control form-control-lg" />
-                  </div>
-                </div>
-
-
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-outline">
-                  <label class="form-label" >Purchase Order</label>
-                    <input type="text" name="purchaseOrder" value="{{ $tvsharp->purchaseOrder }}" class="form-control form-control-lg" />
-                  </div>
-                </div>
-
-                <div class="col-xs-12 col-sm-12 col-md-12">
-              <div class="form-outline">
-                  <label class="form-label" >Delivery Order</label>
-                    <input type="text" name="deliveryOrder" value="{{ $tvsharp->deliveryOrder }}" class="form-control form-control-lg" />
-                  </div>
-                </div>
-
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-outline">
-                  <label class="form-label" >Invoice Number</label>
-                    <input type="text" name="noInvoice" value="{{ $tvsharp->noInvoice }}" class="form-control form-control-lg" />
-                  </div>
-                </div>
-
-
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-outline">
-                  <label class="form-label" >Supplier</label>
-                    <input type="text" name="supplier" value="{{ $tvsharp->supplier }}" class="form-control form-control-lg" />
-                  </div>
-                </div>
-
-                
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-outline">
-                  <label class="form-label" >Price Per Unit(RM)</label>
-                    <input type="text" name="pricePerUnit" value="{{ $tvsharp->pricePerUnit }}" class="form-control form-control-lg" />
-                  </div>
-                </div>
+                  
+                            <div class="form-group">
+                                <label for="description">Monitor Size:</label>
+                                <input type="text"  value="{{{ $tvsharp->monitorSize }}}" class="form-control"  name="monitorSize"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="description">Tagging Monitor:</label>
+                                <input type="text"  value="{{{ $tvsharp->taggingMonitor }}}" class="form-control"  name="monitorSerielNumber"/>
+                            </div>
+                           
+                        </div>
+                        </div>
+                    </div>
 
 
                 
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-outline">
-                  <label class="form-label" >Status Asset</label>
-                    <input type="text" name="statusAsset" value="{{ $tvsharp->statusAsset }}" class="form-control form-control-lg" />
-                  </div>
-                </div>
-
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-outline">
-                  <label class="form-label" >CPU Condition</label>
-                    <select name="cpu" class="form-control form-control-lg" >
-                    <option value="Good" {{ $tvsharp->cpu == "Good" ? 'selected' : '' }} >Good</option>
-                    <option value="Faulty" {{ $tvsharp->cpu == "Faulty" ? 'selected' : '' }} > Faulty</option>
-                    </select>
-                </div>
-                </div>
+                    <div class="card">
+                        <div class="card-header">Location Device</div>
+                    <div class="card-body">
+                    <div class="form-group">
+                    
+                    
+                    <div class="form-group">
+                   <label> Department&nbsp; &nbsp; </label>
+                    <select name="department" id="skill_filter" class="form-control">
+                    <option value=""> --SELECT--</option>
+                    @foreach(App\Department::all() ->sortBy('departName') as $cat)
+                    <option value="{{$cat->id}}">{{$cat->departName}}</option>
+                    @endforeach
 
 
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-outline">
-                  <label class="form-label" >Monitor Condition</label>
-                    <select name="monitor" class="form-control form-control-lg" >
-                    <option value="Good" {{ $tvsharp->monitor == "Good" ? 'selected' : '' }} >Good</option>
-                    <option value="Faulty" {{ $tvsharp->monitor == "Faulty" ? 'selected' : '' }} > Faulty</option>
-                    </select>
-                </div>
-                </div>
-
-
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-outline">
-                  <label class="form-label" >Deployement</label>
-                    <select name="deployment" class="form-control form-control-lg" >
-                    <option value="Ready Deploy" {{ $tvsharp->deployment == "Ready Deploy" ? 'selected' : '' }} >Ready Deploy</option>
-                    <option value="Pending" {{ $tvsharp->deployment == "Pending" ? 'selected' : '' }} > Pending</option>
-                    <option value="Not Deploy" {{ $tvsharp->deployment == "Not Deploy" ? 'selected' : '' }}> Not Deploy</option>
                 </select>
-                </div>
-                </div>
+</div>
+
+                            <div class="form-group">
+                                <label for="title">Device Location:</label>
+                                <input type="text" value="{{ $tvsharp->deviceLocation }}" class="form-control"  name="deviceLocation">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Level :&nbsp; &nbsp;</label>
+                                <select name="level" id="level"class="form-control">
+                                <option value=""  readonly > --SELECT--</option>
+                                <option value="1" {{ $tvsharp->level == 1 ? 'selected' : '' }} >1</option>
+                                <option value="2" {{ $tvsharp->level == 2 ? 'selected' : '' }} > 2</option>
+                                <option value="3" {{ $tvsharp->level == 3 ? 'selected' : '' }}> 3</option>
+                                <option value="4" {{ $tvsharp->level == 4 ? 'selected' : '' }}> 4</option>
+                                <option value="5" {{ $tvsharp->level == 5 ? 'selected' : '' }}> 5</option>
+                                <option value="6" {{ $tvsharp->level == 6 ? 'selected' : '' }}> 6</option>
+                                <option value="7" {{ $tvsharp->level == 7 ? 'selected' : '' }}> 7</option>
+                                </select>
+                            </div>
+                    
+                    </div>
+                    </div>
+                   
+</div>
+
+                 
+
+
+                       
+                           
+
+                            <div class="card">
+                            <div class="card-header">Condition And Status Device</div>
+                            <div class="card-body">
+                            <div class="form-group">
+
+                            <div class="form-group">
+                                
+                                <label>Condition(CPU) :&nbsp; &nbsp;</label>
+                                <select name="cpu" id="cpu"class="form-control">
+                                <option value=""> --SELECT--</option>
+                                <option value="Good" {{ $tvsharp->cpu == "Good" ? 'selected' : '' }} >Good</option>
+                                <option value="Faulty" {{ $tvsharp->cpu == "Faulty" ? 'selected' : '' }} > Faulty</option>
+                    </select> 
+                            </div>
+
+
+                            <div class="form-group">
+                                
+                                <label>Condition(CPU) :&nbsp; &nbsp;</label>
+                                <select name="monitor" id="monitor"class="form-control">
+                                <option value=""> --SELECT--</option>
+                                <option value="Good" {{ $tvsharp->monitor == "Good" ? 'selected' : '' }} >Good</option>
+                                <option value="Faulty" {{ $tvsharp->monitor == "Faulty" ? 'selected' : '' }} > Faulty</option>
+                    </select> 
+                            </div>
+
+                          
+                            <div class="form-group">
+                               
+                                <label>Deployement :&nbsp; &nbsp;</label>
+                                <select name="deployment" id="deployment"class="form-control">
+                                <option value=""> --SELECT--</option>
+                                <option value="Ready Deploy" {{ $tvsharp->deployment == "Ready Deploy" ? 'selected' : '' }} >Ready Deploy</option>
+                                <option value="Pending" {{ $tvsharp->deployment == "Pending" ? 'selected' : '' }} > Pending</option>
+                                <option value="Not Deploy" {{ $tvsharp->deployment == "Not Deploy" ? 'selected' : '' }}> Not Deploy</option>
+                            </select> 
+                            </div>
+
+                            </div>
+                            </div>
+                            </div>
 
 
 
-                <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                <br>
-              <button type="submit" class="btn-primary1">Submit</button>
-                <a class="btn-primary1" href="{{ route('tvsharps.index') }}"> Back</a>
-            </div>
+                            <div class="card">
+                        <div class="card-header">Purchase Details</div>
+                    <div class="card-body">
+                    <div class="form-group">
+
+                   
+
+                    <div class="form-group">
+                                <label for="description">Purchase Order(PO):</label>
+                                <input type="text"  value="{{{ $tvsharp->purchaseOrder }}}" class="form-control"  name="purchaseOrder"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="title">Delivery Oder(DO):</label>
+                                <input type="text" value="{{ $tvsharp->deliveryOrder }}" class="form-control"  name="deliveryOrder"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="description">Invoice No:</label>
+                                <input type="text"  value="{{{ $tvsharp->noInvoice }}}" class="form-control"  name="noInvoice"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="description">Supplier:</label>
+                                <input type="text"  value="{{{ $tvsharp->supplier }}}" class="form-control"  name="supplier"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="description">Price Per Unit(RM):</label>
+                                <input type="text"  value="{{{ $tvsharp->pricePerUnit }}}" class="form-control"  name="pricePerUnit" placeholder="RM 000.00"/>
+                            </div>
+
+
+                            <div class="form-group">
+                               
+                                <label>Status Asset : &nbsp; &nbsp;</label>
+                                <select name="statusAsset" id="statusAsset"class="form-control">
+                                <option value=""> --SELECT--</option>
+                                <option value="IT Asset" {{ $tvsharp->statusAsset == "IT Asset" ? 'selected' : '' }} >IT Asset</option>
+                                <option value="Vendor" {{ $tvsharp->statusAsset == "Vendor" ? 'selected' : '' }} > Vendor</option>
+                                <option value="Biomedical Engineering" {{ $tvsharp->statusAsset == "Biomedical Engineering" ? 'selected' : '' }}> Biomedical Engineering</option>
+                                <option value="Lablink" {{ $tvsharp->statusAsset == "Lablink" ? 'selected' : '' }}> Lablink</option>
+                           
+                              </select> 
+                            </div>
+
+                            <div class="form-group">
+                                <label for="description">File:</label>
+                                <input type="file"  value="{{ asset($tvsharp->folder) }}" class="form-control"  name="folder[]" multiple/>
+                            </div>
+
+                       
+</div>
+</div>
+</div>
+
+                  <div class="card-footer text-right">
+                        <button type="submit" onclick="return confirm('Are you sure want to save this change?')" class="btn btn-primary">UPDATE</button>
+                    </div>
+
+
+            </form>
         </div>
-    </form>
-          
-</section>
-    
+
+
+        <script>
+var loadFile = function (event) {
+  var image = document.getElementById("output");
+  image.src = URL.createObjectURL(event.target.files[0]);
+};
+</script>
+
+</body>
+</html>
+
+
+
+        </div>
+    </div>
+</div>
+
 
 @endsection
-    

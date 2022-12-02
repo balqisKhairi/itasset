@@ -1,11 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\DB;
 
-use App\Tablet;
+use App\tablet;
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
-class TabletController extends Controller
+class tabletController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +17,11 @@ class TabletController extends Controller
      */
     public function index()
     {
-        $tablets = Tablet::all();
-        //dd($desktops);
+        $tablets = tablet::all();
+       // $selectedRole = Department::first()->id;
+        //dd($tablets);
         return view('tablets.index',compact('tablets'));
+      
     }
 
     /**
@@ -37,32 +42,84 @@ class TabletController extends Controller
      */
     public function store(Request $request)
     {
-        Tablet::create($request->all());
+        $tablet = $request->all();
+        
+        if($request->hasFile('image')){
+        $fileName = $request->file('image')->getClientOriginalName();
+        $path = $request->file('image')->storeAs('images',$fileName,'public');
+        $tablet["image"] = '/storage/'.$path; 
+        }
+
+        if($request->hasFile('folder'))
+        { 
+             foreach($request->file('folder') as $file) 
+             {
+                $name=$file->getClientOriginalName();
+                $file->move('assets',$name);
+                $tablet['folder']='assets/'.$name;
+            }
+        }
+
+        tablet::create($tablet);
+        //$file->folder=json_encode($tablet); 
    
         return redirect()->route('tablets.index')
-                        ->with('success','New tablet added successfully.');
+                        ->with('success','New tablets added successfully.');
  
     }
+
+    public function download(Request $request, $file){
+
+         return response()->download(public_path('assets/'.$file));
+     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Tablet  $tablet
+     * @param  \App\tablet  $tablet
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Tablet $tablet)
-    {
-        return view('tablets.show',compact('tablet'));                                                                                               
+    public function show(tablet $tablet )
+    { 
+   
+    $departments = DB::table('departments')->select('id')->distinct()->get()->pluck('id');
+    
+        return view('tablets.show',compact('tablet'));
     }
 
+    public function studView(Request $request){
+        $skills = DB::table('jobs')->select('skill_id')->distinct()->get()->pluck('skill_id');
+        $locations = DB::table('jobs')->select('jobLocation')->distinct()->get()->pluck('jobLocation');
+        $post = Job::query();
+    
+     
+        return view('jobs.studView', [
+        'skills' => $skills,
+        'locations' => $locations,
+        //'jobs'=>$jobs,
+        'posts' => $post->get(),
+    
+        ]);
+        
+        }
+
+
+        public function viewFolder($id)
+        {
+            $data= tablet::find($id);
+            return view('tablets.viewFolder',compact('data'));
+        }
+   
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Tablet  $tablet
+     * @param  \App\tablet  $tablet
      * @return \Illuminate\Http\Response
      */
-    public function edit(Tablet $tablet)
+    public function edit(tablet $tablet)
     {
+
         return view('tablets.edit',compact('tablet'));
     }
 
@@ -70,225 +127,125 @@ class TabletController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Tablet  $tablet
+     * @param  \App\tablet  $tablet
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Tablet $tablet)
+    public function update(Request $request, tablet $tablet)
     {
-        $tablet->update($request->all());
-  
+        //$tablet->update($request->all());
+
+
+        $post = [
+        
+            'assignedTo' =>$request['assignedTo'],
+            'deviceHostname' =>$request['deviceHostname'],
+            'deviceIPaddress' =>$request['deviceIPaddress'],
+            'deviceManufacturer'=>$request['deviceManufacturer'],
+            'deviceModel'=>$request['deviceModel'],
+            'deviceSerielNumber'=>$request['deviceSerielNumber'],
+            'warrantyDate'=>$request['warrantyDate'],
+    
+            
+            'department'=>$request['department'],
+            'deviceLocation'=>$request['deviceLocation'],
+            'level'=>$request['level'],
+    
+            'operatingSystem'=>$request['operatingSystem'],
+            'windowVersion'=>$request['windowVersion'],
+            'msOfficeAndVersion'=>$request['msOfficeAndVersion'],
+            'officeSerielKey'=>$request['officeSerielKey'],
+            'antivirusAndVersion'=>$request['antivirusAndVersion'],
+    
+            'domain'=>$request['domain'],
+            'internetConnection'=>$request['internetConnection'],
+            'policyRebootAndShutdown'=>$request['policyRebootAndShutdown'],
+    
+            'cpu'=>$request['cpu'],
+            'monitor'=>$request['monitor'],
+            'deployment'=>$request['deployment'],
+    
+            'purchaseOrder'=>$request['purchaseOrder'],
+            'deliveryOrder'=>$request['deliveryOrder'],
+            'invoiceNo' =>$request['invoiceNo'],
+            'supplier'=>$request['supplier'],
+            'pricePerUnit'=>$request['pricePerUnit'],
+    
+           
+            
+        ];
+    
+        if($request->hasFile('image')){
+            $fileName = $request->file('image')->getClientOriginalName();
+            $path = $request->file('image')->storeAs('images',$fileName,'public');
+            $post["image"] = '/storage/'.$path; 
+    
+        }
+    
+    
+        if($request->hasFile('folder'))
+        { 
+             foreach($request->file('folder') as $file) 
+             {
+                $name=$file->getClientOriginalName();
+                $file->move('assets',$name);
+                $post['folder']='assets/'.$name;
+            }
+        }
+            $tablet->update($post);
+       
+        
         return redirect()->route('tablets.index')
                         ->with('success','tablet updated successfully');
    
-
     }
 
+  
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Tablet  $tablet
+     * @param  \App\tablet  $tablet
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Tablet $tablet)
+    public function destroy(Request $request, tablet $tablet)
     {
         $tablet->delete();
 
         return redirect()->route('tablets.index')
         ->with('success','tablet deleted successfully');
-   
+    
     }
 
+    
 
-     /**TRYING IT OUT */
 
-     public function createone(Request $request)
-     {
-         
-         $tablet = $request->session()->get('tablet');
-         return view('tablets.createone');
-     }
- 
-     /**  
-      * Post Request to store step1 info in session
-      *
-      * @param  \Illuminate\Http\Request  $request
-      * @return \Illuminate\Http\Response
-      */
-     public function storeone(Request $request)
-     {
-        
-         $validatedData = $request->all();
-        
-         if(empty($request->get('tablet'))){
-             $tablet = new Tablet();
-           //  $desktop = Desktop::create($validatedData);
-             $tablet->fill($validatedData);
-             //Desktop::create($validatedData);
-             $request->session()->put('tablet', $tablet);
-         }else{
-             $tablet = $request->get('tablet');
-             $tablet->fill($validatedData);
-             $request->session()->put('tablet', $tablet);
-         }
-   
-         return redirect()->route('tablets.createtwo');
-     }
-   
-     /**
-      * Show the step One Form for creating a new product.
-      *
-      * @return \Illuminate\Http\Response
-      */
-     public function createtwo(Request $request)
-     {
-         $tablet = $request->session()->get('tablet');
-   
-         return view('tablets.createtwo',compact('tablet'));
-     }
-   
-     /**
-      * Show the step One Form for creating a new product.
-      *
-      * @return \Illuminate\Http\Response
-      */
-     public function storetwo(Request $request)
-     {
- 
-         $validatedData = $request->all();
-         
-   
-         $tablet = $request->session()->get('tablet');
-         $tablet -> fill($validatedData);
-        
-         $request->session()->put('tablet', $tablet);
-   
-         return redirect()->route('tablets.createthree');
-     }
-   
-     /**
-      * Show the step One Form for creating a new product.
-      *
-      * @return \Illuminate\Http\Response
-      */
-     public function createthree(Request $request)
-     {
-         $tablet = $request->session()->get('tablet');
-   
-         return view('tablets.createthree',compact('tablet'));
-     }
-   
-     /**
-      * Show the step One Form for creating a new product.
-      *
-      * @return \Illuminate\Http\Response
-      */
-     public function storethree(Request $request)
-     {
-         
-         $validatedData = $request->all();
-         /**$validatedData = $request->validate([
- 
-             'department' => 'required',
-             'deviceLocation' => 'required',
-             'level' => 'required',
- 
-         ]); **/
-   
-         $tablet = $request->session()->get('tablet');
-         //$desktop = Desktop::create($validatedData);
-         $tablet -> fill($validatedData);
- 
-         $request->session()->put('tablet', $tablet);
-   
-         return redirect()->route('tablets.createfour');
-     }
- 
- 
-     public function createfour(Request $request)
-     {
-         $tablet = $request->session()->get('tablet');
-   
-         return view('tablets.createfour',compact('tablet'));
-     }
-   
-     /**  
-      * Post Request to store step1 info in session
-      *
-      * @param  \Illuminate\Http\Request  $request
-      * @return \Illuminate\Http\Response
-      */
-     public function storefour(Request $request)
-     {
- 
-         $validatedData = $request->all();
-       
-   
-         $tablet = $request->session()->get('tablet');
-         //$desktop = Desktop::create($validatedData);
-         $tablet -> fill($validatedData);
-        $request->session()->put('tablet', $tablet);
-   
-         return redirect()->route('tablets.createfive');
-     }
-   
-     /**
-      * Show the step One Form for creating a new product.
-      *
-      * @return \Illuminate\Http\Response
-      */
-     public function createfive(Request $request)
-     {
-         $tablet = $request->session()->get('tablet');
-   
-         return view('tablets.createfive',compact('tablet'));
-     }
-   
-     /**
-      * Show the step One Form for creating a new product.
-      *
-      * @return \Illuminate\Http\Response
-      */
-     public function storefive(Request $request)
-     {
- 
-         $validatedData = $request->all();
-       
-         $tablet = $request->session()->get('tablet');
-         //$desktop = Desktop::create($validatedData);
-         $tablet -> fill($validatedData);
-         $request->session()->put('tablet', $tablet);
- 
-         return redirect()->route('tablets.createsix');
-     }
-   
-     /**
-      * Show the step One Form for creating a new product.
-      *
-      * @return \Illuminate\Http\Response
-      */
-     public function createsix(Request $request)
-     {
-         $tablet = $request->session()->get('tablet');
-   
-         return view('tablets.createsix',compact('tablet'));
-     }
-   
-     /**
-      * Show the step One Form for creating a new product.
-      *
-      * @return \Illuminate\Http\Response
-      */
-     public function storesix(Request $request)
-     {
-         $validatedData = $request->all();
-        
-   
-         $tablets = $request->session()->get('tablet');
-         //$desktop = Desktop::create($validatedData);
-         $tablets -> fill($validatedData);
-         $tablets->save();
-         $request->session()->forget('tablet');
-   
-         return redirect()->route('tablets.index');
-     }
+    public function showStati(){
+        $totalDesk = tablet ::count();
+        $totalOsdesk = Ostablet ::count();
+        $totalImageViewer = Imageviewer ::count();
+        $totalAiodesk = Aiotablet ::count();
+        $totalTablet = Tablet ::count();
+        $totalLaptop = Laptop ::count();
+        $totalPrinter = Printer ::count();
+        $totalTvsharp = Tvsharp ::count();
+        $totalCardreader = CardReader ::count();
+        $totalBiometric = Biometric ::count();
+        $totalEncoremed = Encoremed ::count();
+        $totalMpos = Mpos ::count();
+
+       // $getJob = Studdent::where('studStatus','0')->count();
+        //$notJob = Studdent::where('studStatus','1')->count();
+        //$needcerti = Certificate::where('certiStatus','')->count();
+        //$needjob = Job::where('jobStatus','')->count();
+
+        return view('tablets.showStati',compact('totalDesk','totalOsdesk','totalImageViewer','totalAiodesk','totalTablet','totalLaptop','totalPrinter',
+    'totalTvsharp','totalCardreader','totalBiometric','totalEncoremed','totalMpos'));
 }
+
+
+/**public function myfolder(){
+    $studdents = Certificate::where('user_id',auth()->user()->id)->get();
+    return view('studdents.mycerti',compact('studdents'));
+}**/
+}
+
+

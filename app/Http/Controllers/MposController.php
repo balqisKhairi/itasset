@@ -1,11 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\DB;
 
-use App\Mpos;
+use App\mpos;
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
-class MposController extends Controller
+class mposController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +17,8 @@ class MposController extends Controller
      */
     public function index()
     {
-        $mposs = Mpos::all();
+        $mposs = mpos::all();
+       // $selectedRole = Department::first()->id;
         //dd($mposs);
         return view('mposs.index',compact('mposs'));
       
@@ -38,32 +42,84 @@ class MposController extends Controller
      */
     public function store(Request $request)
     {
-        Mpos::create($request->all());
+        $mpos = $request->all();
+        
+        if($request->hasFile('image')){
+        $fileName = $request->file('image')->getClientOriginalName();
+        $path = $request->file('image')->storeAs('images',$fileName,'public');
+        $mpos["image"] = '/storage/'.$path; 
+        }
+
+        if($request->hasFile('folder'))
+        { 
+             foreach($request->file('folder') as $file) 
+             {
+                $name=$file->getClientOriginalName();
+                $file->move('assets',$name);
+                $mpos['folder']='assets/'.$name;
+            }
+        }
+
+        mpos::create($mpos);
+        //$file->folder=json_encode($mpos); 
    
         return redirect()->route('mposs.index')
                         ->with('success','New mposs added successfully.');
  
     }
 
+    public function download(Request $request, $file){
+
+         return response()->download(public_path('assets/'.$file));
+     }
+
     /**
      * Display the specified resource.
      *
-     * @param  \App\Mpos  $mpos
+     * @param  \App\mpos  $mpos
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Mpos $mpos)
-    {
+    public function show(mpos $mpos )
+    { 
+   
+    $departments = DB::table('departments')->select('id')->distinct()->get()->pluck('id');
+    
         return view('mposs.show',compact('mpos'));
     }
 
+    public function studView(Request $request){
+        $skills = DB::table('jobs')->select('skill_id')->distinct()->get()->pluck('skill_id');
+        $locations = DB::table('jobs')->select('jobLocation')->distinct()->get()->pluck('jobLocation');
+        $post = Job::query();
+    
+     
+        return view('jobs.studView', [
+        'skills' => $skills,
+        'locations' => $locations,
+        //'jobs'=>$jobs,
+        'posts' => $post->get(),
+    
+        ]);
+        
+        }
+
+
+        public function viewFolder($id)
+        {
+            $data= mpos::find($id);
+            return view('mposs.viewFolder',compact('data'));
+        }
+   
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Mpos  $mpos
+     * @param  \App\mpos  $mpos
      * @return \Illuminate\Http\Response
      */
-    public function edit(Mpos $mpos)
+    public function edit(mpos $mpos)
     {
+
         return view('mposs.edit',compact('mpos'));
     }
 
@@ -71,212 +127,125 @@ class MposController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Mpos  $mpos
+     * @param  \App\mpos  $mpos
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Mpos $mpos)
+    public function update(Request $request, mpos $mpos)
     {
-        $mpos->update($request->all());
-  
+        //$mpos->update($request->all());
+
+
+        $post = [
+        
+            'assignedTo' =>$request['assignedTo'],
+            'deviceHostname' =>$request['deviceHostname'],
+            'deviceIPaddress' =>$request['deviceIPaddress'],
+            'deviceManufacturer'=>$request['deviceManufacturer'],
+            'deviceModel'=>$request['deviceModel'],
+            'deviceSerielNumber'=>$request['deviceSerielNumber'],
+            'warrantyDate'=>$request['warrantyDate'],
+    
+            
+            'department'=>$request['department'],
+            'deviceLocation'=>$request['deviceLocation'],
+            'level'=>$request['level'],
+    
+            'operatingSystem'=>$request['operatingSystem'],
+            'windowVersion'=>$request['windowVersion'],
+            'msOfficeAndVersion'=>$request['msOfficeAndVersion'],
+            'officeSerielKey'=>$request['officeSerielKey'],
+            'antivirusAndVersion'=>$request['antivirusAndVersion'],
+    
+            'domain'=>$request['domain'],
+            'internetConnection'=>$request['internetConnection'],
+            'policyRebootAndShutdown'=>$request['policyRebootAndShutdown'],
+    
+            'cpu'=>$request['cpu'],
+            'monitor'=>$request['monitor'],
+            'deployment'=>$request['deployment'],
+    
+            'purchaseOrder'=>$request['purchaseOrder'],
+            'deliveryOrder'=>$request['deliveryOrder'],
+            'invoiceNo' =>$request['invoiceNo'],
+            'supplier'=>$request['supplier'],
+            'pricePerUnit'=>$request['pricePerUnit'],
+    
+           
+            
+        ];
+    
+        if($request->hasFile('image')){
+            $fileName = $request->file('image')->getClientOriginalName();
+            $path = $request->file('image')->storeAs('images',$fileName,'public');
+            $post["image"] = '/storage/'.$path; 
+    
+        }
+    
+    
+        if($request->hasFile('folder'))
+        { 
+             foreach($request->file('folder') as $file) 
+             {
+                $name=$file->getClientOriginalName();
+                $file->move('assets',$name);
+                $post['folder']='assets/'.$name;
+            }
+        }
+            $mpos->update($post);
+       
+        
         return redirect()->route('mposs.index')
                         ->with('success','mpos updated successfully');
    
     }
 
+  
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Mpos  $mpos
+     * @param  \App\mpos  $mpos
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Mpos $mpos)
+    public function destroy(Request $request, mpos $mpos)
     {
         $mpos->delete();
 
         return redirect()->route('mposs.index')
-        ->with('success','MPOS deleted successfully');
+        ->with('success','mpos deleted successfully');
+    
     }
 
+    
 
 
-     /**TRYING IT OUT */
+    public function showStati(){
+        $totalDesk = mpos ::count();
+        $totalOsdesk = Osdesk ::count();
+        $totalImageViewer = Imageviewer ::count();
+        $totalAiodesk = Aiompos ::count();
+        $totalmpos = mpos ::count();
+        $totalmpos = mpos ::count();
+        $totalPrinter = Printer ::count();
+        $totalTvsharp = Tvsharp ::count();
+        $totalCardreader = CardReader ::count();
+        $totalBiometric = Biometric ::count();
+        $totalEncoremed = Encoremed ::count();
+        $totalMpos = Mpos ::count();
 
-     public function createone(Request $request)
-     {
-         
-         $mpos = $request->session()->get('mpos');
-         return view('mposs.createone');
-     }
- 
-     /**  
-      * Post Request to store step1 info in session
-      *
-      * @param  \Illuminate\Http\Request  $request
-      * @return \Illuminate\Http\Response
-      */
-     public function storeone(Request $request)
-     {
-        
-         $validatedData = $request->all();
-        
-        
-         if(empty($request->get('mpos'))){
-             $mpos = new Mpos();
-             $mpos->fill($validatedData);
-             $request->session()->put('mpos', $mpos);
-         }else{
-             $mpos = $request->get('mpos');
-             $mpos->fill($validatedData);
-             $request->session()->put('mpos', $mpos);
-         }
-   
-         return redirect()->route('mposs.createtwo');
-     }
-   
-     /**
-      * Show the step One Form for creating a new product.
-      *
-      * @return \Illuminate\Http\Response
-      */
-     public function createtwo(Request $request)
-     {
-         $mpos = $request->session()->get('mpos');
-   
-         return view('mposs.createtwo',compact('mpos'));
-     }
-   
-     /**
-      * Show the step One Form for creating a new product.
-      *
-      * @return \Illuminate\Http\Response
-      */
-     public function storetwo(Request $request)
-     {
- 
-         $validatedData = $request->all();
-        
-   
-         $mpos = $request->session()->get('mpos');
-         $mpos -> fill($validatedData);
-        
-         $request->session()->put('mpos', $mpos);
-   
-         return redirect()->route('mposs.createthree');
-     }
-   
-     /**
-      * Show the step One Form for creating a new product.
-      *
-      * @return \Illuminate\Http\Response
-      */
-     public function createthree(Request $request)
-     {
-         $mpos = $request->session()->get('mpos');
-   
-         return view('mposs.createthree',compact('mpos'));
-     }
-   
-     /**
-      * Show the step One Form for creating a new product.
-      *
-      * @return \Illuminate\Http\Response
-      */
-     public function storethree(Request $request)
-     {
-         
-         $validatedData = $request->all();
-   
-         $mpos = $request->session()->get('mpos');
-         $mpos -> fill($validatedData);
- 
-         $request->session()->put('mpos', $mpos);
-   
-         return redirect()->route('mposs.createfour');
-     }
- 
- 
-     public function createfour(Request $request)
-     {
-         $mpos = $request->session()->get('mpos');
-   
-         return view('mposs.createfour',compact('mpos'));
-     }
-   
-     /**  
-      * Post Request to store step1 info in session
-      *
-      * @param  \Illuminate\Http\Request  $request
-      * @return \Illuminate\Http\Response
-      */
-     public function storefour(Request $request)
-     {
- 
-         $validatedData = $request->all();
-         
-         $mpos = $request->session()->get('mpos');
-         //$mpos = mpos::create($validatedData);
-         $mpos -> fill($validatedData);
-        $request->session()->put('mpos', $mpos);
-   
-         return redirect()->route('mposs.createfive');
-     }
-   
-     /**
-      * Show the step One Form for creating a new product.
-      *
-      * @return \Illuminate\Http\Response
-      */
-     public function createfive(Request $request)
-     {
-         $mpos = $request->session()->get('mpos');
-   
-         return view('mposs.createfive',compact('mpos'));
-     }
-   
-     /**
-      * Show the step One Form for creating a new product.
-      *
-      * @return \Illuminate\Http\Response
-      */
-     public function storefive(Request $request)
-     {
- 
-         $validatedData = $request->all();
-        
-         $mpos = $request->session()->get('mpos');
-         //$mpos = mpos::create($validatedData);
-         $mpos -> fill($validatedData);
-         $request->session()->put('mpos', $mpos);
- 
-         return redirect()->route('mposs.createsix');
-     }
-   
-     /**
-      * Show the step One Form for creating a new product.
-      *
-      * @return \Illuminate\Http\Response
-      */
-     public function createsix(Request $request)
-     {
-         $mpos = $request->session()->get('mpos');
-   
-         return view('mposs.createsix',compact('mpos'));
-     }
-   
-     /**
-      * Show the step One Form for creating a new product.
-      *
-      * @return \Illuminate\Http\Response
-      */
-     public function storesix(Request $request)
-     {
-         $validatedData = $request->all();
-         
-         $mpos = $request->session()->get('mpos');
-         $mpos -> fill($validatedData);
-         $mpos->save();
-         $request->session()->forget('mpos');
-   
-         return redirect()->route('mposs.index');
-     }
+       // $getJob = Studdent::where('studStatus','0')->count();
+        //$notJob = Studdent::where('studStatus','1')->count();
+        //$needcerti = Certificate::where('certiStatus','')->count();
+        //$needjob = Job::where('jobStatus','')->count();
+
+        return view('mposs.showStati',compact('totalDesk','totalOsdesk','totalImageViewer','totalAiodesk','totalmpos','totalmpos','totalPrinter',
+    'totalTvsharp','totalCardreader','totalBiometric','totalEncoremed','totalMpos'));
 }
+
+
+/**public function myfolder(){
+    $studdents = Certificate::where('user_id',auth()->user()->id)->get();
+    return view('studdents.mycerti',compact('studdents'));
+}**/
+}
+
+

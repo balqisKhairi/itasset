@@ -44,14 +44,22 @@
         
             <div class="form-group">
 
+
+            <div class="form-group avatar">
+                                <figure class="figure col-md-2 col-sm-3 col-xs-12">
+                                    <img class="img-rounded img-responsive" id="output" height="100%" width="100%" style="width:100%;" src="{{ asset($desktop->image ?? '' ) }}" alt="">
+                                </figure>
+
+              </div>
             <label for="title">Picture:</label>
-            <input class="form-control "  name="image" type="file" />
+            <input class="form-control " id="image"  name="image" value="{{$desktop->image?? '' }}" src="{{ asset($desktop->image?? '' ) }}"type="file" onchange="loadFile(event)"/>
+           
             <div class="small text-muted mt-2">Upload your picture. Max file size 50 MB</div>
 
            
 
                                 <label for="title">Assigned To:</label>
-                                <input type="text" value="{{ $desktop->assignedTo ?? '' }}" class="form-control"  name="assignedTo">
+                                <input type="text" value="{{ $desktop->assignedTo ?? '' }}" class="form-control"  name="assignedTo" placeholder="NAME">
                             </div>
                       
                             <div class="form-group">
@@ -70,7 +78,7 @@
 
                     <div class="form-group">
                                 <label for="description">Device IP Address:</label>
-                                <input type="text"  value="{{{ $desktop->deviceIPaddress ?? '' }}}" class="form-control"  name="deviceIPaddress"/>
+                                <input type="text"  value="{{{ $desktop->deviceIPaddress ?? '' }}}" class="form-control"  name="deviceIPaddress" placeholder="Ex: 10.31.0.0"/>
                             </div>
                             <div class="form-group">
                                 <label for="title">Device Manufacturer:</label>
@@ -95,6 +103,32 @@
                     </div>
                    
   
+                    <div class="card">
+                    <div class="card-header">Monitor Details</div>
+                    <div class="card-body">
+                    <div class="form-group">
+
+                    <div class="form-group">
+                                <label for="description">Monitor Model:</label>
+                                <input type="text"  value="{{{ $desktop->monitorModel ?? '' }}}" class="form-control"  name="monitorModel" placeholder="Ex: V194"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="title">Monitor Manufacturer:</label>
+                                <input type="text" value="{{ $desktop->monitorManufacturer ?? '' }}" class="form-control"  name="monitorManufacturer">
+                            </div>
+                            <div class="form-group">
+                                <label for="description">Monitor Size:</label>
+                                <input type="text"  value="{{{ $desktop->monitorSize ?? '' }}}" class="form-control"  name="monitorSize"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="description">Monitor Seriel Number:</label>
+                                <input type="text"  value="{{{ $desktop->monitorSerielNumber ?? '' }}}" class="form-control"  name="monitorSerielNumber"/>
+                            </div>
+                           
+                        </div>
+                        </div>
+                    </div>
+      
 
                     <div class="card">
                         <div class="card-header">Location Device</div>
@@ -153,7 +187,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="description">Microsoft Office And Version:</label>
-                                <input type="text"  value="{{{ $desktop->msOfficeAndVersion ?? '' }}}" class="form-control"  name="msOfficeAndVersion"/>
+                                <input type="text"  value="{{{ $desktop->msOfficeAndVersion ?? '' }}}" class="form-control"  name="msOfficeAndVersion" placeholder="Ex:Ms Office Pro Plus 2013"/>
                             </div>
                             <div class="form-group">
                                 <label for="description">Office Seriel Key:</label>
@@ -262,6 +296,15 @@
                     <div class="form-group">
 
                     <div class="form-group">
+                                <label for="description">Tagging No(CPU):</label>
+                                <input type="text"  value="{{{ $desktop->taggingcpu ?? '' }}}" class="form-control"  name="purchaseOrder"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="title">Tagging No(Monitor):</label>
+                                <input type="text" value="{{ $desktop->taggingmonitor ?? '' }}" class="form-control"  name="deliveryOrder"/>
+                            </div>
+
+                    <div class="form-group">
                                 <label for="description">Purchase Order(PO):</label>
                                 <input type="text"  value="{{{ $desktop->purchaseOrder ?? '' }}}" class="form-control"  name="purchaseOrder"/>
                             </div>
@@ -271,7 +314,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="description">Invoice No:</label>
-                                <input type="text"  value="{{{ $desktop->invoiceNo ?? '' }}}" class="form-control"  name="invoiceNo"/>
+                                <input type="text"  value="{{{ $desktop->noInvoice ?? '' }}}" class="form-control"  name="noInvoice"/>
                             </div>
                             <div class="form-group">
                                 <label for="description">Supplier:</label>
@@ -279,8 +322,10 @@
                             </div>
                             <div class="form-group">
                                 <label for="description">Price Per Unit(RM):</label>
-                                <input type="text"  value="{{{ $desktop->pricePerUnit ?? '' }}}" class="form-control"  name="pricePerUnit"/>
+                                <input type="text"  value="{{{ $desktop->pricePerUnit ?? '' }}}" class="form-control"  name="pricePerUnit" placeholder="RM 000.00"/>
                             </div>
+
+
 
                             <div class="form-group">
                                 <label for="description">File:</label>
@@ -300,6 +345,12 @@
             </form>
         </div>
 
+        <script>
+var loadFile = function (event) {
+  var image = document.getElementById("output");
+  image.src = URL.createObjectURL(event.target.files[0]);
+};
+</script>
 
        
 

@@ -222,21 +222,28 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="" class="nav-link">
+                <a href="{{ route('cardReaders.index') }}" class="nav-link">
                   <i class="fa fa-credit-card"></i>
                   <p>Card Reader</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="" class="nav-link">
+                <a href="{{ route('biometrics.index') }}" class="nav-link">
                   <i class="fa fa-eye-slash"></i>
                   <p>Biometric</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="" class="nav-link">
+                <a href="{{ route('encoremeds.index') }}" class="nav-link">
                   <i class="fa fa-medkit"></i>
                   <p>Encoremed</p>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a href="{{ route('powers.index') }}" class="nav-link">
+                  <i class="fa fa-battery-three-quarters"></i>
+                  <p>UPS</p>
                 </a>
               </li>
               <li class="nav-item">
@@ -247,6 +254,7 @@
               </li>
             </ul>
           </li>
+         
           <li class="nav-item">
             <a href=""class="nav-link">
               <i class="nav-icon fa fa-users"></i>

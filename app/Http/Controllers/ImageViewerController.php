@@ -37,11 +37,32 @@ class imageviewerController extends Controller
      */
     public function store(Request $request)
     {
-        imageviewer::create($request->all());
-   
-        return redirect()->route('imageviewers.index')
-                        ->with('success','New image viewer added successfully.');
- 
+        $requestData = $request->all();
+        
+        if($request->hasFile('image')){
+            $fileName = $request->file('image')->getClientOriginalName();
+            $path = $request->file('image')->storeAs('images',$fileName,'public');
+            $requestData["image"] = '/storage/'.$path; 
+              }
+
+        if($request->hasFile('folder'))
+        { 
+             foreach($request->file('folder') as $file) 
+             {
+                $name=$file->getClientOriginalName();
+                $file->move('assets',$name);
+                $requestData['folder']='assets/'.$name;
+            }
+        }
+
+        imageviewer::create($requestData);
+        return redirect()->route('imageviewers.index')->with('success','New Os desktop addes succesfully');
+    }
+
+
+    public function download(Request $request, $file){
+
+        return response()->download(public_path('assets/'.$file));
     }
 
     /**
@@ -52,7 +73,7 @@ class imageviewerController extends Controller
      */
     public function show(imageviewer $imageviewer)
     {
-        return view('imageviewers.show',compact('imageviewer'));
+     return view ('imageviewers.show',compact('imageviewer'));
     }
 
     /**
@@ -64,7 +85,6 @@ class imageviewerController extends Controller
     public function edit(imageviewer $imageviewer)
     {
         return view('imageviewers.edit',compact('imageviewer'));
-
     }
 
     /**
@@ -74,14 +94,72 @@ class imageviewerController extends Controller
      * @param  \App\imageviewer  $imageviewer
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, imageviewer $imageviewer)
+    public function update(Request $request,imageviewer $imageviewer)
     {
-        $imageviewer->update($request->all());
-  
-        return redirect()->route('imageviewers.index')
-                        ->with('success','imageviewer updated successfully');
-   
+        $post = [
+        
+        'assignedTo' =>$request['assignedTo'],
+        'deviceHostname' =>$request['deviceHostname'],
+        'deviceIPaddress' =>$request['deviceIPaddress'],
+        'deviceManufacturer'=>$request['deviceManufacturer'],
+        'deviceModel'=>$request['deviceModel'],
+        'deviceSerielNumber'=>$request['deviceSerielNumber'],
+        'warrantyDate'=>$request['warrantyDate'],
 
+        'monitorModel'=>$request['monitorModel'],
+        'monitorManufacturer'=>$request['monitorManufacturer'],
+        'monitorSize'=>$request['monitorSize'],
+        'monitorSerielNumber'=>$request['monitorSerielNumber'],
+
+        'department'=>$request['department'],
+        'deviceLocation'=>$request['deviceLocation'],
+        'level'=>$request['level'],
+
+        'operatingSystem'=>$request['operatingSystem'],
+        'windowVersion'=>$request['windowVersion'],
+        'msOfficeAndVersion'=>$request['msOfficeAndVersion'],
+        'officeSerielKey'=>$request['officeSerielKey'],
+        'antivirusAndVersion'=>$request['antivirusAndVersion'],
+
+        'domain'=>$request['domain'],
+        'internetConnection'=>$request['internetConnection'],
+        'policyRebootAndShutdown'=>$request['policyRebootAndShutdown'],
+
+        'cpu'=>$request['cpu'],
+        'monitor'=>$request['monitor'],
+        'deployment'=>$request['deployment'],
+
+       
+        'purchaseOrder'=>$request['purchaseOrder'],
+        'deliveryOrder'=>$request['deliveryOrder'],
+        'invoiceNo' =>$request['invoiceNo'],
+        'supplier'=>$request['supplier'],
+        'pricePerUnit'=>$request['pricePerUnit'],
+
+        
+    ];
+
+    if($request->hasFile('image')){
+        $fileName = $request->file('image')->getClientOriginalName();
+        $path = $request->file('image')->storeAs('images',$fileName,'public');
+        $post["image"] = '/storage/'.$path; 
+
+    }
+
+
+    if($request->hasFile('folder'))
+    { 
+         foreach($request->file('folder') as $file) 
+         {
+            $name=$file->getClientOriginalName();
+            $file->move('assets',$name);
+            $post['folder']='assets/'.$name;
+        }
+    }
+        $imageviewer->update($post);
+   
+        return redirect()->route('imageviewers.index')
+                        ->with('success',' OS Desktop updated successfully');
     }
 
     /**
@@ -96,199 +174,14 @@ class imageviewerController extends Controller
 
         return redirect()->route('imageviewers.index')
         ->with('success','imageviewer deleted successfully');
-   
     }
 
-    /**TRYING IT OUT */
-
-    public function createone(Request $request)
+    public function viewFolder($id)
     {
-        
-        $imageviewer = $request->session()->get('imageviewer');
-        return view('imageviewers.createone');
-    }
-
-    /**  
-     * Post Request to store step1 info in session
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function storeone(Request $request)
-    {
-       
-        $validatedData = $request->all();
-       
-        if(empty($request->get('imageviewer'))){
-            $imageviewer = new imageviewer();
-          //  $desktop = Desktop::create($validatedData);
-            $imageviewer->fill($validatedData);
-            //Desktop::create($validatedData);
-            $request->session()->put('imageviewer', $imageviewer);
-        }else{
-            $imageviewer = $request->get('imageviewer');
-            $imageviewer->fill($validatedData);
-            $request->session()->put('imageviewer', $imageviewer);
-        }
-  
-        return redirect()->route('imageviewers.createtwo');
-    }
-  
-    /**
-     * Show the step One Form for creating a new product.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function createtwo(Request $request)
-    {
-        $imageviewer = $request->session()->get('imageviewer');
-  
-        return view('imageviewers.createtwo',compact('imageviewer'));
-    }
-  
-    /**
-     * Show the step One Form for creating a new product.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function storetwo(Request $request)
-    {
-
-        $validatedData = $request->all();
-        
-  
-        $imageviewer = $request->session()->get('imageviewer');
-        $imageviewer -> fill($validatedData);
-       
-        $request->session()->put('imageviewer', $imageviewer);
-  
-        return redirect()->route('imageviewers.createthree');
-    }
-  
-    /**
-     * Show the step One Form for creating a new product.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function createthree(Request $request)
-    {
-        $imageviewer = $request->session()->get('imageviewer');
-  
-        return view('imageviewers.createthree',compact('imageviewer'));
-    }
-  
-    /**
-     * Show the step One Form for creating a new product.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function storethree(Request $request)
-    {
-        
-        $validatedData = $request->all();
-        /**$validatedData = $request->validate([
-
-            'department' => 'required',
-            'deviceLocation' => 'required',
-            'level' => 'required',
-
-        ]); **/
-  
-        $imageviewer = $request->session()->get('imageviewer');
-        //$desktop = Desktop::create($validatedData);
-        $imageviewer -> fill($validatedData);
-
-        $request->session()->put('imageviewer', $imageviewer);
-  
-        return redirect()->route('imageviewers.createfour');
+        $data= imageviewer::find($id);
+        return view('imageviewers.viewFolder',compact('data'));
     }
 
 
-    public function createfour(Request $request)
-    {
-        $imageviewer = $request->session()->get('imageviewer');
-  
-        return view('imageviewers.createfour',compact('imageviewer'));
-    }
-  
-    /**  
-     * Post Request to store step1 info in session
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function storefour(Request $request)
-    {
-
-        $validatedData = $request->all();
-      
-  
-        $imageviewer = $request->session()->get('imageviewer');
-        //$desktop = Desktop::create($validatedData);
-        $imageviewer -> fill($validatedData);
-       $request->session()->put('imageviewer', $imageviewer);
-  
-        return redirect()->route('imageviewers.createfive');
-    }
-  
-    /**
-     * Show the step One Form for creating a new product.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function createfive(Request $request)
-    {
-        $imageviewer = $request->session()->get('imageviewer');
-  
-        return view('imageviewers.createfive',compact('imageviewer'));
-    }
-  
-    /**
-     * Show the step One Form for creating a new product.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function storefive(Request $request)
-    {
-
-        $validatedData = $request->all();
-      
-        $imageviewer = $request->session()->get('imageviewer');
-        //$desktop = Desktop::create($validatedData);
-        $imageviewer -> fill($validatedData);
-        $request->session()->put('imageviewer', $imageviewer);
-
-        return redirect()->route('imageviewers.createsix');
-    }
-  
-    /**
-     * Show the step One Form for creating a new product.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function createsix(Request $request)
-    {
-        $imageviewer = $request->session()->get('imageviewer');
-  
-        return view('imageviewers.createsix',compact('imageviewer'));
-    }
-  
-    /**
-     * Show the step One Form for creating a new product.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function storesix(Request $request)
-    {
-        $validatedData = $request->all();
-       
-  
-        $imageviewers = $request->session()->get('imageviewer');
-        //$desktop = Desktop::create($validatedData);
-        $imageviewers -> fill($validatedData);
-        $imageviewers->save();
-        $request->session()->forget('imageviewer');
-  
-        return redirect()->route('imageviewers.index');
-    }
+    
 }

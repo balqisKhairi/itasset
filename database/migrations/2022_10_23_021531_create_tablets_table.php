@@ -39,10 +39,7 @@ class CreateTabletsTable extends Migration
             $table->string('cpu')->nullable();
             $table->string('monitor')->nullable();
             $table->string('deployment')->nullable();
-            $table->string('monitorModel')->nullable();
-            $table->string('monitorManufacturer')->nullable();
-            $table->string('monitorSize')->nullable();
-            $table->string('monitorSerielNumber')->nullable();
+           
             $table->timestamps();
         });
     }

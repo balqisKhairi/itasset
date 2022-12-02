@@ -1,11 +1,25 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\DB;
 
-use App\Aiodesktop;
+use App\aiodesktop;
+use App\Aioaiodesktop;
+use App\Biometric;
+use App\CardReader;
+use App\Encoremed;
+use App\Imageviewer;
+use App\Laptop;
+use App\Mpos;
+use App\Osaiodesktop;
+use App\Printer;
+use App\Tablet;
+use App\Tvsharp;
+use App\Department;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
-class AiodesktopController extends Controller
+class aiodesktopController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +28,11 @@ class AiodesktopController extends Controller
      */
     public function index()
     {
-        $aiodesktops = Aiodesktop::all();
-        //dd($desktops);
+        $aiodesktops = aiodesktop::all();
+       // $selectedRole = Department::first()->id;
+        //dd($aiodesktops);
         return view('aiodesktops.index',compact('aiodesktops'));
+      
     }
 
     /**
@@ -37,32 +53,84 @@ class AiodesktopController extends Controller
      */
     public function store(Request $request)
     {
-        Aiodesktop::create($request->all());
+        $aiodesktop = $request->all();
+        
+        if($request->hasFile('image')){
+        $fileName = $request->file('image')->getClientOriginalName();
+        $path = $request->file('image')->storeAs('images',$fileName,'public');
+        $aiodesktop["image"] = '/storage/'.$path; 
+        }
+
+        if($request->hasFile('folder'))
+        { 
+             foreach($request->file('folder') as $file) 
+             {
+                $name=$file->getClientOriginalName();
+                $file->move('assets',$name);
+                $aiodesktop['folder']='assets/'.$name;
+            }
+        }
+
+        aiodesktop::create($aiodesktop);
+        //$file->folder=json_encode($aiodesktop); 
    
         return redirect()->route('aiodesktops.index')
-                        ->with('success','New image viewer added successfully.');
+                        ->with('success','New aiodesktops added successfully.');
  
     }
+
+    public function download(Request $request, $file){
+
+         return response()->download(public_path('assets/'.$file));
+     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Aiodesktop  $aiodesktop
+     * @param  \App\aiodesktop  $aiodesktop
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Aiodesktop $aiodesktop)
-    {
+    public function show(aiodesktop $aiodesktop )
+    { 
+   
+    $departments = DB::table('departments')->select('id')->distinct()->get()->pluck('id');
+    
         return view('aiodesktops.show',compact('aiodesktop'));
     }
 
+    public function studView(Request $request){
+        $skills = DB::table('jobs')->select('skill_id')->distinct()->get()->pluck('skill_id');
+        $locations = DB::table('jobs')->select('jobLocation')->distinct()->get()->pluck('jobLocation');
+        $post = Job::query();
+    
+     
+        return view('jobs.studView', [
+        'skills' => $skills,
+        'locations' => $locations,
+        //'jobs'=>$jobs,
+        'posts' => $post->get(),
+    
+        ]);
+        
+        }
+
+
+        public function viewFolder($id)
+        {
+            $data= aiodesktop::find($id);
+            return view('aiodesktops.viewFolder',compact('data'));
+        }
+   
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Aiodesktop  $aiodesktop
+     * @param  \App\aiodesktop  $aiodesktop
      * @return \Illuminate\Http\Response
      */
-    public function edit(Aiodesktop $aiodesktop)
+    public function edit(aiodesktop $aiodesktop)
     {
+
         return view('aiodesktops.edit',compact('aiodesktop'));
     }
 
@@ -70,216 +138,129 @@ class AiodesktopController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Aiodesktop  $aiodesktop
+     * @param  \App\aiodesktop  $aiodesktop
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Aiodesktop $aiodesktop)
+    public function update(Request $request, aiodesktop $aiodesktop)
     {
-        $aiodesktop->update($request->all());
-  
+        //$aiodesktop->update($request->all());
+
+
+        $post = [
+        
+            'assignedTo' =>$request['assignedTo'],
+            'deviceHostname' =>$request['deviceHostname'],
+            'deviceIPaddress' =>$request['deviceIPaddress'],
+            'deviceManufacturer'=>$request['deviceManufacturer'],
+            'deviceModel'=>$request['deviceModel'],
+            'deviceSerielNumber'=>$request['deviceSerielNumber'],
+            'warrantyDate'=>$request['warrantyDate'],
+    
+            'monitorModel'=>$request['monitorModel'],
+            'monitorManufacturer'=>$request['monitorManufacturer'],
+            'monitorSize'=>$request['monitorSize'],
+            'monitorSerielNumber'=>$request['monitorSerielNumber'],
+    
+            'department'=>$request['department'],
+            'deviceLocation'=>$request['deviceLocation'],
+            'level'=>$request['level'],
+    
+            'operatingSystem'=>$request['operatingSystem'],
+            'windowVersion'=>$request['windowVersion'],
+            'msOfficeAndVersion'=>$request['msOfficeAndVersion'],
+            'officeSerielKey'=>$request['officeSerielKey'],
+            'antivirusAndVersion'=>$request['antivirusAndVersion'],
+    
+            'domain'=>$request['domain'],
+            'internetConnection'=>$request['internetConnection'],
+            'policyRebootAndShutdown'=>$request['policyRebootAndShutdown'],
+    
+            'cpu'=>$request['cpu'],
+            'monitor'=>$request['monitor'],
+            'deployment'=>$request['deployment'],
+    
+            'purchaseOrder'=>$request['purchaseOrder'],
+            'deliveryOrder'=>$request['deliveryOrder'],
+            'invoiceNo' =>$request['invoiceNo'],
+            'supplier'=>$request['supplier'],
+            'pricePerUnit'=>$request['pricePerUnit'],
+    
+           
+            
+        ];
+    
+        if($request->hasFile('image')){
+            $fileName = $request->file('image')->getClientOriginalName();
+            $path = $request->file('image')->storeAs('images',$fileName,'public');
+            $post["image"] = '/storage/'.$path; 
+    
+        }
+    
+    
+        if($request->hasFile('folder'))
+        { 
+             foreach($request->file('folder') as $file) 
+             {
+                $name=$file->getClientOriginalName();
+                $file->move('assets',$name);
+                $post['folder']='assets/'.$name;
+            }
+        }
+            $aiodesktop->update($post);
+       
+        
         return redirect()->route('aiodesktops.index')
                         ->with('success','aiodesktop updated successfully');
    
     }
 
+  
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Aiodesktop  $aiodesktop
+     * @param  \App\aiodesktop  $aiodesktop
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Aiodesktop $aiodesktop)
+    public function destroy(Request $request, aiodesktop $aiodesktop)
     {
         $aiodesktop->delete();
 
         return redirect()->route('aiodesktops.index')
         ->with('success','aiodesktop deleted successfully');
-   
+    
     }
 
+    
 
 
-    /**TRYING IT OUT */
+    public function showStati(){
+        $totalDesk = aiodesktop ::count();
+        $totalOsdesk = Osaiodesktop ::count();
+        $totalImageViewer = Imageviewer ::count();
+        $totalAiodesk = Aioaiodesktop ::count();
+        $totalTablet = Tablet ::count();
+        $totalLaptop = Laptop ::count();
+        $totalPrinter = Printer ::count();
+        $totalTvsharp = Tvsharp ::count();
+        $totalCardreader = CardReader ::count();
+        $totalBiometric = Biometric ::count();
+        $totalEncoremed = Encoremed ::count();
+        $totalMpos = Mpos ::count();
 
-    public function createone(Request $request)
-    {
-        
-        $aiodesktop = $request->session()->get('aiodesktop');
-        return view('aiodesktops.createone');
-    }
+       // $getJob = Studdent::where('studStatus','0')->count();
+        //$notJob = Studdent::where('studStatus','1')->count();
+        //$needcerti = Certificate::where('certiStatus','')->count();
+        //$needjob = Job::where('jobStatus','')->count();
 
-    /**  
-     * Post Request to store step1 info in session
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function storeone(Request $request)
-    {
-       
-        $validatedData = $request->all();
-       
-        if(empty($request->get('aiodesktop'))){
-            $aiodesktop = new Aiodesktop();
-            $aiodesktop->fill($validatedData);
-            $request->session()->put('aiodesktop', $aiodesktop);
-        }else{
-            $aiodesktop = $request->get('aiodesktop');
-            $aiodesktop->fill($validatedData);
-            $request->session()->put('aiodesktop', $aiodesktop);
-        }
-  
-        return redirect()->route('aiodesktops.createtwo');
-    }
-  
-    /**
-     * Show the step One Form for creating a new product.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function createtwo(Request $request)
-    {
-        $aiodesktop = $request->session()->get('aiodesktop');
-  
-        return view('aiodesktops.createtwo',compact('aiodesktop'));
-    }
-  
-    /**
-     * Show the step One Form for creating a new product.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function storetwo(Request $request)
-    {
-
-        $validatedData = $request->all();
-        
-  
-        $aiodesktop = $request->session()->get('aiodesktop');
-        $aiodesktop -> fill($validatedData);
-       
-        $request->session()->put('aiodesktop', $aiodesktop);
-  
-        return redirect()->route('aiodesktops.createthree');
-    }
-  
-    /**
-     * Show the step One Form for creating a new product.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function createthree(Request $request)
-    {
-        $aiodesktop = $request->session()->get('aiodesktop');
-  
-        return view('aiodesktops.createthree',compact('aiodesktop'));
-    }
-  
-    /**
-     * Show the step One Form for creating a new product.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function storethree(Request $request)
-    {
-        
-        $validatedData = $request->all();
-      
-  
-        $aiodesktop = $request->session()->get('aiodesktop');
-        //$desktop = Desktop::create($validatedData);
-        $aiodesktop -> fill($validatedData);
-
-        $request->session()->put('aiodesktop', $aiodesktop);
-  
-        return redirect()->route('aiodesktops.createfour');
-    }
-
-
-    public function createfour(Request $request)
-    {
-        $aiodesktop = $request->session()->get('aiodesktop');
-  
-        return view('aiodesktops.createfour',compact('aiodesktop'));
-    }
-  
-    /**  
-     * Post Request to store step1 info in session
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function storefour(Request $request)
-    {
-
-        $validatedData = $request->all();
-      
-  
-        $aiodesktop = $request->session()->get('aiodesktop');
-        $aiodesktop -> fill($validatedData);
-       $request->session()->put('aiodesktop', $aiodesktop);
-  
-        return redirect()->route('aiodesktops.createfive');
-    }
-  
-    /**
-     * Show the step One Form for creating a new product.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function createfive(Request $request)
-    {
-        $aiodesktop = $request->session()->get('aiodesktop');
-  
-        return view('aiodesktops.createfive',compact('aiodesktop'));
-    }
-  
-    /**
-     * Show the step One Form for creating a new product.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function storefive(Request $request)
-    {
-
-        $validatedData = $request->all();
-      
-        $aiodesktop = $request->session()->get('aiodesktop');
-        $aiodesktop -> fill($validatedData);
-        $request->session()->put('aiodesktop', $aiodesktop);
-
-        return redirect()->route('aiodesktops.createsix');
-    }
-  
-    /**
-     * Show the step One Form for creating a new product.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function createsix(Request $request)
-    {
-        $aiodesktop = $request->session()->get('aiodesktop');
-  
-        return view('aiodesktops.createsix',compact('aiodesktop'));
-    }
-  
-    /**
-     * Show the step One Form for creating a new product.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function storesix(Request $request)
-    {
-        $validatedData = $request->all();
-       
-  
-        $aiodesktop = $request->session()->get('aiodesktop');
-        //$desktop = Desktop::create($validatedData);
-        $aiodesktop -> fill($validatedData);
-        $aiodesktop->save();
-        $request->session()->forget('aiodesktop');
-  
-        return redirect()->route('aiodesktops.index');
-    }
-
+        return view('aiodesktops.showStati',compact('totalDesk','totalOsdesk','totalImageViewer','totalAiodesk','totalTablet','totalLaptop','totalPrinter',
+    'totalTvsharp','totalCardreader','totalBiometric','totalEncoremed','totalMpos'));
 }
+
+
+/**public function myfolder(){
+    $studdents = Certificate::where('user_id',auth()->user()->id)->get();
+    return view('studdents.mycerti',compact('studdents'));
+}**/
+}
+
+

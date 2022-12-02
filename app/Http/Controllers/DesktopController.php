@@ -72,7 +72,7 @@ class DesktopController extends Controller
         }
 
         Desktop::create($desktop);
-        $file->certiType=json_encode($desktop); 
+        //$file->folder=json_encode($desktop); 
    
         return redirect()->route('desktops.index')
                         ->with('success','New desktops added successfully.');
@@ -143,7 +143,71 @@ class DesktopController extends Controller
      */
     public function update(Request $request, Desktop $desktop)
     {
-        $desktop->update($request->all());
+        //$desktop->update($request->all());
+
+
+        $post = [
+        
+            'assignedTo' =>$request['assignedTo'],
+            'deviceHostname' =>$request['deviceHostname'],
+            'deviceIPaddress' =>$request['deviceIPaddress'],
+            'deviceManufacturer'=>$request['deviceManufacturer'],
+            'deviceModel'=>$request['deviceModel'],
+            'deviceSerielNumber'=>$request['deviceSerielNumber'],
+            'warrantyDate'=>$request['warrantyDate'],
+    
+            'monitorModel'=>$request['monitorModel'],
+            'monitorManufacturer'=>$request['monitorManufacturer'],
+            'monitorSize'=>$request['monitorSize'],
+            'monitorSerielNumber'=>$request['monitorSerielNumber'],
+    
+            'department'=>$request['department'],
+            'deviceLocation'=>$request['deviceLocation'],
+            'level'=>$request['level'],
+    
+            'operatingSystem'=>$request['operatingSystem'],
+            'windowVersion'=>$request['windowVersion'],
+            'msOfficeAndVersion'=>$request['msOfficeAndVersion'],
+            'officeSerielKey'=>$request['officeSerielKey'],
+            'antivirusAndVersion'=>$request['antivirusAndVersion'],
+    
+            'domain'=>$request['domain'],
+            'internetConnection'=>$request['internetConnection'],
+            'policyRebootAndShutdown'=>$request['policyRebootAndShutdown'],
+    
+            'cpu'=>$request['cpu'],
+            'monitor'=>$request['monitor'],
+            'deployment'=>$request['deployment'],
+    
+            'purchaseOrder'=>$request['purchaseOrder'],
+            'deliveryOrder'=>$request['deliveryOrder'],
+            'invoiceNo' =>$request['invoiceNo'],
+            'supplier'=>$request['supplier'],
+            'pricePerUnit'=>$request['pricePerUnit'],
+    
+           
+            
+        ];
+    
+        if($request->hasFile('image')){
+            $fileName = $request->file('image')->getClientOriginalName();
+            $path = $request->file('image')->storeAs('images',$fileName,'public');
+            $post["image"] = '/storage/'.$path; 
+    
+        }
+    
+    
+        if($request->hasFile('folder'))
+        { 
+             foreach($request->file('folder') as $file) 
+             {
+                $name=$file->getClientOriginalName();
+                $file->move('assets',$name);
+                $post['folder']='assets/'.$name;
+            }
+        }
+            $desktop->update($post);
+       
         
         return redirect()->route('desktops.index')
                         ->with('success','Desktop updated successfully');
@@ -166,233 +230,6 @@ class DesktopController extends Controller
     
     }
 
-     /**TRYING IT OUT */
-
-    public function createone(Request $request)
-    {
-        
-        $desktop = $request->session()->get('desktop');
-        return view('desktops.createone');
-    }
-
-    /**  
-     * Post Request to store step1 info in session
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function storeone(Request $request)
-    {
-        $validatedData = $request->all();
-        
-
-        
-        $fileName = $request->file('image')->getClientOriginalName();
-        $path = $request->file('image')->storeAs('images',$fileName,'public');
-        $validatedData["image"] = '/storage/'.$path; 
-       
-        if(empty($request->get('desktop'))){
-            $desktop = new Desktop();
-          //  $desktop = Desktop::create($validatedData);
-            $desktop->fill($validatedData);
-            //Desktop::create($validatedData);
-            $request->session()->put('desktop', $desktop);
-        }else{
-            $desktop = $request->get('desktop');
-            $desktop->fill($validatedData);
-            $request->session()->put('desktop', $desktop);
-        }
-  
-        return redirect()->route('desktops.createtwo');
-    }
-  
-    /**
-     * Show the step One Form for creating a new product.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function createtwo(Request $request)
-    {
-        $desktop = $request->session()->get('desktop');
-  
-        return view('desktops.createtwo',compact('desktop'));
-    }
-  
-    /**
-     * Show the step One Form for creating a new product.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function storetwo(Request $request)
-    {
-
-        $validatedData = $request->all();
-       // $validatedData = $request->validate([
-
-           // 'deviceIPaddress' => 'numeric',
-            //'deviceManufacturer' => 'required',
-            //'deviceModel' => 'required',
-            //'deviceSerielNumber' => 'required',
-            //'warrantyDate' => 'required',
-            //'monitorModel' => 'required',
-            //'monitorManufacturer' => 'required',
-           // 'monitorSize' => 'numeric',
-            //'monitorSerielNumber' => 'required',
-
-       // ]); 
-  
-        $desktop = $request->session()->get('desktop');
-        $desktop -> fill($validatedData);
-       
-        $request->session()->put('desktop', $desktop);
-  
-        return redirect()->route('desktops.createthree');
-    }
-  
-    /**
-     * Show the step One Form for creating a new product.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function createthree(Request $request)
-    {
-        $desktop = $request->session()->get('desktop');
-  
-        return view('desktops.createthree',compact('desktop'));
-    }
-  
-    /**
-     * Show the step One Form for creating a new product.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function storethree(Request $request)
-    {
-        
-        $validatedData = $request->all();
-        /**$validatedData = $request->validate([
-
-            'department' => 'required',
-            'deviceLocation' => 'required',
-            'level' => 'required',
-
-        ]); **/
-  
-        $desktop = $request->session()->get('desktop');
-        //$desktop = Desktop::create($validatedData);
-        $desktop -> fill($validatedData);
-
-        $request->session()->put('desktop', $desktop);
-  
-        return redirect()->route('desktops.createfour');
-    }
-
-
-    public function createfour(Request $request)
-    {
-        $desktop = $request->session()->get('desktop');
-  
-        return view('desktops.createfour',compact('desktop'));
-    }
-  
-    /**  
-     * Post Request to store step1 info in session
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function storefour(Request $request)
-    {
-
-        $validatedData = $request->all();
-        /**$validatedData = $request->validate([
-
-            'operatingSystem' => 'required',
-            'windowVersion' => 'required',
-            'msOfficeAndVersion' => 'required',
-
-            'officeSerielKey' => 'required',
-            'antivirusAndVersion' => 'required',
-            
-        ]); **/
-  
-        $desktop = $request->session()->get('desktop');
-        //$desktop = Desktop::create($validatedData);
-        $desktop -> fill($validatedData);
-       $request->session()->put('desktop', $desktop);
-  
-        return redirect()->route('desktops.createfive');
-    }
-  
-    /**
-     * Show the step One Form for creating a new product.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function createfive(Request $request)
-    {
-        $desktop = $request->session()->get('desktop');
-  
-        return view('desktops.createfive',compact('desktop'));
-    }
-  
-    /**
-     * Show the step One Form for creating a new product.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function storefive(Request $request)
-    {
-
-        $validatedData = $request->all();
-       
-        $desktop = $request->session()->get('desktop');
-        //$desktop = Desktop::create($validatedData);
-        $desktop -> fill($validatedData);
-        $request->session()->put('desktop', $desktop);
-
-        return redirect()->route('desktops.createsix');
-    }
-  
-    /**
-     * Show the step One Form for creating a new product.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function createsix(Request $request)
-    {
-        $desktop = $request->session()->get('desktop');
-  
-        return view('desktops.createsix',compact('desktop'));
-    }
-  
-    /**
-     * Show the step One Form for creating a new product.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function storesix(Request $request)
-    {
-        $validatedData = $request->all();
-        /**$validatedData = $request->validate([
-
-            'cpu' => 'required',
-            'monitor' => 'required',
-            'deployment' => 'required',
-
-            
-        ]); **/
-  
-        $desktop = $request->session()->get('desktop');
-        //$desktop = Desktop::create($validatedData);
-        $desktop -> fill($validatedData);
-        $desktop->save();
-        $request->session()->forget('desktop');
-  
-        return redirect()->route('desktops.index');
-    }
-
-
     public function showStati(){
         $totalDesk = Desktop ::count();
         $totalOsdesk = Osdesktop ::count();
@@ -412,15 +249,15 @@ class DesktopController extends Controller
         //$needcerti = Certificate::where('certiStatus','')->count();
         //$needjob = Job::where('jobStatus','')->count();
 
-        return view('desktops.showStati',compact('totalDesk','totalOsdesk','totalImageViewer','totalAiodesk','totalTablet','totalLaptop','totalPrinter',
+        return view('desktops.statics',compact('totalDesk','totalOsdesk','totalImageViewer','totalAiodesk','totalTablet','totalLaptop','totalPrinter',
     'totalTvsharp','totalCardreader','totalBiometric','totalEncoremed','totalMpos'));
 }
-
+}
 
 /**public function myfolder(){
     $studdents = Certificate::where('user_id',auth()->user()->id)->get();
     return view('studdents.mycerti',compact('studdents'));
 }**/
-}
+
 
 
