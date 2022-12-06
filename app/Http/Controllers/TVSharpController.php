@@ -1,11 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\DB;
 
-use App\Tvsharp;
+use App\tvsharp;
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
-class TvsharpController extends Controller
+class tvsharpController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +17,11 @@ class TvsharpController extends Controller
      */
     public function index()
     {
-        $tvsharps = Tvsharp::all();
+        $tvsharps = tvsharp::all();
+       // $selectedRole = Department::first()->id;
         //dd($tvsharps);
         return view('tvsharps.index',compact('tvsharps'));
+      
     }
 
     /**
@@ -37,32 +42,84 @@ class TvsharpController extends Controller
      */
     public function store(Request $request)
     {
-        Tvsharp::create($request->all());
+        $tvsharp = $request->all();
+        
+        if($request->hasFile('image')){
+        $fileName = $request->file('image')->getClientOriginalName();
+        $path = $request->file('image')->storeAs('images',$fileName,'public');
+        $tvsharp["image"] = '/storage/'.$path; 
+        }
+
+        if($request->hasFile('folder'))
+        { 
+             foreach($request->file('folder') as $file) 
+             {
+                $name=$file->getClientOriginalName();
+                $file->move('assets',$name);
+                $tvsharp['folder']='assets/'.$name;
+            }
+        }
+
+        tvsharp::create($tvsharp);
+        //$file->folder=json_encode($tvsharp); 
    
         return redirect()->route('tvsharps.index')
                         ->with('success','New tvsharps added successfully.');
  
     }
 
+    public function download(Request $request, $file){
+
+         return response()->download(public_path('assets/'.$file));
+     }
+
     /**
      * Display the specified resource.
      *
-     * @param  \App\Tvsharp  $tvsharp
+     * @param  \App\tvsharp  $tvsharp
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Tvsharp $tvsharp)
-    {
+    public function show(tvsharp $tvsharp )
+    { 
+   
+    $departments = DB::table('departments')->select('id')->distinct()->get()->pluck('id');
+    
         return view('tvsharps.show',compact('tvsharp'));
     }
 
+    public function studView(Request $request){
+        $skills = DB::table('jobs')->select('skill_id')->distinct()->get()->pluck('skill_id');
+        $locations = DB::table('jobs')->select('jobLocation')->distinct()->get()->pluck('jobLocation');
+        $post = Job::query();
+    
+     
+        return view('jobs.studView', [
+        'skills' => $skills,
+        'locations' => $locations,
+        //'jobs'=>$jobs,
+        'posts' => $post->get(),
+    
+        ]);
+        
+        }
+
+
+        public function viewFolder($id)
+        {
+            $data= tvsharp::find($id);
+            return view('tvsharps.viewFolder',compact('data'));
+        }
+   
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Tvsharp  $tvsharp
+     * @param  \App\tvsharp  $tvsharp
      * @return \Illuminate\Http\Response
      */
-    public function edit(Tvsharp $tvsharp)
+    public function edit(tvsharp $tvsharp)
     {
+
         return view('tvsharps.edit',compact('tvsharp'));
     }
 
@@ -70,155 +127,125 @@ class TvsharpController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Tvsharp  $tvsharp
+     * @param  \App\tvsharp  $tvsharp
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Tvsharp $tvsharp)
+    public function update(Request $request, tvsharp $tvsharp)
     {
-        $tvsharp->update($request->all());
-  
+        //$tvsharp->update($request->all());
+
+
+        $post = [
+        
+            'assignedTo' =>$request['assignedTo'],
+            'deviceHostname' =>$request['deviceHostname'],
+            'deviceIPaddress' =>$request['deviceIPaddress'],
+            'deviceManufacturer'=>$request['deviceManufacturer'],
+            'deviceModel'=>$request['deviceModel'],
+            'deviceSerielNumber'=>$request['deviceSerielNumber'],
+            'warrantyDate'=>$request['warrantyDate'],
+    
+            
+            'department'=>$request['department'],
+            'deviceLocation'=>$request['deviceLocation'],
+            'level'=>$request['level'],
+    
+            'operatingSystem'=>$request['operatingSystem'],
+            'windowVersion'=>$request['windowVersion'],
+            'msOfficeAndVersion'=>$request['msOfficeAndVersion'],
+            'officeSerielKey'=>$request['officeSerielKey'],
+            'antivirusAndVersion'=>$request['antivirusAndVersion'],
+    
+            'domain'=>$request['domain'],
+            'internetConnection'=>$request['internetConnection'],
+            'policyRebootAndShutdown'=>$request['policyRebootAndShutdown'],
+    
+            'cpu'=>$request['cpu'],
+            'monitor'=>$request['monitor'],
+            'deployment'=>$request['deployment'],
+    
+            'purchaseOrder'=>$request['purchaseOrder'],
+            'deliveryOrder'=>$request['deliveryOrder'],
+            'invoiceNo' =>$request['invoiceNo'],
+            'supplier'=>$request['supplier'],
+            'pricePerUnit'=>$request['pricePerUnit'],
+            'vendorId'=>$request['vendorId'],
+           
+            
+        ];
+    
+        if($request->hasFile('image')){
+            $fileName = $request->file('image')->getClientOriginalName();
+            $path = $request->file('image')->storeAs('images',$fileName,'public');
+            $post["image"] = '/storage/'.$path; 
+    
+        }
+    
+    
+        if($request->hasFile('folder'))
+        { 
+             foreach($request->file('folder') as $file) 
+             {
+                $name=$file->getClientOriginalName();
+                $file->move('assets',$name);
+                $post['folder']='assets/'.$name;
+            }
+        }
+            $tvsharp->update($post);
+       
+        
         return redirect()->route('tvsharps.index')
-                        ->with('success','TV Sharp updated successfully');
+                        ->with('success','tvsharp updated successfully');
    
     }
 
+  
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Tvsharp  $tvsharp
+     * @param  \App\tvsharp  $tvsharp
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Tvsharp $tvsharp)
+    public function destroy(Request $request, tvsharp $tvsharp)
     {
         $tvsharp->delete();
 
         return redirect()->route('tvsharps.index')
         ->with('success','tvsharp deleted successfully');
-   
+    
     }
 
-     /**TRYING IT OUT */
-
-     public function createone(Request $request)
-     {
-         
-         $tvsharp = $request->session()->get('tvsharp');
-         return view('tvsharps.createone');
-     }
- 
-     /**  
-      * Post Request to store step1 info in session
-      *
-      * @param  \Illuminate\Http\Request  $request
-      * @return \Illuminate\Http\Response
-      */
-     public function storeone(Request $request)
-     {
-        
-         $validatedData = $request->all();
-       
-        
-         if(empty($request->get('tvsharp'))){
-             $tvsharp = new Tvsharp();
-             $tvsharp->fill($validatedData);
-             $request->session()->put('tvsharp', $tvsharp);
-         }else{
-             $tvsharp = $request->get('tvsharp');
-             $tvsharp->fill($validatedData);
-             $request->session()->put('tvsharp', $tvsharp);
-         }
-   
-         return redirect()->route('tvsharps.createtwo');
-     }
-   
-     /**
-      * Show the step One Form for creating a new product.
-      *
-      * @return \Illuminate\Http\Response
-      */
-     public function createtwo(Request $request)
-     {
-         $tvsharp = $request->session()->get('tvsharp');
-   
-         return view('tvsharps.createtwo',compact('tvsharp'));
-     }
-   
-     /**
-      * Show the step One Form for creating a new product.
-      *
-      * @return \Illuminate\Http\Response
-      */
-     public function storetwo(Request $request)
-     {
- 
-         $validatedData = $request->all();
-        
-   
-         $tvsharp = $request->session()->get('tvsharp');
-         $tvsharp -> fill($validatedData);
-        
-         $request->session()->put('tvsharp', $tvsharp);
-   
-         return redirect()->route('tvsharps.createthree');
-     }
-   
-     /**
-      * Show the step One Form for creating a new product.
-      *
-      * @return \Illuminate\Http\Response
-      */
-     public function createthree(Request $request)
-     {
-         $tvsharp = $request->session()->get('tvsharp');
-   
-         return view('tvsharps.createthree',compact('tvsharp'));
-     }
-   
-     /**
-      * Show the step One Form for creating a new product.
-      *
-      * @return \Illuminate\Http\Response
-      */
-     public function storethree(Request $request)
-     {
-         
-         $validatedData = $request->all();
-        
-         $tvsharp = $request->session()->get('tvsharp');
-         //$tvsharp = tvsharp::create($validatedData);
-         $tvsharp -> fill($validatedData);
- 
-         $request->session()->put('tvsharp', $tvsharp);
-   
-         return redirect()->route('tvsharps.createfour');
-     }
- 
- 
-     public function createfour(Request $request)
-     {
-         $tvsharp = $request->session()->get('tvsharp');
-   
-         return view('tvsharps.createfour',compact('tvsharp'));
-     }
-   
-     /**  
-      * Post Request to store step1 info in session
-      *
-      * @param  \Illuminate\Http\Request  $request
-      * @return \Illuminate\Http\Response
-      */
-     public function storefour(Request $request)
-     {
- 
-        $validatedData = $request->all();
-        $tvsharp = $request->session()->get('tvsharp');
-        //$tvsharp = tvsharp::create($validatedData);
-        $tvsharp -> fill($validatedData);
-        $tvsharp->save();
-        $request->session()->forget('tvsharp');
-  
-        return redirect()->route('tvsharps.index');
-     }
-   
     
+
+
+    public function showStati(){
+        $totalDesk = tvsharp ::count();
+        $totalOsdesk = Ostvsharp ::count();
+        $totalImageViewer = Imageviewer ::count();
+        $totalAiodesk = Aiotvsharp ::count();
+        $totaltvsharp = tvsharp ::count();
+        $totalLaptop = Laptop ::count();
+        $totalPrinter = Printer ::count();
+        $totalTvsharp = Tvsharp ::count();
+        $totalCardreader = CardReader ::count();
+        $totalBiometric = Biometric ::count();
+        $totalEncoremed = Encoremed ::count();
+        $totalMpos = Mpos ::count();
+
+       // $getJob = Studdent::where('studStatus','0')->count();
+        //$notJob = Studdent::where('studStatus','1')->count();
+        //$needcerti = Certificate::where('certiStatus','')->count();
+        //$needjob = Job::where('jobStatus','')->count();
+
+        return view('tvsharps.showStati',compact('totalDesk','totalOsdesk','totalImageViewer','totalAiodesk','totaltvsharp','totalLaptop','totalPrinter',
+    'totalTvsharp','totalCardreader','totalBiometric','totalEncoremed','totalMpos'));
 }
+
+
+/**public function myfolder(){
+    $studdents = Certificate::where('user_id',auth()->user()->id)->get();
+    return view('studdents.mycerti',compact('studdents'));
+}**/
+}
+
+

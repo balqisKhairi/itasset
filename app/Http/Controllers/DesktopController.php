@@ -183,6 +183,7 @@ class DesktopController extends Controller
             'deliveryOrder'=>$request['deliveryOrder'],
             'invoiceNo' =>$request['invoiceNo'],
             'supplier'=>$request['supplier'],
+            'vendorId'=>$request['vendorId'],
             'pricePerUnit'=>$request['pricePerUnit'],
     
            
@@ -243,13 +244,14 @@ class DesktopController extends Controller
         $totalBiometric = Biometric ::count();
         $totalEncoremed = Encoremed ::count();
         $totalMpos = Mpos ::count();
+        //$totalUps = Ups ::count();
 
        // $getJob = Studdent::where('studStatus','0')->count();
         //$notJob = Studdent::where('studStatus','1')->count();
         //$needcerti = Certificate::where('certiStatus','')->count();
         //$needjob = Job::where('jobStatus','')->count();
 
-        return view('desktops.statics',compact('totalDesk','totalOsdesk','totalImageViewer','totalAiodesk','totalTablet','totalLaptop','totalPrinter',
+        return view('layouts.showStati',compact('totalDesk','totalOsdesk','totalImageViewer','totalAiodesk','totalTablet','totalLaptop','totalPrinter',
     'totalTvsharp','totalCardreader','totalBiometric','totalEncoremed','totalMpos'));
 }
 }

@@ -48,18 +48,17 @@ Route::get('/desktops', 'DesktopController@index')->name('desktops.index');
 Route::post('desktops/store', 'DesktopController@store')->name('desktops.store');
 Route::get('desktops/create', 'DesktopController@create')->name('desktops.create');
 
-
-
 Route::get('desktops/{desktop}/edit', 'DesktopController@edit')->name('desktops.edit');
 Route::put('desktops/{desktop}', 'DesktopController@update')->name('desktops.update');
 Route::delete('desktops/{desktop}', 'DesktopController@destroy')->name('desktops.destroy');
 Route::get('desktops/{desktop}', 'DesktopController@show')->name('desktops.show');
 //Route::get('desktops/{desktop}', 'DesktopController@show')->name('desktops.show1');
 Route::get('desktops/showStati', 'DesktopController@showStati')->name('desktops.showStati');
-Route::get('desktops/showStati', 'desktopController@showStati')->name('desktops.showStati');
+//Route::get('desktops/showStati', 'desktopController@showStati')->name('desktops.statics');
 //Route::resource('desktops', 'DesktopController');
+Route::get('/showStati', 'DesktopController@showStati');
 Route::get('desktops/viewFolder/{id}', 'DesktopController@viewFolder')->name('desktops.viewFolder');
-
+//Route::get('jobs/showStati', 'JobController@showStati')->name('jobs.showStati')
 
 // OS Desktops
 Route::get('/osdesktops', 'OsdesktopController@index')->name('osdesktops.index');
@@ -70,7 +69,7 @@ Route::put('osdesktops/{osdesktop}', 'OsdesktopController@update')->name('osdesk
 Route::delete('osdesktops/{osdesktop}', 'OsdesktopController@destroy')->name('osdesktops.destroy');
 Route::get('osdesktops/{osdesktop}', 'OsdesktopController@show')->name('osdesktops.show');
 //Route::get('osdesktops/{osdesktop}', 'OsdesktopController@show')->name('osdesktops.show1');
-Route::get('osdesktops/showStati', 'OsdesktopController@showStati')->name('osdesktops.showStati');
+//Route::get('osdesktops/showStati', 'OsdesktopController@showStati')->name('osdesktops.showStati');
 //Route::resource('osdesktops', 'OsdesktopController');
 Route::get('osdesktops/viewFolder/{id}', 'OsdesktopController@viewFolder')->name('osdesktops.viewFolder');
 
@@ -238,3 +237,21 @@ Route::get('/powers', 'powerController@index')->name('powers.index');
  Route::delete('powers/{power}', 'powerController@destroy')->name('powers.destroy');
  Route::get('powers/{power}', 'powerController@show')->name('powers.show');
  Route::get('powers/viewFolder/{id}', 'powerController@viewFolder')->name('powers.viewFolder');
+
+
+       //vendor
+Route::get('/vendors', 'vendorController@index')->name('vendors.index');
+Route::get('vendors/create', 'vendorController@create')->name('vendors.create');
+Route::post('vendors/store', 'vendorController@store')->name('vendors.store');
+Route::delete('vendors/{vendor}', 'vendorController@destroy')->name('vendors.destroy');
+Route::get('vendors/{vendor}/edit', 'vendorController@edit')->name('vendors.edit');
+Route::put('vendors/{vendor}', 'vendorController@update')->name('vendors.update');
+Route::delete('vendors/{vendor}', 'vendorController@destroy')->name('vendors.destroy');
+Route::get('vendors/{vendor}', 'vendorController@show')->name('vendors.show');
+Route::get('vendors/viewFolder/{id}', 'vendorController@viewFolder')->name('vendors.viewFolder');
+
+
+Route::get('vendors/myDevice/{id}', 'VendorController@myDevice')->name('vendors.myDevice');
+Route::get('/myDevice/{id}', 'VendorController@myDevice');
+
+

@@ -27,4 +27,11 @@ public function department(){
     return $this->belongsTo('App\Department');
 }
 
+public function vendor(){
+    //One to many(inverse)
+    return $this->belongsTo('App\Vendor');
+}
+
+
+
 }

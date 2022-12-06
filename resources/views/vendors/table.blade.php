@@ -17,6 +17,14 @@
     
 }
 
+.btn-success {
+    color: #fff;
+    background-color: #28a745;
+    border-color: #28a745;
+    box-shadow: none;
+    margin-top: 20px;
+}
+
 .tr {
     display: table-row;
     vertical-align: inherit;
@@ -31,10 +39,10 @@ tr:nth-child(odd) {
 <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>List of categorys</h2>
+                <h2>List of vendors</h2>
             </div>
             <div class="pull-right">
-                <a class="btn btn-success" href="{{ route('categorys.create') }}"> Add New categorys</a>
+                <a class="btn btn-success" href="{{ route('vendors.create') }}"> Add New vendors</a>
             </div>
         </div>
     </div>
@@ -49,25 +57,27 @@ tr:nth-child(odd) {
     <table class="table table-bordered">
     <tr class="table-active">
       <th scope="row">ID</th>
-            <th>Description</th>
-           
-           
+      
+            <th>Company Name</th>
+            <th>Email</th>
+            <th>Phone Number</th>
             <th width="500px">Action</th>
         </tr>
-        @foreach ($categorys as $s)
+       @foreach ($vendors as $s)
         <tr>
             
-            <td>{{ $s->category_id }}</td>
-            <td>{{ $s->categoryName }}</td>
-            
+            <td>{{ $s->id }}</td>
+            <td>{{ $s->companyName }}</td>
+            <td>{{ $s->companyEmail }}</td>
+            <td>{{ $s->compPhoneNum }}</td>
             <td>
-            <form action="{{ route('categorys.destroy',$s->id) }}" method="POST">
+            <form action="{{ route('vendors.destroy',$s->id) }}" method="POST">
    
-                    <a class="btn btn-info" href="{{ route('categorys.show',$s->id) }}">View Full Details</a>
+                    <a class="btn btn-info" href="{{ route('vendors.show',$s->id) }}">View Full Details</a>
     
                  
     
-                    <a class="btn btn-primary" href="{{ route('categorys.edit',$s->id) }}">Edit</a>
+                    <a class="btn btn-primary" href="{{ route('vendors.edit',$s->id) }}">Edit</a>
     
    
                     @csrf
@@ -76,6 +86,9 @@ tr:nth-child(odd) {
                     <button type="submit" onclick="return confirm('Are you sure want to delete this?')" class="btn btn-danger remove-user">Delete</button>
 
                   
+
+                    <a class="btn btn-warning" href="{{ url('myDevice',$s->id) }}">List Of Device</a>
+                    
                 </form>
             </td>
         </tr>

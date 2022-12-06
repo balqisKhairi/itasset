@@ -1,29 +1,79 @@
 @extends('layouts.template')
 @section('content')
-    <div class="row">
-        <div class="col-lg-12 margin-tb">
-            <div class="pull-left">
-                <h2> Show Category Details</h2>
-            </div>
-        </div>
-    </div>
-   
-    <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <strong>ID:</strong>
-                {{ $category->category_id }}
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <strong>Description:</strong>
-                {{ $category->categoryName }}
-            </div>
-        </div>
+    <style>
+.btn-primary1  {
+  background-color: #38acff;
+  border: none;
+  color: black;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin-top: 15px;
+  cursor: pointer;
+}
+
+.flex-parent {
+  display: flex;
+}
+
+
+.table-below{
+  background-color: #dcf2ff;
+}
+
+
+.table-warning, .table-warning>td, .table-warning>th {
+    background-color: #a6deff;
+}
+
+.jc-center {
+  justify-content: center;
+}
+
+.btn-primary1:hover {
+  background-color: #555555;
+  color: white;
+
+}
+
+.card-header{
+    color: black;
+}
+
+.table table-hover{
+    
+}
+</style>
+
+
+<div class="card mb-3">
+  <h3 class="card-header" align="center" >Category Details</h3>
+  <div class="card-body">
+  <table class="table table-hover">
+  
+  <tbody>
+    <tr >
+      <th scope="row">ID :</th>
+      <td>{{ $category->category_id }}</td>
       
-        <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('categorys.index') }}"> Back</a>
-        </div>
+    </tr>
+    <tr class="table-below">
+      <th scope="row">Description :</th>
+      <td>  {{ $category->categoryName }}</td>
+     
+    </tr>
+   
+   
+  </tbody>
+</table>
+
+
+<div class="flex-parent jc-center">
+  <button class="btn btn-primary1 " type="button" onclick="history.back()">BACK</button>
+ 
+</div>
     </div>
+</div>
 @endsection

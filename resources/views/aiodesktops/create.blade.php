@@ -6,7 +6,7 @@
 .form-control {
     
     color: #000000;
-    background-color: #dee2e6;
+    background-color: #ddeeff;
     
 }
 
@@ -317,8 +317,13 @@
                                 <input type="text"  value="{{{ $aiodesktop->noInvoice ?? '' }}}" class="form-control"  name="noInvoice"/>
                             </div>
                             <div class="form-group">
-                                <label for="description">Supplier:</label>
-                                <input type="text"  value="{{{ $aiodesktop->supplier ?? '' }}}" class="form-control"  name="supplier"/>
+                            <label> Supplier&nbsp; &nbsp; </label>
+                                <select name="vendorId" id="vendorId" class="form-control">
+                                <option value="" readonly> --SELECT--</option>
+                                @foreach(App\Vendor::all() ->sortBy('companyName') as $cat)
+                                <option value="{{$cat->id}}">{{$cat->companyName}}</option>
+                                @endforeach
+                            </select>
                             </div>
                             <div class="form-group">
                                 <label for="description">Price Per Unit(RM):</label>

@@ -11,7 +11,9 @@
     }
 
     .layout-fixed .main-sidebar {
-    background-color: #002a56;
+    background-color:#3b92dd;
+    
+
 }
 
 .inline-block {
@@ -19,8 +21,62 @@
 
 }
 
+.font-weight-light {
+    color: black;
+    font-weight: 300!important;
+    font-family: serif;
+}
+
+.sidebar {
+    
+  background-color: #0089d9 !important;
+
+}
 .navbar-light .navbar-nav .nav-link {
     color: rgb(0 0 0);
+}
+
+
+.nav-sidebar .nav-link p {
+    display: inline;
+    margin: 0;
+    white-space: normal;
+    color: black;
+}
+
+.nav-sidebar>.nav-item .nav-icon {
+    margin-left: 0.05rem;
+    font-size: 1.2rem;
+    margin-right: 0.2rem;
+    text-align: center;
+    width: 1.6rem;
+    color: black;
+}
+
+.fa, .fab, .fad, .fal, .far, .fas {
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    line-height: 1;
+    color: black;
+}
+
+.sidebar-user__title {
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 0.75px;
+    color: #4e4c4c;
+}
+
+.sidebar-user__subtitle {
+    font-weight: 500;
+    font-size: 10px;
+    line-height: 1.5;
+    letter-spacing: 0.86px;
+    color: #ffffff;
 }
     </style>
  
@@ -47,6 +103,13 @@
   <link rel="stylesheet" href="{{ asset('admin/plugins/daterangepicker/daterangepicker.css') }}">
   <!-- summernote -->
   <link rel="stylesheet" href="{{ asset('admin/plugins/summernote/summernote-bs4.min.css') }}">
+
+
+
+ 
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="{{ asset('admin3/./css/style.css') }}">
+
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -72,11 +135,9 @@
                         <!-- Authentication Links -->
                        
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="index3.html" class="nav-link">Home</a>
+        <a href="{{ route('home') }}" class="nav-link">Home</a>
       </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">Contact</a>
-      </li>
+     
 
                         @guest
                             <li class="nav-item">
@@ -115,7 +176,7 @@
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
+    <a href="{{ url('home') }}" class="brand-link">
       <img src="{{ asset('admin/dist/img/logo1.jpeg') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-light">IT ASSET</span>
     </a>
@@ -124,21 +185,26 @@
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
-          <img src="{{ asset('admin/dist/img/avatar5.png') }}" class="img-circle elevation-2" alt="User Image">
-        </div>
-        <div class="info">
-          <a href="#" class="d-block"> {{ Auth::user()->name }}</a>
-        </div>
-      </div>
+       
+                <a href="##" class="sidebar-user">
+                    <span class="sidebar-user-img">
+                <picture><source srcset="" type="image/webp"><img src='https://icons.iconarchive.com/icons/diversity-avatars/avatars/1024/batman-icon.png' alt="User name"></picture>
+            </span>
+                    <div class="sidebar-user-info">
+                        <span class="sidebar-user__title">{{ Auth::user()->name }}</span>
+                        <span class="sidebar-user__subtitle">Support Admin</span>
+                    </div>
+                </a>
+            </div>
 
+            
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item">
-            <a href="{{ route('desktops.showStati') }}" class="nav-link">
+            <a href="{{ url('showStati') }}" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
@@ -256,7 +322,7 @@
           </li>
          
           <li class="nav-item">
-            <a href=""class="nav-link">
+            <a href="{{ route('vendors.index') }}"class="nav-link">
               <i class="nav-icon fa fa-users"></i>
               <p>
                 Vendor
@@ -354,5 +420,15 @@
 <script src="{{ asset('admin/dist/js/demo.js') }}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{ asset('admin/dist/js/pages/dashboard.js') }}"></script>
+
+
+
+
+ <!-- Chart library -->
+ <script src="{{ asset('admin3/./plugins/chart.min.js') }}"></script>
+    <!-- Icons library -->
+    <script src="{{ asset('admin3/plugins/feather.min.js') }}"></script>
+    <!-- Custom scripts -->
+    <script src="{{ asset('admin3/js/script.js') }}"></script>
 </body>
 </html>

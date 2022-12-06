@@ -6,7 +6,7 @@
 .form-control {
     
     color: #000000;
-    background-color: #dee2e6;
+    background-color: #ddeeff;
     
 }
 
@@ -285,9 +285,14 @@
                                 <input type="text"  value="{{{ $mpos->invoiceNo ?? '' }}}" class="form-control"  name="invoiceNo"/>
                             </div>
                             <div class="form-group">
-                                <label for="description">Supplier:</label>
-                                <input type="text"  value="{{{ $mpos->supplier ?? '' }}}" class="form-control"  name="supplier"/>
-                            </div>
+                   <label> Supplier&nbsp; &nbsp; </label>
+                    <select name="vendorId" id="vendorId" class="form-control">
+                    <option value="" readonly> --SELECT--</option>
+                    @foreach(App\Vendor::all() ->sortBy('companyName') as $cat)
+                    <option value="{{$cat->id}}">{{$cat->companyName}}</option>
+                    @endforeach
+                </select>
+                </div>
                             <div class="form-group">
                                 <label for="description">Price Per Unit(RM):</label>
                                 <input type="text"  value="{{{ $mpos->pricePerUnit ?? '' }}}" class="form-control"  name="pricePerUnit" placeholder="RM 000.00"/>

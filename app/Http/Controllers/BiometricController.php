@@ -171,7 +171,7 @@ class biometricController extends Controller
             'supplier'=>$request['supplier'],
             'pricePerUnit'=>$request['pricePerUnit'],
             'statusAsset'=>$request['statusAsset'],
-           
+            'vendorId'=>$request['vendorId'],
             
         ];
     

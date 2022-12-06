@@ -163,7 +163,7 @@ class printerController extends Controller
             'pricePerUnit'=>$request['pricePerUnit'],
             'statusAsset'=>$request['statusAsset'],
            
-            
+            'vendorId'=>$request['vendorId'],
         ];
     
         if($request->hasFile('image')){

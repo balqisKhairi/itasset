@@ -300,9 +300,14 @@
                                 <input type="text"  value="{{{ $tablet->invoiceNo }}}" class="form-control"  name="invoiceNo"/>
                             </div>
                             <div class="form-group">
-                                <label for="description">Supplier:</label>
-                                <input type="text"  value="{{{ $tablet->supplier }}}" class="form-control"  name="supplier"/>
-                            </div>
+                   <label> Supplier&nbsp; &nbsp; </label>
+                    <select name="vendorId" id="vendorId" class="form-control">
+                    <option value=""> --SELECT--</option>
+                    @foreach(App\Vendor::all() ->sortBy('companyName') as $cat)
+                    <option value="{{$cat->id}}">{{$cat->companyName}}</option>
+                    @endforeach
+                    </select>
+                    </div>
                             <div class="form-group">
                                 <label for="description">Price Per Unit(RM):</label>
                                 <input type="text"  value="{{{ $tablet->pricePerUnit }}}" class="form-control"  name="pricePerUnit" placeholder="RM 000.00"/>

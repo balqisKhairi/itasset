@@ -17,6 +17,14 @@
     
 }
 
+
+.btn-success {
+    color: #fff;
+    background-color: #28a745;
+    border-color: #28a745;
+    box-shadow: none;
+    margin-top: 20px;
+}
 .tr {
     display: table-row;
     vertical-align: inherit;

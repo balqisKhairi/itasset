@@ -27,6 +27,14 @@
 tr:nth-child(odd) {
   background-color: #D6EEEE;
 }
+
+.btn-success {
+    color: #fff;
+    background-color: #28a745;
+    border-color: #28a745;
+    box-shadow: none;
+    margin-top: 20px;
+}
     </style>
 <div class="row">
         <div class="col-lg-12 margin-tb">
@@ -75,13 +83,15 @@ tr:nth-child(odd) {
                  
     
                     <a class="btn btn-primary" href="{{ route('desktops.edit',$s->id) }}">Edit</a>
-    
+                   
    
                     @csrf
                     @method('DELETE')
       
                     <button type="submit" onclick="return confirm('Are you sure want to delete this?')" class="btn btn-danger remove-user">Delete</button>
 
+
+                   
                   
                 </form>
             </td>

@@ -24,6 +24,14 @@
     background-color: black;
 }
 
+.btn-success {
+    color: #fff;
+    background-color: #28a745;
+    border-color: #28a745;
+    box-shadow: none;
+    margin-top: 20px;
+}
+
 tr:nth-child(odd) {
   background-color: #D6EEEE;
 }

@@ -27,6 +27,14 @@
 tr:nth-child(odd) {
   background-color: #D6EEEE;
 }
+
+.btn-success {
+    color: #fff;
+    background-color: #28a745;
+    border-color: #28a745;
+    box-shadow: none;
+    margin-top: 20px;
+}
     </style>
 <div class="row">
         <div class="col-lg-12 margin-tb">

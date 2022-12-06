@@ -169,7 +169,7 @@ class mposController extends Controller
             'invoiceNo' =>$request['invoiceNo'],
             'supplier'=>$request['supplier'],
             'pricePerUnit'=>$request['pricePerUnit'],
-    
+            'vendorId'=>$request['vendorId'],
            
             
         ];

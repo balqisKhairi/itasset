@@ -184,7 +184,7 @@ class encoremedController extends Controller
             'noInvoice' =>$request['noInvoice'],
             'supplier'=>$request['supplier'],
             'pricePerUnit'=>$request['pricePerUnit'],
-    
+            'vendorId'=>$request['vendorId'],
            
             
         ];

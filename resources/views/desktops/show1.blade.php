@@ -489,9 +489,10 @@ a {
                 </td>
                 </tr>
 
+                
                 <tr>
                 <th scope="row">Supplier:</th>
-                <td>{{ $desktop->supplier }}</td>
+                <td>{{ $desktop->vendorId }}</td>
                 </tr>
 
                 <tr class="table-warning"> 
