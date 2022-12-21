@@ -300,7 +300,7 @@ a {
                  
                 <tr class="table-warning"> 
                 <th scope="row">Department:</th>
-                <td> {{ $cardReader->department }}</td>
+                <td> {{ $cardReader->department->departName }}</td>
                 </tr>
 
                 <tr>
@@ -388,7 +388,7 @@ a {
 
                 <tr>
                 <th scope="row">Supplier:</th>
-                <td>{{ $cardReader->supplier }}</td>
+                <td>{{ $cardReader->vendor->companyName}}</td>
                 </tr>
 
                 <tr class="table-warning"> 

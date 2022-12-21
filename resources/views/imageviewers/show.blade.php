@@ -337,7 +337,7 @@ a {
                  
                 <tr class="table-warning"> 
                 <th scope="row">Department:</th>
-                <td> </td>
+                <td> {{ $imageviewer->department->departName}}</td>
                 </tr>
 
                 <tr>
@@ -491,7 +491,7 @@ a {
 
                 <tr>
                 <th scope="row">Supplier:</th>
-                <td>{{ $imageviewer->supplier }}</td>
+                <td>{{ $imageviewer->vendor->companyName }}</td>
                 </tr>
 
                 <tr class="table-warning"> 

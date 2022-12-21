@@ -10,13 +10,20 @@ class Tablet extends Model
 
 
     public function department(){
-        //One to many(inverse)
-        return $this->belongsTo('App\Department');
+        return $this->belongsTo('App\Department')
+        ->withDefault([
+            'department_id' => '-',
+        ]);
     }
     
+    
+    
     public function vendor(){
-        //One to many(inverse)
-        return $this->belongsTo('App\Vendor');
+        return $this->belongsTo('App\Vendor')
+    
+        ->withDefault([
+            'vendor_id' => '-',
+        ]);
     }
     
 

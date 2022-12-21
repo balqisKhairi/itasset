@@ -288,7 +288,7 @@ a {
                  
                 <tr class="table-warning"> 
                 <th scope="row">Department:</th>
-                <td> </td>
+                <td>{{ $printer->department->departName }} </td>
                 </tr>
 
                 <tr>
@@ -397,7 +397,7 @@ a {
 
                 <tr>
                 <th scope="row">Supplier:</th>
-                <td>{{ $printer->supplier }}</td>
+                <td>{{ $printer->vendor->companyName }}</td>
                 </tr>
 
                 <tr class="table-warning"> 

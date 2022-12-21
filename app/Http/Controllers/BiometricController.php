@@ -15,6 +15,7 @@ use App\Printer;
 use App\Tablet;
 use App\Tvsharp;
 use App\Department;
+use App\Power;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
@@ -156,7 +157,7 @@ class biometricController extends Controller
             'warrantyDate'=>$request['warrantyDate'],
     
           
-            'department'=>$request['department'],
+            'department_id'=>$request['department_id'],
             'deviceLocation'=>$request['deviceLocation'],
             'level'=>$request['level'],
     
@@ -171,7 +172,7 @@ class biometricController extends Controller
             'supplier'=>$request['supplier'],
             'pricePerUnit'=>$request['pricePerUnit'],
             'statusAsset'=>$request['statusAsset'],
-            'vendorId'=>$request['vendorId'],
+            'vendor_id'=>$request['vendor_id'],
             
         ];
     

@@ -145,15 +145,13 @@
                     
                     <div class="form-group">
                    <label> Department&nbsp; &nbsp; </label>
-                    <select name="department" id="skill_filter" class="form-control">
+                    <select name="department_id" id="skill_filter" class="form-control">
                     <option value=""> --SELECT--</option>
                     @foreach(App\Department::all() ->sortBy('departName') as $cat)
-                    <option value="{{$cat->id}}">{{$cat->departName}}</option>
+                    <option value="{{$cat->id}}" {{$encoremed->department_id == $cat->id  ? 'selected' : ''}}>{{$cat->departName}}</option>
                     @endforeach
-
-
-                </select>
-</div>
+                    </select>
+                    </div>
 
                             <div class="form-group">
                                 <label for="title">Device Location:</label>
@@ -324,15 +322,19 @@
                                 <label for="description">Invoice No:</label>
                                 <input type="text"  value="{{{ $encoremed->noInvoice }}}" class="form-control"  name="noInvoice"/>
                             </div>
+                           
+                            
                             <div class="form-group">
-                   <label> Supplier&nbsp; &nbsp; </label>
-                    <select name="vendorId" id="vendorId" class="form-control">
-                    <option value=""> --SELECT--</option>
-                    @foreach(App\Vendor::all() ->sortBy('companyName') as $cat)
-                    <option value="{{$cat->id}}">{{$cat->companyName}}</option>
-                    @endforeach
-                    </select>
-                    </div>
+                            <label> Supplier&nbsp; &nbsp; </label>
+                                <select name="vendor_id" id="vendor_id" class="form-control">
+                                <option value=""> --SELECT--</option>
+                                @foreach(App\Vendor::all() ->sortBy('companyName') as $cat)
+                                <option value="{{$cat->id}}" {{$encoremed->vendor_id == $cat->id  ? 'selected' : ''}}>{{$cat->companyName}}</option>
+                                @endforeach
+                                </select>
+                                </div>
+
+
                             <div class="form-group">
                                 <label for="description">Price Per Unit(RM):</label>
                                 <input type="text"  value="{{{ $encoremed->pricePerUnit }}}" class="form-control"  name="pricePerUnit" placeholder="RM 000.00"/>
@@ -342,9 +344,17 @@
                            
 
                             <div class="form-group">
-                                <label for="description">File:</label>
-                                <input type="file"  value="{{ asset($encoremed->folder) }}" class="form-control"  name="folder[]" multiple/>
+                                <label for="folder">File:</label>
+                                <input class="form-control "  id="folder" name="folder" value="{{$encoremed->folder}}" src="{{ asset($encoremed->folder) }}"type="file" onchange="loadFile(event)"/>
                             </div>
+
+                            <div class="form-group avatar">
+                                <figure class="figure col-md-2 col-sm-3 col-xs-12">
+                                    <img class="img-rounded img-responsive" id="output" height="100%" width="100%" style="width:100%;" src="{{ asset($encoremed->folder) }}" alt="">
+                                </figure>
+</div>
+
+              </div>
 
                        
 </div>
@@ -364,6 +374,12 @@
 var loadFile = function (event) {
   var image = document.getElementById("output");
   image.src = URL.createObjectURL(event.target.files[0]);
+};
+
+
+var loadFile = function (event) {
+  var folder = document.getElementById("output");
+  folder.src = URL.createObjectURL(event.target.files[0]);
 };
 </script>
 

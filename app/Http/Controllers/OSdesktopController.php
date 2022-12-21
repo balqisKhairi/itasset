@@ -111,7 +111,7 @@ class osdesktopController extends Controller
         'monitorSize'=>$request['monitorSize'],
         'monitorSerielNumber'=>$request['monitorSerielNumber'],
 
-        'department'=>$request['department'],
+        'department_id'=>$request['department_id'],
         'deviceLocation'=>$request['deviceLocation'],
         'level'=>$request['level'],
 
@@ -138,7 +138,7 @@ class osdesktopController extends Controller
         'pricePerUnit'=>$request['pricePerUnit'],
 
         'statusAsset' =>$request['statusAsset'],
-        'vendorId'=>$request['vendorId'],
+        'vendor_id'=>$request['vendor_id'],
     ];
 
     if($request->hasFile('image')){

@@ -120,15 +120,14 @@
                     
                     <div class="form-group">
                    <label> Department&nbsp; &nbsp; </label>
-                    <select name="department" id="skill_filter" class="form-control">
+                    <select name="department_id" id="skill_filter" class="form-control">
                     <option value=""> --SELECT--</option>
                     @foreach(App\Department::all() ->sortBy('departName') as $cat)
-                    <option value="{{$cat->id}}">{{$cat->departName}}</option>
+                    <option value="{{$cat->id}}" {{$tablet->department_id == $cat->id  ? 'selected' : ''}}>{{$cat->departName}}</option>
                     @endforeach
+                    </select>
+                    </div>
 
-
-                </select>
-</div>
 
                             <div class="form-group">
                                 <label for="title">Device Location:</label>
@@ -299,13 +298,15 @@
                                 <label for="description">Invoice No:</label>
                                 <input type="text"  value="{{{ $tablet->invoiceNo }}}" class="form-control"  name="invoiceNo"/>
                             </div>
+                            
+                            
                             <div class="form-group">
                    <label> Supplier&nbsp; &nbsp; </label>
-                    <select name="vendorId" id="vendorId" class="form-control">
+                    <select name="vendor_id" id="vendor_id" class="form-control">
                     <option value=""> --SELECT--</option>
                     @foreach(App\Vendor::all() ->sortBy('companyName') as $cat)
-                    <option value="{{$cat->id}}">{{$cat->companyName}}</option>
-                    @endforeach
+                    <option value="{{$cat->id}}" {{$tablet->vendor_id == $cat->id  ? 'selected' : ''}}>{{$cat->companyName}}</option>
+                     @endforeach
                     </select>
                     </div>
                             <div class="form-group">

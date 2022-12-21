@@ -15,8 +15,6 @@ class Tvsharp extends Model
     }
     
     public function vendor(){
-        //One to many(inverse)
-        return $this->belongsTo('App\Vendor');
+        return $this->belongsTo(Vendor::class);
     }
-    
 }

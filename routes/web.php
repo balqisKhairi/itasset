@@ -57,6 +57,7 @@ Route::get('desktops/showStati', 'DesktopController@showStati')->name('desktops.
 //Route::get('desktops/showStati', 'desktopController@showStati')->name('desktops.statics');
 //Route::resource('desktops', 'DesktopController');
 Route::get('/showStati', 'DesktopController@showStati');
+
 Route::get('desktops/viewFolder/{id}', 'DesktopController@viewFolder')->name('desktops.viewFolder');
 //Route::get('jobs/showStati', 'JobController@showStati')->name('jobs.showStati')
 
@@ -251,7 +252,21 @@ Route::get('vendors/{vendor}', 'vendorController@show')->name('vendors.show');
 Route::get('vendors/viewFolder/{id}', 'vendorController@viewFolder')->name('vendors.viewFolder');
 
 
-Route::get('vendors/myDevice/{id}', 'VendorController@myDevice')->name('vendors.myDevice');
-Route::get('/myDevice/{id}', 'VendorController@myDevice');
+//Route::get('vendors/myDevice/{id}', 'VendorController@myDevice')->name('vendors.myDevice');
+Route::get('/myDevice/{vendor}', 'VendorController@myDevice');
+//Route::get('vendors/{vendor}', 'vendorController@myDevice')->name('vendors.myDevice');
 
+//account
+Route::get('/accounts', 'accountController@index')->name('accounts.index');
+ Route::get('accounts/create', 'accountController@create')->name('accounts.create');
+ Route::post('accounts/store', 'accountController@store')->name('accounts.store');
+ Route::delete('accounts/{account}', 'accountController@destroy')->name('accounts.destroy');
+ Route::get('accounts/{account}/edit', 'accountController@edit')->name('accounts.edit');
+ Route::put('accounts/{account}', 'accountController@update')->name('accounts.update');
+ Route::delete('accounts/{account}', 'accountController@destroy')->name('accounts.destroy');
+ Route::get('accounts/{account}', 'accountController@show')->name('accounts.show');
+ //Route::get('accounts/viewFolder/{id}', 'accountController@viewFolder')->name('accounts.viewFolder');
+ Route::get('accounts/myAcc', 'AccountController@myAcc')->name('accounts.myAcc');
+ Route::get('/myAcc', 'AccountController@myAcc');
 
+ 

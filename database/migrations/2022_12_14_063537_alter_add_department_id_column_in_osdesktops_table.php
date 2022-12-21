@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AlterAddVendorIdColumnInLaptopsTable extends Migration
+class AlterAddDepartmentIdColumnInOsdesktopsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class AlterAddVendorIdColumnInLaptopsTable extends Migration
      */
     public function up()
     {
-        Schema::table('laptops', function (Blueprint $table) {
-            $table->unsignedInteger('vendorId')->nullable()->after('id');
-
+        Schema::table('osdesktops', function (Blueprint $table) {
+            $table->unsignedInteger('department_id')->nullable()->after('warrantyDate');
+           
         });
     }
 
@@ -26,7 +26,7 @@ class AlterAddVendorIdColumnInLaptopsTable extends Migration
      */
     public function down()
     {
-        Schema::table('laptops', function (Blueprint $table) {
+        Schema::table('osdesktops', function (Blueprint $table) {
             //
         });
     }

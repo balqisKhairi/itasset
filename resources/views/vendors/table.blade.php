@@ -4,7 +4,33 @@
   
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
    
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+
+
+  <script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
+
 <style>
+
+    
+input {
+    border-radius: 6px;
+    background-color: #eff0f6;
+    border-width: 0;
+    min-height: 40px;
+    border: solid #98c1eb 2px !important;
+}
+
+
     .tr{
         color:white;
     }
@@ -32,17 +58,23 @@
     background-color: black;
 }
 
-tr:nth-child(odd) {
+tbody:nth-child(odd) {
   background-color: #D6EEEE;
 }
-    </style>
-<div class="row">
+</style>
+      <body>
+      <div class="row">
         <div class="col-lg-12 margin-tb">
-            <div class="pull-left">
-                <h2>List of vendors</h2>
+            <div>
+                <h2>List of Vendors</h2>
             </div>
-            <div class="pull-right">
-                <a class="btn btn-success" href="{{ route('vendors.create') }}"> Add New vendors</a>
+            <div>
+                <a class="btn btn-success" href="{{ route('vendors.create') }}"> Add New Vendor</a>
+            
+                <br></br>
+              <div class="form-group">
+              <input id="myInput" type="text"  class="form-control" placeholder="Search..">
+ 
             </div>
         </div>
     </div>
@@ -53,7 +85,8 @@ tr:nth-child(odd) {
             <p>{{ $message }}</p>
         </div>
     @endif
-   
+
+  
     <table class="table table-bordered">
     <tr class="table-active">
       <th scope="row">ID</th>
@@ -63,7 +96,10 @@ tr:nth-child(odd) {
             <th>Phone Number</th>
             <th width="500px">Action</th>
         </tr>
-       @foreach ($vendors as $s)
+     
+        @if(!empty($vendors) && $vendors->count())
+       @foreach ($vendors as $key => $s)
+       <tbody id="myTable">
         <tr>
             
             <td>{{ $s->id }}</td>
@@ -93,6 +129,15 @@ tr:nth-child(odd) {
             </td>
         </tr>
         @endforeach
-
+        @else
+        <tr>
+                    <td colspan="10">There are no data.</td>
+                </tr>
+            @endif
+</tbody>
     </table>
+ 
+    </body>
+</html>
+
 @endsection

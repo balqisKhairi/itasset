@@ -138,7 +138,7 @@
                     
                     <div class="form-group">
                    <label> Department&nbsp; &nbsp; </label>
-                    <select name="department" id="skill_filter" class="form-control">
+                    <select name="department_id" id="skill_filter" class="form-control">
                     <option value=""> --SELECT--</option>
                     @foreach(App\Department::all() ->sortBy('departName') as $cat)
                     <option value="{{$cat->id}}">{{$cat->departName}}</option>
@@ -318,7 +318,7 @@
                             </div>
                             <div class="form-group">
                    <label> Supplier&nbsp; &nbsp; </label>
-                    <select name="vendorId" id="vendorId" class="form-control">
+                    <select name="vendor_id" id="vendor_id" class="form-control">
                     <option value="" readonly> --SELECT--</option>
                     @foreach(App\Vendor::all() ->sortBy('companyName') as $cat)
                     <option value="{{$cat->id}}">{{$cat->companyName}}</option>

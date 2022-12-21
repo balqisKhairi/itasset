@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AlterAddVendorIdColumnInOsdesktopsTable extends Migration
+class AlterAddVendorIdColumnInImageViewersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AlterAddVendorIdColumnInOsdesktopsTable extends Migration
      */
     public function up()
     {
-        Schema::table('osdesktops', function (Blueprint $table) {
-            $table->unsignedInteger('vendorId')->nullable()->after('id');
+        Schema::table('image_viewers', function (Blueprint $table) {
+            $table->unsignedInteger('vendor_id')->nullable()->after('id');
 
         });
     }
@@ -26,7 +26,7 @@ class AlterAddVendorIdColumnInOsdesktopsTable extends Migration
      */
     public function down()
     {
-        Schema::table('osdesktops', function (Blueprint $table) {
+        Schema::table('image_viewers', function (Blueprint $table) {
             //
         });
     }

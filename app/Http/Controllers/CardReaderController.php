@@ -157,7 +157,7 @@ class cardReaderController extends Controller
             'warrantyDate'=>$request['warrantyDate'],
     
           
-            'department'=>$request['department'],
+            'department_id'=>$request['department_id'],
             'deviceLocation'=>$request['deviceLocation'],
             'level'=>$request['level'],
     
@@ -173,7 +173,7 @@ class cardReaderController extends Controller
             'pricePerUnit'=>$request['pricePerUnit'],
             'statusAsset'=>$request['statusAsset'],
            
-            'vendorId'=>$request['vendorId'],
+            'vendor_id'=>$request['vendor_id'],
         ];
     
         if($request->hasFile('image')){

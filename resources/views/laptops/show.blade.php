@@ -289,7 +289,7 @@ a {
                  
                 <tr class="table-warning"> 
                 <th scope="row">Department:</th>
-                <td> {{ $laptop->department }}</td>
+                <td> {{ $laptop->department->departName}}</td>
                 </tr>
 
                 <tr>
@@ -443,7 +443,7 @@ a {
 
                 <tr>
                 <th scope="row">Supplier:</th>
-                <td>{{ $laptop->supplier }}</td>
+                <td>{{ $laptop->vendor->companyName }}</td>
                 </tr>
 
                 <tr class="table-warning"> 

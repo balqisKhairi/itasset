@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AlterAddVendorIdColumnInMposTable extends Migration
+class AlterAddEmailColumnInAccountsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AlterAddVendorIdColumnInMposTable extends Migration
      */
     public function up()
     {
-        Schema::table('mpos', function (Blueprint $table) {
-            $table->unsignedInteger('vendorId')->nullable()->after('id');
+        Schema::table('accounts', function (Blueprint $table) {
+            $table->string('email')->nullable()->after('password');
 
         });
     }
@@ -26,7 +26,7 @@ class AlterAddVendorIdColumnInMposTable extends Migration
      */
     public function down()
     {
-        Schema::table('mpos', function (Blueprint $table) {
+        Schema::table('accounts', function (Blueprint $table) {
             //
         });
     }

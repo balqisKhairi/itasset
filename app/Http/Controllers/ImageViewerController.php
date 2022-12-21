@@ -111,7 +111,7 @@ class imageviewerController extends Controller
         'monitorSize'=>$request['monitorSize'],
         'monitorSerielNumber'=>$request['monitorSerielNumber'],
 
-        'department'=>$request['department'],
+        'department_id'=>$request['department_id'],
         'deviceLocation'=>$request['deviceLocation'],
         'level'=>$request['level'],
 
@@ -135,7 +135,7 @@ class imageviewerController extends Controller
         'invoiceNo' =>$request['invoiceNo'],
         'supplier'=>$request['supplier'],
         'pricePerUnit'=>$request['pricePerUnit'],
-        'vendorId'=>$request['vendorId'],
+        'vendor_id'=>$request['vendor_id'],
         
     ];
 

@@ -289,7 +289,7 @@ a {
                  
                 <tr class="table-warning"> 
                 <th scope="row">Department:</th>
-                <td> {{ $mpos->department }}</td>
+                <td> {{ $mpos->department->departName }}</td>
                 </tr>
 
                 <tr>
@@ -434,7 +434,7 @@ a {
                 </tr>
 
                 <tr class="table-warning"> 
-                <th scope="row">Invoive No:</th>
+                <th scope="row">Invoice No:</th>
                 <td>
                 <a href ="{{ route('mposs.viewFolder',$mpos->id) }}">{{ $mpos->invoiceNo }}</a>    
               
@@ -443,7 +443,7 @@ a {
 
                 <tr>
                 <th scope="row">Supplier:</th>
-                <td>{{ $mpos->supplier }}</td>
+                <td>{{ $mpos->vendor->companyName }}</td>
                 </tr>
 
                 <tr class="table-warning"> 

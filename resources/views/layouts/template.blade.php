@@ -71,6 +71,10 @@
     color: #4e4c4c;
 }
 
+.content-wrapper {
+    background-color: #e9f2ff;
+}
+
 .sidebar-user__subtitle {
     font-weight: 500;
     font-size: 10px;
@@ -104,7 +108,7 @@
   <!-- summernote -->
   <link rel="stylesheet" href="{{ asset('admin/plugins/summernote/summernote-bs4.min.css') }}">
 
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
  
     <!-- Custom styles -->
@@ -168,6 +172,22 @@
                             </li>
                         @endguest
     </ul>
+
+
+
+    <div class="d-none d-sm-block topbar-divider"></div>
+                            <li class="nav-item dropdown no-arrow">
+                                <div class="nav-item dropdown no-arrow">
+                                    <a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#">
+                                    <span class="d-none d-lg-inline me-2 text-gray-600 small" style="color: rgb(0,0,0);font-size: 15px;"> {{ Auth::user()->name }}<br>  {{ Auth::user()->email }}</span>
+                                    <img class="border rounded-circle img-profile"  src="{{ asset('hai2/assets/img/avatars/profile.jpg') }}"></a>
+
+
+                                    <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in">
+                                        <a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Logout</a>
+                                    </div>
+                                </div>
+                            </li>
   </nav>
   <!-- /.navbar -->
 
@@ -186,7 +206,7 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
        
-                <a href="##" class="sidebar-user">
+                <a href="{{ url('myAcc') }}" class="sidebar-user">
                     <span class="sidebar-user-img">
                 <picture><source srcset="" type="image/webp"><img src='https://icons.iconarchive.com/icons/diversity-avatars/avatars/1024/batman-icon.png' alt="User name"></picture>
             </span>
@@ -329,6 +349,23 @@
               </p>
             </a>
           </li>  
+
+
+          <li class="nav-item">
+            <a href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();" class="nav-link">
+                                  
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" >
+                                    @csrf
+                                    </form>
+              <i class="nav-icon fa fa-sign-out" ></i>
+              <p>
+                Logout
+              </p>
+            </a>
+          </li>  
+
+
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -368,7 +405,7 @@
     </section>
     <!-- /.content -->
   </div>
-  <br></br>
+ 
   <!-- /.content-wrapper -->
   <footer class="main-footer">
     <strong>Copyright &copy; 2022 IT Department KPJBP</a>.</strong>

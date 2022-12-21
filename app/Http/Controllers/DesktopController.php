@@ -16,8 +16,12 @@ use App\Printer;
 use App\Tablet;
 use App\Tvsharp;
 use App\Department;
+use App\Power;
+use App\Vendor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+Use Illuminate\Support\Facades\Input;
+
 
 class DesktopController extends Controller
 {
@@ -26,15 +30,20 @@ class DesktopController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+  
+
     public function index()
     {
         $desktops = Desktop::all();
+       //$desktops= Desktop::with('department','vendor')->get();
+       //$desktops= Desktop::with('department','vendor')->get();
        // $selectedRole = Department::first()->id;
         //dd($desktops);
-        return view('desktops.index',compact('desktops'));
-      
+       
+       return view('desktops.index',compact('desktops'));
+       
     }
-
+  
     /**
      * Show the form for creating a new resource.
      *
@@ -91,29 +100,18 @@ class DesktopController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Desktop $desktop )
+
+
+
+    public function show( Desktop $desktop)
     { 
-   
-    $departments = DB::table('departments')->select('id')->distinct()->get()->pluck('id');
-    
+        
+     
         return view('desktops.show1',compact('desktop'));
+       
     }
 
-    public function studView(Request $request){
-        $skills = DB::table('jobs')->select('skill_id')->distinct()->get()->pluck('skill_id');
-        $locations = DB::table('jobs')->select('jobLocation')->distinct()->get()->pluck('jobLocation');
-        $post = Job::query();
-    
-     
-        return view('jobs.studView', [
-        'skills' => $skills,
-        'locations' => $locations,
-        //'jobs'=>$jobs,
-        'posts' => $post->get(),
-    
-        ]);
-        
-        }
+
 
 
         public function viewFolder($id)
@@ -161,7 +159,7 @@ class DesktopController extends Controller
             'monitorSize'=>$request['monitorSize'],
             'monitorSerielNumber'=>$request['monitorSerielNumber'],
     
-            'department'=>$request['department'],
+            'department_id'=>$request['department_id'],
             'deviceLocation'=>$request['deviceLocation'],
             'level'=>$request['level'],
     
@@ -183,7 +181,8 @@ class DesktopController extends Controller
             'deliveryOrder'=>$request['deliveryOrder'],
             'invoiceNo' =>$request['invoiceNo'],
             'supplier'=>$request['supplier'],
-            'vendorId'=>$request['vendorId'],
+            'vendor_id'=>$request['vendor_id'],
+           // $trainee_id = $request->get('trainee_id');
             'pricePerUnit'=>$request['pricePerUnit'],
     
            
@@ -244,6 +243,8 @@ class DesktopController extends Controller
         $totalBiometric = Biometric ::count();
         $totalEncoremed = Encoremed ::count();
         $totalMpos = Mpos ::count();
+        $totalPower = Power ::count();
+        $totalVendor = Vendor ::count();
         //$totalUps = Ups ::count();
 
        // $getJob = Studdent::where('studStatus','0')->count();
@@ -252,14 +253,82 @@ class DesktopController extends Controller
         //$needjob = Job::where('jobStatus','')->count();
 
         return view('layouts.showStati',compact('totalDesk','totalOsdesk','totalImageViewer','totalAiodesk','totalTablet','totalLaptop','totalPrinter',
-    'totalTvsharp','totalCardreader','totalBiometric','totalEncoremed','totalMpos'));
+    'totalTvsharp','totalCardreader','totalBiometric','totalEncoremed','totalMpos','totalPower','totalVendor'));
 }
+
+
+public function beforeSearch()
+{
+    return view('desktops.search');
+}
+public function search(Request $request)
+    {
+     if($request->ajax())
+     {
+      $output = '';
+      $query = $request->get('query');
+      if($query != '')
+      {
+       $desktops = DB::table('desktops')
+         ->where('assignedTo', 'like', '%'.$query.'%')
+         ->orWhere('deviceHostname', 'like', '%'.$query.'%')
+         ->orWhere('deviceIPaddress', 'like', '%'.$query.'%')
+         ->orWhere('deviceSerielNumber', 'like', '%'.$query.'%')
+         //->orWhere('Country', 'like', '%'.$query.'%')
+         ->orderBy('id', 'asc')
+         ->get();
+         
+      }
+      else
+      {
+       $desktops = DB::table('desktops')
+         ->orderBy('id', 'asc')
+         ->get();
+      }
+        $total_row = $desktops->count();
+        
+        if($total_row > 0)
+      {
+       foreach($desktops as $desktops)
+       {
+        $output .= '
+        <tr>
+        <td>'.$desktops->id.'</td>
+        <td>'.$desktops->assignedTo.'</td>
+        <td>'.$desktops->deviceHostname.'</td>
+        <td>'.$desktops->deviceIPaddress.'</td>
+        <td>'.$desktops->deviceSerielNumber.'</td>
+        <td>
+         '.'
+        <a class="btn btn-info" href="">'.' View Full Details</a>
+         '.'</td>
+        </tr>
+        ';
+       }
+      }
+      else
+      {
+       $output = '
+       <tr>
+        <td align="center" colspan="5">No Data Found</td>
+       </tr>
+       ';
+      }
+      $desktops = array(
+       'table_data'  => $output,
+       'total_data'  => $total_row
+      );
+
+      echo json_encode($desktops);
+     }
+    } 
+
+
+   
+
+  
 }
 
-/**public function myfolder(){
-    $studdents = Certificate::where('user_id',auth()->user()->id)->get();
-    return view('studdents.mycerti',compact('studdents'));
-}**/
 
-
+    
 

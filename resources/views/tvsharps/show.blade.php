@@ -292,7 +292,7 @@ a {
                  
                 <tr class="table-warning"> 
                 <th scope="row">Department:</th>
-                <td> </td>
+                <td> {{ $tvsharp->department->departName }}</td>
                 </tr>
 
                 <tr>
@@ -387,7 +387,7 @@ a {
 
                 <tr>
                 <th scope="row">Supplier:</th>
-                <td>{{ $tvsharp->supplier }}</td>
+                <td>{{ $tvsharp->vendor->companyName }}</td>
                 </tr>
 
                 <tr class="table-warning"> 

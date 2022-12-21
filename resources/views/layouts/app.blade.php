@@ -25,6 +25,10 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
+
+ <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
+   
+ 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
@@ -84,6 +88,21 @@
         <main class="py-4">
             @yield('content')
         </main>
+
+
+
+        @notifyCss
+        <!-- Scripts -->
+        
+        <x:notify-messages />
+        @notifyJs
+
+
     </div>
+
+
+
+
+
 </body>
 </html>

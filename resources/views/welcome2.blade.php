@@ -29,6 +29,44 @@
   
 </head>
 
+<style>
+
+
+#hero {
+    width: 100%;
+    height: 70vh;
+    margin-top: 70px;
+    background-color: #316c99;
+}
+
+
+#hero h1 {
+    margin: 0 0 10px 0;
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 56px;
+    color: white;
+    font-family: 'bootstrap-icons';
+}
+
+
+#hero h2 {
+    color: #ffffff;
+    margin-bottom: 50px;
+    font-size: 24px;
+    font-style: italic;
+    text-align: center;
+}
+
+.navbar .getstarted, .navbar .getstarted:focus {
+    background: #316c99;
+    padding: 8px 25px;
+    margin-left: 30px;
+    border-radius: 50px;
+    color: #fff;
+}
+  </style>
+
 <body>
 
   <!-- ======= Header ======= -->
@@ -36,7 +74,7 @@
     <div class="container d-flex align-items-center justify-content-between">
 
       <div class="logo">
-        <h1><a href="index.html">Information Technology</a></h1>
+        <h1><a href="">Information Technology</a></h1>
         <!-- Uncomment below if you prefer to use an image logo -->
         <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
       </div>
@@ -83,7 +121,7 @@
         </div>
         <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="fade-left" data-aos-delay="200">
           <img src="{{ asset('admin2
-      /assets/img/hero-img.png') }}" class="img-fluid animated" alt="">
+      /assets/img/hero.png') }}" class="img-fluid animated" alt="">
         </div>
       </div>
     </div>
@@ -96,7 +134,7 @@
 
     
 
-    
+          </main>
     
     <!-- ======= Contact Section ======= -->
     <section id="contact" class="contact">
@@ -110,13 +148,12 @@
 
           <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
             <div class="contact-about">
-              <h3>TRY</h3>
-              <p>SKSKSKSKSKSKSKSK</p>
+              <h3>KPJ Batu Pahat</h3>
+              <p>Specialist Hospital</p>
               <div class="social-links">
-                <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-                <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-                <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-                <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+                <a href="https://www.facebook.com/people/KPJ-Batu-Pahat-Specialist-Hospital/100063458937086/" class="facebook"><i class="bi bi-facebook"></i></a>
+                <a href="https://www.instagram.com/kpjbatupahat/?hl=en" class="instagram"><i class="bi bi-instagram"></i></a>
+               
               </div>
             </div>
           </div>
@@ -141,32 +178,8 @@
             </div>
           </div>
 
-          <div class="col-lg-5 col-md-12" data-aos="fade-up" data-aos-delay="300">
-            <form action="forms/contact.php" method="post" role="form" class="php-email-form">
-              <div class="form-group">
-                <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
-              </div>
-              <div class="form-group">
-                <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
-              </div>
-              <div class="form-group">
-                <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
-              </div>
-              <div class="form-group">
-                <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
-              </div>
-              <div class="my-3">
-                <div class="loading">Loading</div>
-                <div class="error-message"></div>
-                <div class="sent-message">Your message has been sent. Thank you!</div>
-              </div>
-              <div class="text-center"><button type="submit">Send Message</button></div>
-            </form>
-          </div>
+       
 
-        </div>
-
-      </div>
     </section><!-- End Contact Section -->
 
   </main><!-- End #main -->

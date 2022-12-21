@@ -137,39 +137,30 @@ class tvsharpController extends Controller
 
         $post = [
         
-            'assignedTo' =>$request['assignedTo'],
-            'deviceHostname' =>$request['deviceHostname'],
-            'deviceIPaddress' =>$request['deviceIPaddress'],
+            
             'deviceManufacturer'=>$request['deviceManufacturer'],
             'deviceModel'=>$request['deviceModel'],
             'deviceSerielNumber'=>$request['deviceSerielNumber'],
             'warrantyDate'=>$request['warrantyDate'],
     
             
-            'department'=>$request['department'],
+            'department_id'=>$request['department_id'],
             'deviceLocation'=>$request['deviceLocation'],
             'level'=>$request['level'],
     
-            'operatingSystem'=>$request['operatingSystem'],
-            'windowVersion'=>$request['windowVersion'],
-            'msOfficeAndVersion'=>$request['msOfficeAndVersion'],
-            'officeSerielKey'=>$request['officeSerielKey'],
-            'antivirusAndVersion'=>$request['antivirusAndVersion'],
+           
     
-            'domain'=>$request['domain'],
-            'internetConnection'=>$request['internetConnection'],
-            'policyRebootAndShutdown'=>$request['policyRebootAndShutdown'],
-    
+          
             'cpu'=>$request['cpu'],
             'monitor'=>$request['monitor'],
             'deployment'=>$request['deployment'],
     
             'purchaseOrder'=>$request['purchaseOrder'],
             'deliveryOrder'=>$request['deliveryOrder'],
-            'invoiceNo' =>$request['invoiceNo'],
+            'noInvoice' =>$request['noInvoice'],
             'supplier'=>$request['supplier'],
             'pricePerUnit'=>$request['pricePerUnit'],
-            'vendorId'=>$request['vendorId'],
+            'vendor_id'=>$request['vendor_id'],
            
             
         ];

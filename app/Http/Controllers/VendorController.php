@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\vendor;
+use App\Desktop;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -41,8 +42,15 @@ class vendorController extends Controller
     {
         vendor::create($request->all());
    
+
+        $validated = $request->validate([
+            'compPhoneNum' => 'required|numeric|digits:10'
+            ]);
+
+        
         return redirect()->route('vendors.index')
                         ->with('success','vendor added successfully.');
+                        
     }
 
     /**
@@ -76,7 +84,16 @@ class vendorController extends Controller
      */
     public function update(Request $request, vendor $vendor)
     {
+
+
+         
+        $validated = $request->validate([
+            'compPhoneNum' => 'required|numeric|min:9'
+            ]);
+  
         $vendor->update($request->all());
+
+    
   
         return redirect()->route('vendors.index')
                         ->with('success','vendor updated successfully');
@@ -102,32 +119,33 @@ class vendorController extends Controller
     }**/
 
 
-    public function myDevice(){
-        $samevendor = DB::table('vendors')
-      
-       // ->join('job_user', 'job_user.user_id','users.id')
-        //->join('studdents', 'studdents.user_id','job_user.user_id')
-        ->join('desktops', 'desktops.vendorId','vendors.id')
-        //->join('osdesktops', 'osdesktops.vendorId','vendors.id')
-        //->join('aiodesktops', 'aiodesktops.vendorId','vendors.id')
-       /**->join('biometrics', 'biometrics.vendorId','vendors.id')
-        ->join('card_readers', 'card_readers.vendorId','vendors.id')
-        ->join('encoremeds', 'encoremeds.vendorId','vendors.id')
-        ->join('image_viewers', 'image_viewers.vendorId','vendors.id')
-        ->join('laptops', 'laptops.vendorId','vendors.id')
-        ->join('mpos', 'mpos.vendorId','vendors.id')
-        ->join('powers', 'powers.vendorId','vendors.id')
-        ->join('osdesktops', 'osdesktops.vendorId','vendors.id')
-       **/
+    public function myDevice(vendor $vendor){
 
+        $laptops = $vendor->laptops;
+        $printers = $vendor->printers;
+        $desktops = $vendor->desktops;
 
-     ->select('desktops.id','desktops.deviceHostname','desktops.deviceIPaddress','desktops.deviceSerielNumber','desktops.deviceLocation')
- 
-        ->get();
-         return view('vendors.myDevice',compact('samevendor'));
-     }
+        $osdesktops = $vendor->osdesktops;
+        $imageviewers = $vendor->imageviewers;
+        $aiodesktops = $vendor->aiodesktops;
 
+        $tablets = $vendor->tablets;
+        $tvsharps = $vendor->tvsharps;
 
+        $cardreaders = $vendor->cardreaders;
+        $biometrics = $vendor->biometrics;
+        $encoremeds = $vendor->encoremeds;
+
+        $powers = $vendor->powers;
+        $mpos = $vendor->mpos;
+
+         return view('vendors.myDevice',compact('laptops','printers','desktops',
+         'osdesktops','imageviewers','aiodesktops','tablets','tvsharps','cardreaders',
+         'biometrics','encoremeds','powers','mpos'));
      
+    }
+
 
 }
+
+

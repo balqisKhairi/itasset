@@ -161,7 +161,7 @@ class encoremedController extends Controller
             'monitorSize'=>$request['monitorSize'],
             'monitorSerielNumber'=>$request['monitorSerielNumber'],
     
-            'department'=>$request['department'],
+            'department_id'=>$request['department_id'],
             'deviceLocation'=>$request['deviceLocation'],
             'level'=>$request['level'],
     
@@ -184,7 +184,7 @@ class encoremedController extends Controller
             'noInvoice' =>$request['noInvoice'],
             'supplier'=>$request['supplier'],
             'pricePerUnit'=>$request['pricePerUnit'],
-            'vendorId'=>$request['vendorId'],
+            'vendor_id'=>$request['vendor_id'],
            
             
         ];

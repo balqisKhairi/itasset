@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AlterAddVendorIdColumnInBiometricsTable extends Migration
+class AlterAddVendorIdColumnInTvsharpsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class AlterAddVendorIdColumnInBiometricsTable extends Migration
      */
     public function up()
     {
-        Schema::table('biometrics', function (Blueprint $table) {
-            $table->unsignedInteger('vendorId')->nullable()->after('id');
+        Schema::table('tvsharps', function (Blueprint $table) {
+            $table->unsignedInteger('vendor_id')->nullable()->after('id');
+
         });
     }
 
@@ -25,7 +26,7 @@ class AlterAddVendorIdColumnInBiometricsTable extends Migration
      */
     public function down()
     {
-        Schema::table('biometrics', function (Blueprint $table) {
+        Schema::table('tvsharps', function (Blueprint $table) {
             //
         });
     }

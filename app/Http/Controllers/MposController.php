@@ -146,7 +146,7 @@ class mposController extends Controller
             'warrantyDate'=>$request['warrantyDate'],
     
             
-            'department'=>$request['department'],
+            'department_id'=>$request['department_id'],
             'deviceLocation'=>$request['deviceLocation'],
             'level'=>$request['level'],
     
@@ -169,7 +169,7 @@ class mposController extends Controller
             'invoiceNo' =>$request['invoiceNo'],
             'supplier'=>$request['supplier'],
             'pricePerUnit'=>$request['pricePerUnit'],
-            'vendorId'=>$request['vendorId'],
+            'vendor_id'=>$request['vendor_id'],
            
             
         ];

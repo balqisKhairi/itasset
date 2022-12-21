@@ -223,9 +223,7 @@ a {
                                 <li class="nav-item">
                                 <a class="nav-link active" id="device-tab" data-toggle="tab" href="#device" role="tab" aria-controls="device" aria-selected="true">Device</a>
                                 </li>
-                                <li class="nav-item">
-                                <a class="nav-link" id="monitor-tab" data-toggle="tab" href="#monitor" role="tab" aria-controls="monitor" aria-selected="false">Monitor</a>
-                                </li>
+                               
                                 <li class="nav-item">
                                 <a class="nav-link" id="location-tab" data-toggle="tab" href="#location" role="tab" aria-controls="location" aria-selected="false">Location</a>
                                 </li>
@@ -291,7 +289,7 @@ a {
                  
                 <tr class="table-warning"> 
                 <th scope="row">Department:</th>
-                <td> {{ $tablet->department }}</td>
+                <td> {{ $tablet->department->departName }}</td>
                 </tr>
 
                 <tr>
@@ -445,7 +443,7 @@ a {
 
                 <tr>
                 <th scope="row">Supplier:</th>
-                <td>{{ $tablet->supplier }}</td>
+                <td>{{ $tablet->vendor->companyName }}</td>
                 </tr>
 
                 <tr class="table-warning"> 

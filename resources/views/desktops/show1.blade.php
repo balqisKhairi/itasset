@@ -337,9 +337,11 @@ a {
                  
                 <tr class="table-warning"> 
                 <th scope="row">Department:</th>
-                <td> {{ $desktop->department }}</td>
+              
+                <td> {{ $desktop->department->departName}}</td>
+           
                 </tr>
-
+                
                 <tr>
                 <th scope="row">Location:</th>
                 <td>{{ $desktop->deviceLocation }}</td>
@@ -492,7 +494,9 @@ a {
                 
                 <tr>
                 <th scope="row">Supplier:</th>
-                <td>{{ $desktop->vendorId }}</td>
+              
+                <td> {{ $desktop->vendor->companyName}}</td>
+             
                 </tr>
 
                 <tr class="table-warning"> 

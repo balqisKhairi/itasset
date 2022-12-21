@@ -146,7 +146,7 @@ class printerController extends Controller
             'warrantyDate'=>$request['warrantyDate'],
     
             
-            'department'=>$request['department'],
+            'department_id'=>$request['department_id'],
             'deviceLocation'=>$request['deviceLocation'],
             'level'=>$request['level'],
     
@@ -158,12 +158,12 @@ class printerController extends Controller
     
             'purchaseOrder'=>$request['purchaseOrder'],
             'deliveryOrder'=>$request['deliveryOrder'],
-            'invoiceNo' =>$request['invoiceNo'],
+            'noInvoice' =>$request['noInvoice'],
             'supplier'=>$request['supplier'],
             'pricePerUnit'=>$request['pricePerUnit'],
             'statusAsset'=>$request['statusAsset'],
            
-            'vendorId'=>$request['vendorId'],
+            'vendor_id'=>$request['vendor_id'],
         ];
     
         if($request->hasFile('image')){

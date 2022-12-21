@@ -40,7 +40,7 @@
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Email:</strong>
-                    <input type="text" class="form-control" name="companyEmail" value="{{ $vendor->companyEmail }}" placeholder="Company Name"></input>
+                    <input type="email" class="form-control" name="companyEmail" value="{{ $vendor->companyEmail }}" placeholder="Company Name"></input>
                 </div>
             </div>
 
