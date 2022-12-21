@@ -15,6 +15,7 @@ use App\Tablet;
 use App\Tvsharp;
 use App\Department;
 use App\Power;
+use App\Vendor;
 
 use Illuminate\Database\Eloquent\Model;
 
