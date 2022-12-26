@@ -5,6 +5,11 @@ use Illuminate\Support\Facades\DB;
 
 use App\mpos;
 
+
+use App\Exports\MposExport;
+use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
@@ -246,6 +251,15 @@ class mposController extends Controller
     $studdents = Certificate::where('user_id',auth()->user()->id)->get();
     return view('studdents.mycerti',compact('studdents'));
 }**/
+
+public function exportMpos(){
+
+    $mpos=Mpos::orderBy('id','asc')->get();
+    //dd('exportDesktop');
+    //return Excel::download(new UsersExport, 'dekstops.xlsx');
+    return (new MposExport($mpos))->download('mpos.csv', \Maatwebsite\Excel\Excel::CSV);
+
+}
 }
 
 

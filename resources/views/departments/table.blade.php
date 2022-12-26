@@ -112,7 +112,7 @@ tbody:nth-child(odd) {
       
                     <button type="submit" onclick="return confirm('Are you sure want to delete this?')" class="btn btn-danger remove-user">Delete</button>
 
-                  
+                    <a class="btn btn-warning" href="{{ url('theDevice',$s->id) }}">List Of Device</a>
                 </form>
             </td>
         </tr>

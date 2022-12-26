@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 
+
+use App\Exports\AioDesktopExport;
+use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 use App\aiodesktop;
 use App\Aioaiodesktop;
 use App\Biometric;
@@ -262,6 +267,16 @@ class aiodesktopController extends Controller
     $studdents = Certificate::where('user_id',auth()->user()->id)->get();
     return view('studdents.mycerti',compact('studdents'));
 }**/
+
+
+public function exportAioDesktop(){
+
+    $aiodesktops=Aiodesktop::orderBy('id','asc')->get();
+    //dd('exportDesktop');
+    //return Excel::download(new UsersExport, 'dekstops.xlsx');
+    return (new AiodesktopExport($aiodesktops))->download('aiodesktops.csv', \Maatwebsite\Excel\Excel::CSV);
+
+}
 }
 
 

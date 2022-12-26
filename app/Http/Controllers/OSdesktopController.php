@@ -2,6 +2,12 @@
 
 namespace App\Http\Controllers;
 
+
+
+use App\Exports\OsdesktopExport;
+use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 use App\osdesktop;
 use Illuminate\Http\Request;
 
@@ -184,6 +190,13 @@ class osdesktopController extends Controller
         return view('osdesktops.viewFolder',compact('data'));
     }
 
+    public function exportOsdesktop(){
 
+        $osdesktops=Osdesktop::orderBy('id','asc')->get();
+        //dd('exportDesktop');
+        //return Excel::download(new UsersExport, 'dekstops.xlsx');
+        return (new OsdesktopExport($osdesktops))->download('osdesktops.csv', \Maatwebsite\Excel\Excel::CSV);
+
+    }
     
 }

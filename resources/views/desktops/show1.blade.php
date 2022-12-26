@@ -484,7 +484,7 @@ a {
                 </tr>
 
                 <tr class="table-warning"> 
-                <th scope="row">Invoive No:</th>
+                <th scope="row">Invoice No:</th>
                 <td>
                 <a href ="{{ route('desktops.viewFolder',$desktop->id) }}">{{ $desktop->invoiceNo }}</a>    
               

@@ -20,6 +20,8 @@ class CategoryController extends Controller
        // return view('subjects.index');
     }
 
+    
+
     /**
      * Show the form for creating a new resource.
      *

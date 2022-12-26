@@ -67,6 +67,10 @@ tbody:nth-child(odd) {
             <div>
                 <a class="btn btn-success" href="{{ route('aiodesktops.create') }}"> Add New AiO Desktop</a>
             
+                  
+                <div class="pull-right">
+            <a class="btn btn-primary" href="{{ route('aiodesktops.exportAioDesktop') }}"> Export to Excel</a>
+            </div>
                 <br></br>
               <div class="form-group">
               <input id="myInput" type="text"  class="form-control" placeholder="Search..">

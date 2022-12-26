@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 
+use App\Exports\PowerExport;
+use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 use App\power;
 use App\Aiopower;
 
@@ -247,6 +251,16 @@ class powerController extends Controller
     $studdents = Certificate::where('user_id',auth()->user()->id)->get();
     return view('studdents.mycerti',compact('studdents'));
 }**/
+
+
+public function exportPower(){
+
+    $powers=Power::orderBy('id','asc')->get();
+    //dd('exportDesktop');
+    //return Excel::download(new UsersExport, 'dekstops.xlsx');
+    return (new PowerExport($powers))->download('powers.csv', \Maatwebsite\Excel\Excel::CSV);
+
+}
 }
 
 

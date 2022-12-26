@@ -67,8 +67,12 @@ tbody:nth-child(odd) {
                 <h2>List of Mobile Point Of Sale (MPOS)</h2>
             </div>
             <div>
-                <a class="btn btn-success" href="{{ route('tvsharps.create') }}"> Add New MPOS</a>
+                <a class="btn btn-success" href="{{ route('mposs.create') }}"> Add New MPOS</a>
             
+
+                <div class="pull-right">
+            <a class="btn btn-primary" href="{{ route('mposs.exportMpos') }}"> Export to Excel</a>
+            </div>
                 <br></br>
               <div class="form-group">
               <input id="myInput" type="text"  class="form-control" placeholder="Search..">

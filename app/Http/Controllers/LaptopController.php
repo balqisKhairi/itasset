@@ -5,6 +5,11 @@ use Illuminate\Support\Facades\DB;
 
 use App\laptop;
 
+
+use App\Exports\LaptopExport;
+use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
@@ -246,6 +251,17 @@ class laptopController extends Controller
     $studdents = Certificate::where('user_id',auth()->user()->id)->get();
     return view('studdents.mycerti',compact('studdents'));
 }**/
+
+
+
+public function exportLaptop(){
+
+    $laptops=laptop::orderBy('id','asc')->get();
+    //dd('exportlaptop');
+    //return Excel::download(new UsersExport, 'dekstops.xlsx');
+    return (new LaptopExport($laptops))->download('laptops.csv', \Maatwebsite\Excel\Excel::CSV);
+
+}
 }
 
 

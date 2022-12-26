@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\imageviewer;
 use Illuminate\Http\Request;
 
+use App\Exports\ImageviewerExport;
+use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 class imageviewerController extends Controller
 {
     /**
@@ -15,7 +19,7 @@ class imageviewerController extends Controller
     public function index()
     {
         $imageviewers = imageviewer::all();
-        //dd($desktops);
+        //dd($ImageViewers);
         return view('imageviewers.index',compact('imageviewers'));
     }
 
@@ -56,7 +60,7 @@ class imageviewerController extends Controller
         }
 
         imageviewer::create($requestData);
-        return redirect()->route('imageviewers.index')->with('success','New Os desktop addes succesfully');
+        return redirect()->route('imageviewers.index')->with('success','New Os ImageViewer addes succesfully');
     }
 
 
@@ -159,7 +163,7 @@ class imageviewerController extends Controller
         $imageviewer->update($post);
    
         return redirect()->route('imageviewers.index')
-                        ->with('success',' OS Desktop updated successfully');
+                        ->with('success',' OS ImageViewer updated successfully');
     }
 
     /**
@@ -182,6 +186,13 @@ class imageviewerController extends Controller
         return view('imageviewers.viewFolder',compact('data'));
     }
 
+    public function exportImageViewer(){
 
+        $imageviewers=ImageViewer::orderBy('id','asc')->get();
+        //dd('exportImageViewer');
+        //return Excel::download(new UsersExport, 'dekstops.xlsx');
+        return (new ImageviewerExport($imageviewers))->download('ImageViewers.csv', \Maatwebsite\Excel\Excel::CSV);
+
+    }
     
 }

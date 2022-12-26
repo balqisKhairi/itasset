@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 
+use App\Exports\UsersExport;
+use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 use App\Desktop;
 use App\Aiodesktop;
 use App\Biometric;
@@ -257,74 +261,20 @@ class DesktopController extends Controller
 }
 
 
-public function beforeSearch()
-{
-    return view('desktops.search');
-}
-public function search(Request $request)
-    {
-     if($request->ajax())
-     {
-      $output = '';
-      $query = $request->get('query');
-      if($query != '')
-      {
-       $desktops = DB::table('desktops')
-         ->where('assignedTo', 'like', '%'.$query.'%')
-         ->orWhere('deviceHostname', 'like', '%'.$query.'%')
-         ->orWhere('deviceIPaddress', 'like', '%'.$query.'%')
-         ->orWhere('deviceSerielNumber', 'like', '%'.$query.'%')
-         //->orWhere('Country', 'like', '%'.$query.'%')
-         ->orderBy('id', 'asc')
-         ->get();
-         
-      }
-      else
-      {
-       $desktops = DB::table('desktops')
-         ->orderBy('id', 'asc')
-         ->get();
-      }
-        $total_row = $desktops->count();
-        
-        if($total_row > 0)
-      {
-       foreach($desktops as $desktops)
-       {
-        $output .= '
-        <tr>
-        <td>'.$desktops->id.'</td>
-        <td>'.$desktops->assignedTo.'</td>
-        <td>'.$desktops->deviceHostname.'</td>
-        <td>'.$desktops->deviceIPaddress.'</td>
-        <td>'.$desktops->deviceSerielNumber.'</td>
-        <td>
-         '.'
-        <a class="btn btn-info" href="">'.' View Full Details</a>
-         '.'</td>
-        </tr>
-        ';
-       }
-      }
-      else
-      {
-       $output = '
-       <tr>
-        <td align="center" colspan="5">No Data Found</td>
-       </tr>
-       ';
-      }
-      $desktops = array(
-       'table_data'  => $output,
-       'total_data'  => $total_row
-      );
+    public function exportDesktop(){
 
-      echo json_encode($desktops);
-     }
-    } 
+        $desktops=Desktop::orderBy('id','asc')->get();
+        //dd('exportDesktop');
+        //return Excel::download(new UsersExport, 'dekstops.xlsx');
+        return (new UsersExport($desktops))->download('desktops.csv', \Maatwebsite\Excel\Excel::CSV);
 
+    }
 
-   
+   public function generateReport()
+   {
+    $pdf = Pdf::loadView('reports.fullReport', $data);
+    return $pdf->download('fullReport.pdf');
+   }
 
   
 }

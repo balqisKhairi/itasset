@@ -230,7 +230,26 @@
                 Dashboard
               </p>
             </a>
-          </li>      
+          </li>    
+          
+          <li class="nav-item">
+            <a href="{{ route('accounts.index') }}"class="nav-link">
+              <i class="nav-icon fa fa-user-plus"></i>
+              <p>
+                User
+              </p>
+            </a>
+          </li>   
+
+          <li class="nav-item">
+            <a href="{{ route('roles.index') }}"class="nav-link">
+              <i class="nav-icon fa fa-suitcase"></i>
+              <p>
+                Role
+              </p>
+            </a>
+          </li>   
+
           <li class="nav-item">
             <a href="{{ route('categorys.index') }}"class="nav-link">
               <i class="nav-icon fa fa-file"></i>
@@ -258,6 +277,7 @@
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
+            
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="{{ route('desktops.index') }}" class="nav-link">
@@ -409,7 +429,7 @@
   <!-- /.content-wrapper -->
   <footer class="main-footer">
     <strong>Copyright &copy; 2022 IT Department KPJBP</a>.</strong>
-    All rights reserved.
+    All rights reserved by Balqis Khairi.
     <div class="float-right d-none d-sm-inline-block">
       <!--<b>Version</b> 3.1.0-->
     </div>

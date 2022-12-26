@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 
+use App\Exports\EncoremedExport;
+use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 use App\encoremed;
 use App\Aioencoremed;
 use App\Biometric;
@@ -261,6 +265,15 @@ class encoremedController extends Controller
     $studdents = Certificate::where('user_id',auth()->user()->id)->get();
     return view('studdents.mycerti',compact('studdents'));
 }**/
+
+public function exportEncoremed(){
+
+    $encoremeds=Encoremed::orderBy('id','asc')->get();
+    //dd('exportDesktop');
+    //return Excel::download(new UsersExport, 'dekstops.xlsx');
+    return (new EncoremedExport($encoremeds))->download('Encoremeds.csv', \Maatwebsite\Excel\Excel::CSV);
+
+}
 }
 
 

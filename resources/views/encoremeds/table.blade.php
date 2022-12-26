@@ -69,6 +69,9 @@ tbody:nth-child(odd) {
             <div>
                 <a class="btn btn-success" href="{{ route('encoremeds.create') }}"> Add New Encoremeds</a>
             
+                <div class="pull-right">
+            <a class="btn btn-primary" href="{{ route('encoremeds.exportEncoremed') }}"> Export to Excel</a>
+            </div>
                 <br></br>
               <div class="form-group">
               <input id="myInput" type="text"  class="form-control" placeholder="Search..">
@@ -111,8 +114,8 @@ tbody:nth-child(odd) {
             <form action="{{ route('encoremeds.destroy',$s->id) }}" method="POST">
    
                     <a class="btn btn-info" href="{{ route('encoremeds.show',$s->id) }}">View Full Details</a>
-    
-                 
+                    
+                  
     
                     <a class="btn btn-primary" href="{{ route('encoremeds.edit',$s->id) }}">Edit</a>
     

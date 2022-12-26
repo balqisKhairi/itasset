@@ -82,12 +82,19 @@
 <main class="main users chart-page" id="skip-target">
                 <div class="container">
                     <h2 class="main-title">Statistics</h2>
+
+
+                    <div >
+          
+          <br></br>
+
                     <div class="row stat-cards">
                         <div class="col-md-6 col-xl-3">
                             <article class="stat-cards-item">
                                 <div class="stat-cards-icon primary">
                                     <i data-feather="monitor" aria-hidden="true"></i>
                                 </div>
+                                
                                 <div class="stat-cards-info">
                                 <p class="stat-cards">Total Desktop</p>
                                     <p class="stat-cards-info__num">{{$totalDesk}}</p>

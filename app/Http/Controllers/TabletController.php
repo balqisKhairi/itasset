@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 
+
+use App\Exports\TabletExport;
+use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 use App\tablet;
 
 use Illuminate\Http\Request;
@@ -246,6 +251,15 @@ class tabletController extends Controller
     $studdents = Certificate::where('user_id',auth()->user()->id)->get();
     return view('studdents.mycerti',compact('studdents'));
 }**/
+
+public function exportTablet(){
+
+    $tablets=tablet::orderBy('id','asc')->get();
+    //dd('exporttablet');
+    //return Excel::download(new UsersExport, 'dekstops.xlsx');
+    return (new TabletExport($tablets))->download('tablets.csv', \Maatwebsite\Excel\Excel::CSV);
+
+}
 }
 
 

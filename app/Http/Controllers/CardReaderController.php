@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 
+
+use App\Exports\CardReaderExport;
+use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 use App\cardReader;
 use App\AiocardReader;
 use App\Biometric;
@@ -248,6 +253,16 @@ class cardReaderController extends Controller
     $studdents = Certificate::where('user_id',auth()->user()->id)->get();
     return view('studdents.mycerti',compact('studdents'));
 }**/
+
+
+public function exportCardreader(){
+
+    $cardReaders=CardReader::orderBy('id','asc')->get();
+    //dd('exportcardreader');
+    //return Excel::download(new UsersExport, 'dekstops.xlsx');
+    return (new CardReaderExport($cardReaders))->download('cardreaders.csv', \Maatwebsite\Excel\Excel::CSV);
+
+}
 }
 
 

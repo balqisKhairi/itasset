@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 
+
+use App\Exports\TvsharpExport;
+use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 use App\tvsharp;
 
 use Illuminate\Http\Request;
@@ -237,6 +242,15 @@ class tvsharpController extends Controller
     $studdents = Certificate::where('user_id',auth()->user()->id)->get();
     return view('studdents.mycerti',compact('studdents'));
 }**/
+
+public function exportTvsharp(){
+
+    $tvsharps=tvsharp::orderBy('id','asc')->get();
+    //dd('exporttvsharp');
+    //return Excel::download(new UsersExport, 'dekstops.xlsx');
+    return (new TvsharpExport($tvsharps))->download('tvsharps.csv', \Maatwebsite\Excel\Excel::CSV);
+
+}
 }
 
 

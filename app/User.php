@@ -42,4 +42,12 @@ class User extends Authenticatable
     public function account(){
         return $this->hasOne(Account::class);
     }
+
+
+    public function roles(){
+        return $this->belongsTo('App\Role')
+        ->withDefault([
+            'role_id' => '-',
+        ]);
+    }
 }

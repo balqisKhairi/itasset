@@ -68,6 +68,9 @@ tbody:nth-child(odd) {
             <div>
                 <a class="btn btn-success" href="{{ route('osdesktops.create') }}"> Add New OutSource Desktop</a>
             
+                <div class="pull-right">
+            <a class="btn btn-primary" href="{{ route('osdesktops.exportOsdesktop') }}"> Export to Excel</a>
+            </div>
                 <br></br>
               <div class="form-group">
               <input id="myInput" type="text"  class="form-control" placeholder="Search..">

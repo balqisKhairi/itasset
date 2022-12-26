@@ -268,5 +268,34 @@ Route::get('/accounts', 'accountController@index')->name('accounts.index');
  //Route::get('accounts/viewFolder/{id}', 'accountController@viewFolder')->name('accounts.viewFolder');
  Route::get('accounts/myAcc', 'AccountController@myAcc')->name('accounts.myAcc');
  Route::get('/myAcc', 'AccountController@myAcc');
+ Route::get('/theDevice/{department}', 'DepartmentController@theDevice');
 
- 
+ //export
+ Route::get('/exportDesktop', 'DesktopController@exportDesktop')->name('desktops.exportDesktop');
+ Route::get('/exportAioDesktop', 'AiodesktopController@exportAioDesktop')->name('aiodesktops.exportAioDesktop');
+ Route::get('/exportBiometric', 'BiometricController@exportBiometric')->name('biometrics.exportBiometric');
+ Route::get('/exportCardreader', 'CardReaderController@exportCardreader')->name('cardReaders.exportCardreader');
+ Route::get('/exportEncoremed', 'EncoremedController@exportEncoremed')->name('encoremeds.exportEncoremed');
+ Route::get('/exportImageViewer', 'ImageViewerController@exportImageViewer')->name('imageviewers.exportImageViewer');
+ Route::get('/exportLaptop', 'LaptopController@exportLaptop')->name('laptops.exportLaptop');
+ Route::get('/exportMpos', 'MposController@exportMpos')->name('mposs.exportMpos');
+ Route::get('/exportOsdesktop', 'OsdesktopController@exportOsdesktop')->name('osdesktops.exportOsdesktop');
+
+ Route::get('/exportPower', 'PowerController@exportPower')->name('powers.exportPower');
+ Route::get('/exportPrinter', 'PrinterController@exportPrinter')->name('printers.exportPrinter');
+ Route::get('/exportTablet', 'TabletController@exportTablet')->name('tablets.exportTablet');
+ Route::get('/exportTvsharp', 'TvsharpController@exportTvsharp')->name('tvsharps.exportTvsharp');
+
+
+ //report
+ Route::get('/generateReport', 'DesktopController@generateReport')->name('desktops.generateReport');
+
+
+     //role
+Route::get('/roles', 'roleController@index')->name('roles.index');
+Route::get('/roles/create', 'roleController@create')->name('roles.create');
+Route::post('/roles', 'roleController@store')->name('roles.store');
+Route::get('roles/{role}', 'roleController@show')->name('roles.show');
+Route::get('roles/{role}/edit', 'roleController@edit')->name('roles.edit');
+Route::put('roles/{role}', 'roleController@update')->name('roles.update');
+Route::delete('roles/{role}', 'roleController@destroy')->name('roles.destroy');

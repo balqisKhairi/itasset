@@ -69,6 +69,11 @@ tbody:nth-child(odd) {
             <div>
                 <a class="btn btn-success" href="{{ route('biometrics.create') }}"> Add New Biometric</a>
             
+
+                  
+                <div class="pull-right">
+            <a class="btn btn-primary" href="{{ route('biometrics.exportBiometric') }}"> Export to Excel</a>
+            </div>
                 <br></br>
               <div class="form-group">
               <input id="myInput" type="text"  class="form-control" placeholder="Search..">

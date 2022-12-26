@@ -190,7 +190,7 @@
       <div class="row d-flex align-items-center">
         <div class="col-lg-6 text-lg-left text-center">
           <div class="copyright">
-            &copy; Copyright <strong>kpjbp</strong>. All Rights Reserved
+            &copy; Copyright for <strong>IT Department KPJBp</strong>. All Rights Reserved by Balqis Khairi
           </div>
           
         </div>

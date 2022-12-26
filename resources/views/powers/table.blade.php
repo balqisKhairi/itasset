@@ -68,6 +68,10 @@ tbody:nth-child(odd) {
             <div >
                 <a class="btn btn-success" href="{{ route('powers.create') }}"> Add New Uninterruptible Power Supply (UPS)</a>
            
+
+                <div class="pull-right">
+            <a class="btn btn-primary" href="{{ route('powers.exportPower') }}"> Export to Excel</a>
+            </div>
                 <br></br>
               <div class="form-group">
               <input id="myInput" type="text"  class="form-control" placeholder="Search..">

@@ -94,4 +94,32 @@ class DepartmentController extends Controller
         return redirect()->route('departments.index')
         ->with('success','department deleted successfully');
     }
+
+
+    public function theDevice(department $department){
+
+        $laptops = $department->laptops;
+        $printers = $department->printers;
+        $desktops = $department->desktops;
+
+        $osdesktops = $department->osdesktops;
+        $imageviewers = $department->imageviewers;
+        $aiodesktops = $department->aiodesktops;
+
+        $tablets = $department->tablets;
+        $tvsharps = $department->tvsharps;
+
+        $cardreaders = $department->cardreaders;
+        $biometrics = $department->biometrics;
+        $encoremeds = $department->encoremeds;
+
+        $powers = $department->powers;
+        $mpos = $department->mpos;
+
+         return view('departments.theDevice',compact('laptops','printers','desktops',
+         'osdesktops','imageviewers','aiodesktops','tablets','tvsharps','cardreaders',
+         'biometrics','encoremeds','powers','mpos'));
+     
+    }
+
 }

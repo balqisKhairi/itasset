@@ -68,6 +68,10 @@ tbody:nth-child(odd) {
             <div>
                 <a class="btn btn-success" href="{{ route('imageviewers.create') }}"> Add New Image Viewer</a>
             
+
+                <div class="pull-right">
+            <a class="btn btn-primary" href="{{ route('imageviewers.exportImageViewer') }}"> Export to Excel</a>
+            </div>
                 <br></br>
               <div class="form-group">
               <input id="myInput" type="text"  class="form-control" placeholder="Search..">

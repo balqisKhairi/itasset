@@ -5,6 +5,10 @@ use Illuminate\Support\Facades\DB;
 
 use App\printer;
 
+use App\Exports\PrinterExport;
+use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
@@ -238,6 +242,16 @@ class printerController extends Controller
     $studdents = Certificate::where('user_id',auth()->user()->id)->get();
     return view('studdents.mycerti',compact('studdents'));
 }**/
+
+
+public function exportPrinter(){
+
+    $printers=printer::orderBy('id','asc')->get();
+    //dd('exportprinter');
+    //return Excel::download(new UsersExport, 'dekstops.xlsx');
+    return (new PrinterExport($printers))->download('printers.csv', \Maatwebsite\Excel\Excel::CSV);
+
+}
 }
 
 

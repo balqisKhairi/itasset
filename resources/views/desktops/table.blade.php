@@ -74,11 +74,16 @@ tbody:nth-child(odd) {
             </div>
             <div>
                 <a class="btn btn-success" href="{{ route('desktops.create') }}"> Add New Desktop</a>
-            
-                <br></br>
+                
+                <div class="pull-right">
+            <a class="btn btn-primary" href="{{ route('desktops.exportDesktop') }}"> Export to Excel</a>
+            </div>
+            <br></br>
               <div class="form-group">
               <input id="myInput" type="text"  class="form-control" placeholder="Search..">
  
+           
+
             </div>
         </div>
     </div>
