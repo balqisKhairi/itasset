@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 
 use App\Exports\OsdesktopExport;
+use App\Imports\OsdesktopImport;
 use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf;
 
@@ -199,4 +200,30 @@ class osdesktopController extends Controller
 
     }
     
+
+    public function importOsdesktop(Request $request){
+
+        $request->validate([
+            'excel_file'=>'required|mimes:xlsx'
+        ]);
+    
+        /**Excel::import(new DesktopImport, $request->file('excel_file'));
+        return redirect()->back()->with('success', 'Data Successfully Imported!');
+    **/
+        try {
+            Excel::import(new OsdesktopImport, $request->file('excel_file'));
+            return redirect()->back()->with('success', 'Data Successfully Imported!');
+    
+        } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
+             $failures = $e->failures();
+             return redirect()->back()->with('excel_error', $failures);
+    
+             foreach ($failures as $failure) {
+                 $failure->row(); // row that went wrong
+             }
+        }
+    
+        //(new DesktopImport)->import($file);
+        
+    }
 }

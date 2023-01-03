@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\DB;
 
 use App\laptop;
 
+use App\Imports\LaptopImport;
 
 use App\Exports\LaptopExport;
 use Maatwebsite\Excel\Facades\Excel;
@@ -261,6 +262,33 @@ public function exportLaptop(){
     //return Excel::download(new UsersExport, 'dekstops.xlsx');
     return (new LaptopExport($laptops))->download('laptops.csv', \Maatwebsite\Excel\Excel::CSV);
 
+}
+
+
+public function importLaptop(Request $request){
+
+    $request->validate([
+        'excel_file'=>'required|mimes:xlsx'
+    ]);
+
+    /**Excel::import(new LaptopImport, $request->file('excel_file'));
+    return redirect()->back()->with('success', 'Data Successfully Imported!');
+**/
+    try {
+        Excel::import(new LaptopImport, $request->file('excel_file'));
+        return redirect()->back()->with('success', 'Data Successfully Imported!');
+
+    } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
+         $failures = $e->failures();
+         return redirect()->back()->with('excel_error', $failures);
+
+         foreach ($failures as $failure) {
+             $failure->row(); // row that went wrong
+         }
+    }
+
+    //(new LaptopImport)->import($file);
+    
 }
 }
 

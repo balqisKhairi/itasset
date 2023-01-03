@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\DB;
 
 use App\mpos;
 
+use App\Imports\MposImport;
 
 use App\Exports\MposExport;
 use Maatwebsite\Excel\Facades\Excel;
@@ -255,10 +256,37 @@ class mposController extends Controller
 public function exportMpos(){
 
     $mpos=Mpos::orderBy('id','asc')->get();
-    //dd('exportDesktop');
+    //dd('exportMpos');
     //return Excel::download(new UsersExport, 'dekstops.xlsx');
     return (new MposExport($mpos))->download('mpos.csv', \Maatwebsite\Excel\Excel::CSV);
 
+}
+
+
+public function importMpos(Request $request){
+
+    $request->validate([
+        'excel_file'=>'required|mimes:xlsx'
+    ]);
+
+    /**Excel::import(new MposImport, $request->file('excel_file'));
+    return redirect()->back()->with('success', 'Data Successfully Imported!');
+**/
+    try {
+        Excel::import(new MposImport, $request->file('excel_file'));
+        return redirect()->back()->with('success', 'Data Successfully Imported!');
+
+    } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
+         $failures = $e->failures();
+         return redirect()->back()->with('excel_error', $failures);
+
+         foreach ($failures as $failure) {
+             $failure->row(); // row that went wrong
+         }
+    }
+
+    //(new MposImport)->import($file);
+    
 }
 }
 

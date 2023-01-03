@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\DB;
 use App\Exports\UsersExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf;
-
+use App\Imports\DesktopImport;
 use App\Desktop;
 use App\Aiodesktop;
 use App\Biometric;
@@ -270,14 +270,36 @@ class DesktopController extends Controller
 
     }
 
-   public function generateReport()
-   {
-    $pdf = Pdf::loadView('reports.fullReport', $data);
-    return $pdf->download('fullReport.pdf');
-   }
+
+   public function importDesktop(Request $request){
+
+    $request->validate([
+        'excel_file'=>'required|mimes:xlsx'
+    ]);
+
+    /**Excel::import(new DesktopImport, $request->file('excel_file'));
+    return redirect()->back()->with('success', 'Data Successfully Imported!');
+**/
+    try {
+        Excel::import(new DesktopImport, $request->file('excel_file'));
+        return redirect()->back()->with('success', 'Data Successfully Imported!');
+
+    } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
+         $failures = $e->failures();
+         return redirect()->back()->with('excel_error', $failures);
+
+         foreach ($failures as $failure) {
+             $failure->row(); // row that went wrong
+         }
+    }
+
+    //(new DesktopImport)->import($file);
+    
+}
+}
+
 
   
-}
 
 
     

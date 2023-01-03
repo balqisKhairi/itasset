@@ -60,6 +60,106 @@ input {
 tbody:nth-child(odd) {
   background-color: #D6EEEE;
 }
+
+
+
+body {font-family: Arial, Helvetica, sans-serif;}
+* {box-sizing: border-box;}
+
+/* Button used to open the contact form - fixed at the bottom of the page */
+.open-button {
+  background-color: #555;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  position: fixed;
+  bottom: 23px;
+  right: 28px;
+  width: 280px;
+}
+
+/* The popup form - hidden by default */
+.form-popup {
+  display: none;
+  position: fixed;
+  left: 45%;
+        top: 5%;
+        transform: translate(-50%, 5%);
+        border: 3px solid #999999;
+        z-index: 9;
+      }
+
+
+/* Add styles to the form container */
+.form-container {
+    max-width: 350px;
+    padding: 20px;
+    background-color: #fff;
+}
+
+/* Full-width input fields */
+.form-container input[type=text], .form-container input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+}
+
+/* When the inputs get focus, do something */
+.form-container input[type=text]:focus, .form-container input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Set a style for the submit/login button */
+.form-container .btn {
+    background-color: #24d953;
+    color: black;
+    padding: 5px 5px;
+    border: aliceblue;
+    /* margin-bottom: 5px; */
+    padding-top: 5px;
+    cursor: pointer;
+    width: 100%;
+    margin-bottom: 10px;
+    opacity: 0.8;
+}
+
+/* Add a red background color to the cancel button */
+.form-container .cancel {
+  background-color: red;
+}
+
+/* Add some hover effects to buttons */
+.form-container .btn:hover, .open-button:hover {
+  opacity: 1;
+}
+
+input {
+    border-radius: 6px;
+    background-color: #eff0f6;
+    border-width: 0;
+    min-height: 40px;
+    border: solid #98c1eb 2px !important;
+    margin-bottom: 10px;
+    padding-top: 5px;
+}
+
+b, h6 {
+    font-size: 15px;
+    margin-bottom: 5px;
+}
+
+.btn-success1 {
+    color: #000;
+    background-color: #ffd333;
+    border-color: #000000;
+    box-shadow: none;
+    margin-top: 20px;
+}
 </style>
     <body>
 
@@ -70,6 +170,32 @@ tbody:nth-child(odd) {
             </div>
             <div class>
                 <a class="btn btn-success" href="{{ route('printers.create') }}"> Add New Printers</a>
+                
+                <a class="btn btn-success1"  onclick="openForm()">Import from Excel</a>
+
+               
+         
+           
+            <div class="form-popup" id="myForm">
+            <form action="{{ url('importPrinter') }}" class="form-container" method="post" enctype="multipart/form-data">
+                @csrf
+                
+                <input type="file"  name="excel_file" required>
+
+
+                <label for="psw">
+            <h6>*Please be sure to remove your header in Excel.</h6>
+            </label>
+
+                <button type="submit" class="btn">Submit</button>
+                <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+            </form>
+            </div>
+
+                
+                
+                
+                
                 
                 <div class="pull-right">
             <a class="btn btn-primary" href="{{ route('printers.exportPrinter') }}"> Export to Excel</a>
@@ -91,6 +217,16 @@ tbody:nth-child(odd) {
             <p>{{ $message }}</p>
         </div>
     @endif
+
+
+       
+    @if (Session::has('excel_error'))
+    @foreach(Session::get('excel_error') as $failure)
+        <div class="alert alert-danger">
+            <p>{{ $failure->errors()[0] }} 6 is for row Seriel number at line no {{ $failure->row()}} from your Excel.</p>
+        </div>
+        @endforeach
+    @endif
    
     <table class="table table-bordered">
     <tr class="table-active">
@@ -104,6 +240,7 @@ tbody:nth-child(odd) {
            
             <th width="350px">Action</th>
         </tr>
+        @if(count($printers))
        @foreach ($printers as $s)
        <tbody id="myTable">
         <tr>
@@ -135,9 +272,22 @@ tbody:nth-child(odd) {
             </td>
         </tr>
         @endforeach
-        </tbody>
+        @endif
+</tbody>
     </table>
-  
+   
+
+    <script>
+function openForm() {
+  document.getElementById("myForm").style.display = "block";
+}
+
+function closeForm() {
+  document.getElementById("myForm").style.display = "none";
+}
+</script>
+
+
     </body>
 </html>
 

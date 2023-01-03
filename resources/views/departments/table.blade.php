@@ -88,7 +88,7 @@ tbody:nth-child(odd) {
             <th>Department Name</th>
            
            
-            <th width="500px">Action</th>
+            <th width="600px">Action</th>
         </tr>
        @foreach ($departments as $s)
        <tbody id="myTable">

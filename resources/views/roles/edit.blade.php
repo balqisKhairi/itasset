@@ -67,8 +67,136 @@
                 </div>
             </div>
 
-          
+
+            
+        <div class="col-xs-6 col-sm-6 col-md-12">
+            <div class="form-group">
+                <strong>Permissions:</strong>
+                <br></br>
+        <div class="row">
+        <div class="col-lg-2">
+         
+            <label>Category :&nbsp; &nbsp;</label>
+                @foreach ($permissions as $permission)
+                @if($permission->forWho == 'category')
+              
+                <div class="checkbox">
+                    
+                        <input type="checkbox" name="permission[]" value="{{$permission->id}}"
+
+                        @foreach ($role->permissions as $role_permit)
+                            @if($role_permit->id == $permission->id)
+                        checked
+                            @endif
+                        @endforeach
+                        > {{$permission->name}}</input>
+            
+                  
+                </div>
+                @endif
+                @endforeach
+        </div>
+
+
+        <div class="col-lg-2">
+           
+            <label>User :&nbsp; &nbsp;</label>
+                @foreach ($permissions as $permission)
+                @if($permission->forWho == 'user')
+             
+                <div class="checkbox">
+                    
+                        <input type="checkbox" name="permission[]" value="{{$permission->id}}"
+               
+                        @foreach ($role->permissions as $role_permit)
+                            @if($role_permit->id == $permission->id)
+                        checked
+                            @endif
+                        @endforeach
+                        > {{$permission->name}}</input>
+            
+                  
+                </div>
+                @endif
+                @endforeach
+        </div>
+        <div class="col-lg-2">
+           
+           <label>Department :&nbsp; &nbsp;</label>
+               @foreach ($permissions as $permission)
+               @if($permission->forWho == 'department')
+            
+               <div class="checkbox">
+                   
+                       <input type="checkbox" name="permission[]" value="{{$permission->id}}"
+               
+                       @foreach ($role->permissions as $role_permit)
+                            @if($role_permit->id == $permission->id)
+                        checked
+                            @endif
+                        @endforeach
+                        > {{$permission->name}}</input>
+            
+                  
+                </div>
+                @endif
+                @endforeach
+        </div>
+
+
+       <div class="col-lg-2">
+           
+           <label>Vendor :&nbsp; &nbsp;</label>
+               @foreach ($permissions as $permission)
+               @if($permission->forWho == 'vendor')
+            
+               <div class="checkbox">
+                   
+                       <input type="checkbox" name="permission[]" value= "{{$permission->id}}"
+               
+             
+                       @foreach ($role->permissions as $role_permit)
+                            @if($role_permit->id == $permission->id)
+                        checked
+                            @endif
+                        @endforeach
+                        > {{$permission->name}}</input>
+            
+                  
+                </div>
+                @endif
+                @endforeach
+        </div>
+
+
+       <div class="col-lg-2">
+           
+           <label>Other :&nbsp; &nbsp;</label>
+               @foreach ($permissions as $permission)
+               @if($permission->forWho == 'device')
+            
+               <div class="checkbox">
+                   
+               
+               <input type="checkbox" name="permission[]" value= "{{$permission->id}}"
+               
+             
+               @foreach ($role->permissions as $role_permit)
+                            @if($role_permit->id == $permission->id)
+                        checked
+                            @endif
+                        @endforeach
+                        > {{$permission->name}}</input>
+            
+                  
+                </div>
+                @endif
+                @endforeach
+        </div>
             </div>
+
+
+            <br></br>
             <div class="col-xs-12 col-sm-12 col-md-12 text-center">
               <button type="submit" class="btn btn-primary">Submit</button>
                 <a class="btn btn-primary" href="{{ route('roles.index') }}"> Back</a>

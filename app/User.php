@@ -6,6 +6,7 @@ use app\Account;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Hash;
 
 class User extends Authenticatable
 {
@@ -44,10 +45,12 @@ class User extends Authenticatable
     }
 
 
+    public function setPasswordAttribute($password){
+        $this->attributes['password'] = Hash::make($password);
+    }
+
     public function roles(){
-        return $this->belongsTo('App\Role')
-        ->withDefault([
-            'role_id' => '-',
-        ]);
+        return $this->belongsToMany('App\role');
+        
     }
 }

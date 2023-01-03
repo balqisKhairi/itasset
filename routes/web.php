@@ -32,6 +32,24 @@ Route::delete('categorys/{category}', 'CategoryController@destroy')->name('categ
 //Route::resource('categorys', 'CategoryController');
 
 
+    //user
+    Route::get('/users', 'userController@index')->name('users.index');
+    Route::get('/users/create', 'userController@create')->name('users.create');
+    Route::post('/users', 'userController@store')->name('users.store');
+    Route::get('users/{user}', 'userController@show')->name('users.show');
+    Route::get('users/{user}/edit', 'userController@edit')->name('users.edit');
+    Route::put('users/{user}', 'userController@update')->name('users.update');
+    Route::delete('users/{user}', 'userController@destroy')->name('users.destroy');
+
+    //permission
+    Route::get('/permissions', 'permissionController@index')->name('permissions.index');
+    Route::get('/permissions/create', 'permissionController@create')->name('permissions.create');
+    Route::post('/permissions', 'permissionController@store')->name('permissions.store');
+    Route::get('permissions/{permission}', 'permissionController@show')->name('permissions.show');
+    Route::get('permissions/{permission}/edit', 'permissionController@edit')->name('permissions.edit');
+    Route::put('permissions/{permission}', 'permissionController@update')->name('permissions.update');
+    Route::delete('permissions/{permission}', 'permissionController@destroy')->name('permissions.destroy');
+    
 
 //department
 Route::get('/departments', 'departmentController@index')->name('departments.index');
@@ -287,8 +305,24 @@ Route::get('/accounts', 'accountController@index')->name('accounts.index');
  Route::get('/exportTvsharp', 'TvsharpController@exportTvsharp')->name('tvsharps.exportTvsharp');
 
 
- //report
- Route::get('/generateReport', 'DesktopController@generateReport')->name('desktops.generateReport');
+//import
+
+Route::post('/importDesktop', 'DesktopController@importDesktop')->name('importDesktop');
+Route::post('/importOsdesktop', 'OsdesktopController@importOsdesktop')->name('importOsdesktop');
+Route::post('/importImageviewer', 'ImageViewerController@importImageviewer')->name('importImageviewer');
+Route::post('/importAiodesktop', 'AiodesktopController@importAiodesktop')->name('importAiodesktop');
+Route::post('/importTablet', 'TabletController@importTablet')->name('importTablet');
+Route::post('/importLaptop', 'LaptopController@importLaptop')->name('importLaptop');
+Route::post('/importPrinter', 'PrinterController@importPrinter')->name('importPrinter');
+Route::post('/importTvsharp', 'TvsharpController@importTvsharp')->name('importTvsharp');
+Route::post('/importCardReader', 'CardReaderController@importCardReader')->name('importCardReader');
+Route::post('/importBiometric', 'BiometricController@importBiometric')->name('importBiometric');
+Route::post('/importEncoremed', 'EncoremedController@importEncoremed')->name('importEncoremed');
+Route::post('/importPower', 'PowerController@importPower')->name('importPower');
+Route::post('/importMpos', 'MposController@importMpos')->name('importMpos');
+
+
+
 
 
      //role

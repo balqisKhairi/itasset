@@ -6,6 +6,7 @@ use App\imageviewer;
 use Illuminate\Http\Request;
 
 use App\Exports\ImageviewerExport;
+use App\Imports\ImageviewerImport;
 use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf;
 
@@ -193,6 +194,32 @@ class imageviewerController extends Controller
         //return Excel::download(new UsersExport, 'dekstops.xlsx');
         return (new ImageviewerExport($imageviewers))->download('ImageViewers.csv', \Maatwebsite\Excel\Excel::CSV);
 
+    }
+
+    public function importImageviewer(Request $request){
+
+        $request->validate([
+            'excel_file'=>'required|mimes:xlsx'
+        ]);
+    
+        /**Excel::import(new DesktopImport, $request->file('excel_file'));
+        return redirect()->back()->with('success', 'Data Successfully Imported!');
+    **/
+        try {
+            Excel::import(new ImageviewerImport, $request->file('excel_file'));
+            return redirect()->back()->with('success', 'Data Successfully Imported!');
+    
+        } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
+             $failures = $e->failures();
+             return redirect()->back()->with('excel_error', $failures);
+    
+             foreach ($failures as $failure) {
+                 $failure->row(); // row that went wrong
+             }
+        }
+    
+        //(new DesktopImport)->import($file);
+        
     }
     
 }

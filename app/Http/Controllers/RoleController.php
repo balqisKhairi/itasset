@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\role;
+use App\Permission;
 use Illuminate\Http\Request;
 
 class RoleController extends Controller
@@ -27,7 +28,8 @@ class RoleController extends Controller
      */
     public function create()
     {
-        return view('roles.create');
+        $permissions=Permission::all();
+        return view('roles.create',compact('permissions'));
     }
 
     /**
@@ -36,9 +38,17 @@ class RoleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, role $role)
     {
-        role::create($request->all());
+
+        
+        //role::create($request->all());
+       
+        $role= new Role;
+        $role->roleName=$request->roleName;
+        $role->save();
+        $role->permissions()->sync($request->permission);
+        
    
         return redirect()->route('roles.index')
                         ->with('success','role added successfully.');
@@ -63,7 +73,10 @@ class RoleController extends Controller
      */
     public function edit(role $role)
     {
-        return view('roles.edit',compact('role'));
+        $permissions=Permission::all();
+        
+        
+        return view('roles.edit',compact('role','permissions'));
     }
 
     /**
@@ -73,9 +86,14 @@ class RoleController extends Controller
      * @param  \App\role  $role
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, role $role)
+    public function update(Request $request, $id)
     {
-        $role->update($request->all());
+        //$role->update($request->all());
+
+        $role= Role::find($id);
+        $role->roleName=$request->roleName;
+        $role->save();
+        $role->permissions()->sync($request->permission);
   
         return redirect()->route('roles.index')
                         ->with('success','role updated successfully');

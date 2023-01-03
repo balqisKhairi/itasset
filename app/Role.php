@@ -27,4 +27,9 @@ class Role extends Model
             'department_id' => '-',
         ]);
     }
+
+    public function permissions(){
+        return $this->belongsToMany('App\Permission');
+       
+    }
 }

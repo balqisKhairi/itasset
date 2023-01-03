@@ -7,8 +7,9 @@ use Illuminate\Support\Facades\DB;
 use App\Exports\TvsharpExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Imports\TvsharpImport;
 
-use App\tvsharp;
+use App\Tvsharp;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -250,6 +251,33 @@ public function exportTvsharp(){
     //return Excel::download(new UsersExport, 'dekstops.xlsx');
     return (new TvsharpExport($tvsharps))->download('tvsharps.csv', \Maatwebsite\Excel\Excel::CSV);
 
+}
+
+
+public function importTvsharp(Request $request){
+
+    $request->validate([
+        'excel_file'=>'required|mimes:xlsx'
+    ]);
+
+    /**Excel::import(new TvsharpImport, $request->file('excel_file'));
+    return redirect()->back()->with('success', 'Data Successfully Imported!');
+**/
+    try {
+        Excel::import(new TvsharpImport, $request->file('excel_file'));
+        return redirect()->back()->with('success', 'Data Successfully Imported!');
+
+    } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
+         $failures = $e->failures();
+         return redirect()->back()->with('excel_error', $failures);
+
+         foreach ($failures as $failure) {
+             $failure->row(); // row that went wrong
+         }
+    }
+
+    //(new TvsharpImport)->import($file);
+    
 }
 }
 

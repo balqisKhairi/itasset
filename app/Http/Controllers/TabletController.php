@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 
+use App\Imports\TabletImport;
 
 use App\Exports\TabletExport;
 use Maatwebsite\Excel\Facades\Excel;
@@ -259,6 +260,33 @@ public function exportTablet(){
     //return Excel::download(new UsersExport, 'dekstops.xlsx');
     return (new TabletExport($tablets))->download('tablets.csv', \Maatwebsite\Excel\Excel::CSV);
 
+}
+
+
+public function importTablet(Request $request){
+
+    $request->validate([
+        'excel_file'=>'required|mimes:xlsx'
+    ]);
+
+    /**Excel::import(new DesktopImport, $request->file('excel_file'));
+    return redirect()->back()->with('success', 'Data Successfully Imported!');
+**/
+    try {
+        Excel::import(new TabletImport, $request->file('excel_file'));
+        return redirect()->back()->with('success', 'Data Successfully Imported!');
+
+    } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
+         $failures = $e->failures();
+         return redirect()->back()->with('excel_error', $failures);
+
+         foreach ($failures as $failure) {
+             $failure->row(); // row that went wrong
+         }
+    }
+
+    //(new DesktopImport)->import($file);
+    
 }
 }
 

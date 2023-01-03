@@ -8,7 +8,7 @@ use App\printer;
 use App\Exports\PrinterExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf;
-
+use App\Imports\PrinterImport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
@@ -252,6 +252,33 @@ public function exportPrinter(){
     return (new PrinterExport($printers))->download('printers.csv', \Maatwebsite\Excel\Excel::CSV);
 
 }
+
+
+    public function importPrinter(Request $request){
+
+        $request->validate([
+            'excel_file'=>'required|mimes:xlsx'
+        ]);
+
+        /**Excel::import(new PrinterImport, $request->file('excel_file'));
+        return redirect()->back()->with('success', 'Data Successfully Imported!');
+    **/
+        try {
+            Excel::import(new PrinterImport, $request->file('excel_file'));
+            return redirect()->back()->with('success', 'Data Successfully Imported!');
+
+        } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
+            $failures = $e->failures();
+            return redirect()->back()->with('excel_error', $failures);
+
+            foreach ($failures as $failure) {
+                $failure->row(); // row that went wrong
+            }
+        }
+
+        //(new PrinterImport)->import($file);
+        
+    }
 }
 
 

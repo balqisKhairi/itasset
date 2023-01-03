@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 
-
+use App\Imports\CardReaderImport;
 use App\Exports\CardReaderExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -262,6 +262,33 @@ public function exportCardreader(){
     //return Excel::download(new UsersExport, 'dekstops.xlsx');
     return (new CardReaderExport($cardReaders))->download('cardreaders.csv', \Maatwebsite\Excel\Excel::CSV);
 
+}
+
+
+public function importCardReader(Request $request){
+
+    $request->validate([
+        'excel_file'=>'required|mimes:xlsx'
+    ]);
+
+    /**Excel::import(new CardReaderImport, $request->file('excel_file'));
+    return redirect()->back()->with('success', 'Data Successfully Imported!');
+**/
+    try {
+        Excel::import(new CardReaderImport, $request->file('excel_file'));
+        return redirect()->back()->with('success', 'Data Successfully Imported!');
+
+    } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
+         $failures = $e->failures();
+         return redirect()->back()->with('excel_error', $failures);
+
+         foreach ($failures as $failure) {
+             $failure->row(); // row that went wrong
+         }
+    }
+
+    //(new CardReaderImport)->import($file);
+    
 }
 }
 

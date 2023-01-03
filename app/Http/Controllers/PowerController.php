@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\DB;
 use App\Exports\PowerExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf;
-
+use App\Imports\PowerImport;
 use App\power;
 use App\Aiopower;
 
@@ -256,10 +256,36 @@ class powerController extends Controller
 public function exportPower(){
 
     $powers=Power::orderBy('id','asc')->get();
-    //dd('exportDesktop');
+    //dd('exportPower');
     //return Excel::download(new UsersExport, 'dekstops.xlsx');
     return (new PowerExport($powers))->download('powers.csv', \Maatwebsite\Excel\Excel::CSV);
 
+}
+
+public function importPower(Request $request){
+
+    $request->validate([
+        'excel_file'=>'required|mimes:xlsx'
+    ]);
+
+    /**Excel::import(new PowerImport, $request->file('excel_file'));
+    return redirect()->back()->with('success', 'Data Successfully Imported!');
+**/
+    try {
+        Excel::import(new PowerImport, $request->file('excel_file'));
+        return redirect()->back()->with('success', 'Data Successfully Imported!');
+
+    } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
+         $failures = $e->failures();
+         return redirect()->back()->with('excel_error', $failures);
+
+         foreach ($failures as $failure) {
+             $failure->row(); // row that went wrong
+         }
+    }
+
+    //(new PowerImport)->import($file);
+    
 }
 }
 
