@@ -190,9 +190,9 @@ b, h6 {
             <div>
                 <a class="btn btn-success" href="{{ route('desktops.create') }}"> Add New Desktop</a>
 
-
+                @can('create', App\Desktop::class)
                 <a class="btn btn-success1"  onclick="openForm()">Import from Excel</a>
-
+                
                
          
            
@@ -212,13 +212,15 @@ b, h6 {
             </form>
             </div>
 
-
+        
         
              
             <div class="pull-right">
             <a class="btn btn-primary" href="{{ route('desktops.exportDesktop') }}"> Export to Excel</a>
 
             </div>
+
+            @endcan
             <br></br>
               <div class="form-group">
               <input id="myInput" type="text"  class="form-control" placeholder="Search..">

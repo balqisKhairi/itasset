@@ -33,13 +33,13 @@ Route::delete('categorys/{category}', 'CategoryController@destroy')->name('categ
 
 
     //user
-    Route::get('/users', 'userController@index')->name('users.index');
-    Route::get('/users/create', 'userController@create')->name('users.create');
-    Route::post('/users', 'userController@store')->name('users.store');
-    Route::get('users/{user}', 'userController@show')->name('users.show');
-    Route::get('users/{user}/edit', 'userController@edit')->name('users.edit');
-    Route::put('users/{user}', 'userController@update')->name('users.update');
-    Route::delete('users/{user}', 'userController@destroy')->name('users.destroy');
+    Route::get('/users', 'UserController@index')->name('users.index');
+    Route::get('/users/create', 'UserController@create')->name('users.create');
+    Route::post('/users', 'UserController@store')->name('users.store');
+    Route::get('users/{user}', 'UserController@show')->name('users.show');
+    Route::get('users/{user}/edit', 'UserController@edit')->name('users.edit');
+    Route::put('users/{user}', 'UserController@update')->name('users.update');
+    Route::delete('users/{user}', 'UserController@destroy')->name('users.destroy');
 
     //permission
     Route::get('/permissions', 'permissionController@index')->name('permissions.index');
@@ -64,7 +64,7 @@ Route::delete('departments/{department}', 'departmentController@destroy')->name(
 //Desktops
 Route::get('/desktops', 'DesktopController@index')->name('desktops.index');
 Route::post('desktops/store', 'DesktopController@store')->name('desktops.store');
-Route::get('desktops/create', 'DesktopController@create')->name('desktops.create');
+Route::get('desktops/create', 'DesktopController@create')->name('desktops.create')->middleware('auth');
 
 Route::get('desktops/{desktop}/edit', 'DesktopController@edit')->name('desktops.edit');
 Route::put('desktops/{desktop}', 'DesktopController@update')->name('desktops.update');

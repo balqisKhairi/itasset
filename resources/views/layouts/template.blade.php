@@ -212,7 +212,7 @@
             </span>
                     <div class="sidebar-user-info">
                         <span class="sidebar-user__title">{{ Auth::user()->name }}</span>
-                        <span class="sidebar-user__subtitle">Support Admin</span>
+                        <span class="sidebar-user__subtitle">{{ Auth::user()->role->roleName }}</span>
                     </div>
                 </a>
             </div>
@@ -223,7 +223,9 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <li class="nav-item">
+            
+          
+               <li class="nav-item">
             <a href="{{ url('showStati') }}" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
@@ -371,6 +373,8 @@
             </ul>
           </li>
          
+
+          @if(Auth::user()->role_id==2)
           <li class="nav-item">
             <a href="{{ route('vendors.index') }}"class="nav-link">
               <i class="nav-icon fa fa-users"></i>
@@ -379,7 +383,7 @@
               </p>
             </a>
           </li>  
-
+@endif
 
           <li class="nav-item">
             <a href="{{ route('logout') }}" onclick="event.preventDefault();

@@ -76,9 +76,9 @@
         <div class="row">
         <div class="col-lg-2">
          
-            <label>Category :&nbsp; &nbsp;</label>
+            <label>ADMIN :&nbsp; &nbsp;</label>
                 @foreach ($permissions as $permission)
-                @if($permission->forWho == 'category')
+                @if($permission->forWho == 'admin')
               
                 <div class="checkbox">
                     
@@ -122,9 +122,9 @@
         </div>
         <div class="col-lg-2">
            
-           <label>Department :&nbsp; &nbsp;</label>
+           <label>VIEWER :&nbsp; &nbsp;</label>
                @foreach ($permissions as $permission)
-               @if($permission->forWho == 'department')
+               @if($permission->forWho == 'viewer')
             
                <div class="checkbox">
                    
@@ -144,57 +144,7 @@
         </div>
 
 
-       <div class="col-lg-2">
-           
-           <label>Vendor :&nbsp; &nbsp;</label>
-               @foreach ($permissions as $permission)
-               @if($permission->forWho == 'vendor')
-            
-               <div class="checkbox">
-                   
-                       <input type="checkbox" name="permission[]" value= "{{$permission->id}}"
-               
-             
-                       @foreach ($role->permissions as $role_permit)
-                            @if($role_permit->id == $permission->id)
-                        checked
-                            @endif
-                        @endforeach
-                        > {{$permission->name}}</input>
-            
-                  
-                </div>
-                @endif
-                @endforeach
-        </div>
-
-
-       <div class="col-lg-2">
-           
-           <label>Other :&nbsp; &nbsp;</label>
-               @foreach ($permissions as $permission)
-               @if($permission->forWho == 'device')
-            
-               <div class="checkbox">
-                   
-               
-               <input type="checkbox" name="permission[]" value= "{{$permission->id}}"
-               
-             
-               @foreach ($role->permissions as $role_permit)
-                            @if($role_permit->id == $permission->id)
-                        checked
-                            @endif
-                        @endforeach
-                        > {{$permission->name}}</input>
-            
-                  
-                </div>
-                @endif
-                @endforeach
-        </div>
-            </div>
-
+     
 
             <br></br>
             <div class="col-xs-12 col-sm-12 col-md-12 text-center">

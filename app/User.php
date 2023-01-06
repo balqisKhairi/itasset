@@ -2,6 +2,7 @@
 
 namespace App;
 use app\Account;
+use app\Role;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -49,8 +50,18 @@ class User extends Authenticatable
         $this->attributes['password'] = Hash::make($password);
     }
 
+    public function role(){
+        return $this->belongsTo('App\Role')
+        ->withDefault([
+            'role_id' => '-',
+        ]);
+    }
+
     public function roles(){
-        return $this->belongsToMany('App\role');
-        
+        return $this->belongsTo('App\Role');
+    }
+
+    public function hasPermission($name){
+        return $this->role->permissions()->where('name', $name)->exists();
     }
 }

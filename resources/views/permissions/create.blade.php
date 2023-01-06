@@ -44,10 +44,9 @@
                 <select name="forWho" id="forWho" class="form-control">
                     <option selected disable>Select Permission For</option>
                     <option value ="user">User</option>
-                    <option value ="category">Category</option>
-                    <option value ="department">Department</option>
-                    <option value ="vendor">Vendor</option>
-                    <option value ="device">Others</option>
+                    <option value ="admin">Admin</option>
+                    <option value ="viewer">Viewer</option>
+                    
                 </select>
             </div>
         </div>

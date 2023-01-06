@@ -163,6 +163,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class,
         /*
          * Package Service Providers...
          */
@@ -230,6 +231,7 @@ return [
         'Input' => Illuminate\Support\Facades\Input::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'PDF'   => Barryvdh\DomPDF\Facade::class,
+        
     ],
 
 ];

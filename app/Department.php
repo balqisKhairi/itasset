@@ -33,6 +33,7 @@ class Department extends Model
         return $this->belongsToMany(User::class)->withTimestamps();
     }
 
+
     public function desktops(){
         return $this->hasMany(Desktop::class);
          

@@ -88,19 +88,18 @@
                             </div>
                         </div>
 
-                      
                         <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Permissions') }}</label>
-                            <div class="col-md-8">
-                            @foreach(App\Role::all() ->sortBy('roleName') as $cat)
-                            <div class="form-check">
-                            <input class ="form-check-input" name="role[]" type="checkbox" value="{{$cat->id}}">{{$cat->roleName}}
-                            <label class="form-check-label" for="{{$cat->roleName}}" >
-                            
-                            </div>
-                            @endforeach
-                            </div>
-                        </div>
+                       
+                        <label for="" class="col-md-4 col-form-label text-md-right">{{ __('Role') }}</label>
+                        <div class="col-md-6">
+                    <select name="role_id"  class="form-control">
+                    <option value=""> --SELECT--</option>
+                    @foreach(App\Role::all() ->sortBy('roleName') as $cat)
+                    <option value="{{$cat->id}}">{{$cat->roleName}}</option>
+                    @endforeach
+                    </select>
+                    </div>
+                    </div>
 
 
 
@@ -117,5 +116,14 @@
             </div>
         </div>
     </div>
-</div>
+</div><script>
+function myFunction() {
+  var x = document.getElementById("myInput");
+  if (x.type === "password") {
+    x.type = "text";
+  } else {
+    x.type = "password";
+  }
+}
+</script>
 @endsection

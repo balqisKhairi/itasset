@@ -47,6 +47,12 @@ class DesktopController extends Controller
        return view('desktops.index',compact('desktops'));
        
     }
+
+    public function deviceDepartment(){
+        $desktops = Desktop::where('department_id',auth()->user()->role_id)->get();
+
+        return view('desktops.deviceDepartment',compact('desktops'));
+    }
   
     /**
      * Show the form for creating a new resource.
@@ -55,6 +61,8 @@ class DesktopController extends Controller
      */
     public function create()
     {
+        
+
         return view('desktops.create');
     }
 
@@ -66,6 +74,8 @@ class DesktopController extends Controller
      */
     public function store(Request $request)
     {
+
+     
         $desktop = $request->all();
         
         if($request->hasFile('image')){
@@ -93,6 +103,8 @@ class DesktopController extends Controller
     }
 
     public function download(Request $request, $file){
+
+        $this->authorize('create', Desktop::class);
 
          return response()->download(public_path('assets/'.$file));
      }
@@ -263,6 +275,8 @@ class DesktopController extends Controller
 
     public function exportDesktop(){
 
+
+        $this->authorize('create', Desktop::class);
         $desktops=Desktop::orderBy('id','asc')->get();
         //dd('exportDesktop');
         //return Excel::download(new UsersExport, 'dekstops.xlsx');
@@ -272,6 +286,8 @@ class DesktopController extends Controller
 
 
    public function importDesktop(Request $request){
+
+    $this->authorize('create', Desktop::class);
 
     $request->validate([
         'excel_file'=>'required|mimes:xlsx'

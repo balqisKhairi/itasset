@@ -64,9 +64,11 @@ tbody:nth-child(odd) {
             <div>
                 <h2>List of users</h2>
             </div>
+
             <div>
+               
                 <a class="btn btn-success" href="{{ route('users.create') }}"> Add New user</a>
-            
+        
                 <br></br>
               <div class="form-group">
               <input id="myInput" type="text"  class="form-control" placeholder="Search..">
@@ -88,8 +90,8 @@ tbody:nth-child(odd) {
             <th>Name</th>
             <th>Email</th>
             <th>Assigned Role</th>
-           
-            <th width="600px">Action</th>
+            <th>Permissions</th>
+            <th width="400px">Action</th>
         </tr>
        @foreach ($users as $s)
        <tbody id="myTable">
@@ -98,11 +100,15 @@ tbody:nth-child(odd) {
             <td>{{ $s->id }}</td>
             <td>{{ $s->name }}</td>
             <td>{{ $s->email }}</td>
-            <td> 
-                @foreach($s->roles as $role)
-                {{$role->roleName}},
-                @endforeach
-</td>
+            <td> {{$s->role->roleName}}</td>
+            <td>
+                <ul>
+                    @foreach($s->role->permissions as $permission)
+                    <li>
+                        {{$permission->name}}
+                    </li>
+                    @endforeach
+                </ul>
             <td>
             <form action="{{ route('users.destroy',$s->id) }}" method="POST">
    

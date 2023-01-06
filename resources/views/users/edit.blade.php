@@ -94,27 +94,21 @@
                          <input type="checkbox" onclick="myFunction()"> Show Password
                         </div>
 </div>
-                     
-            <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Permissions') }}</label>
-                            <div class="col-md-8">
-                            @foreach(App\Role::all() ->sortBy('roleName') as $cat)
-                            <div class="form-check">
-                            <input class ="form-check-input" name="role[]" type="checkbox" value="{{$cat->id}}"
-                                @foreach ($user->roles as $user_role)
-                                @if($user_role->id == $cat->id)
-                                checked
-                                @endif
-                                @endforeach
-                            >{{$cat->roleName}}
-                            <label class="form-check-label" for="{{$cat->roleName}}" >
-                            
-                            </div>
-                            @endforeach
-                            </div>
-                        </div>
-          
-            </div>
+                        
+
+
+                        <div class="form-group row">
+                        <label for="role" class="col-md-4 col-form-label text-md-right">{{ __('Role') }}</label>
+                        <div class="col-md-6">
+                    <select name="role_id" id="role_id" class="form-control">
+                    <option value=""> --SELECT--</option>
+                    @foreach(App\Role::all() ->sortBy('roleName') as $cat) 
+                    <option value="{{$cat->id}}" {{$user->role_id == $cat->id  ? 'selected' : ''}}>{{$cat->roleName}}</option>
+                    @endforeach
+                    </select>
+                    </div>
+
+<br></br>
             <div class="col-xs-12 col-sm-12 col-md-12 text-center">
               <button type="submit" class="btn btn-primary">Submit</button>
                 <a class="btn btn-primary" href="{{ route('users.index') }}"> Back</a>

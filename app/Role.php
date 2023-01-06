@@ -13,13 +13,7 @@ class Role extends Model
         //One to one
         return $this->belongsTo('App\Job');
     }**/
-
-    public function users(){
-        return $this->belongsTo('App\User')
-        ->withDefault([
-            'user_id' => '-',
-        ]);
-    }
+   
 
     public function department(){
         return $this->belongsTo('App\Department')

@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
-use App\Role;
-use Auth;
+use App\user;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class userController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,6 +19,8 @@ class UserController extends Controller
         return view('users.index',compact('users'));
        // return view('subjects.index');
     }
+
+    
 
     /**
      * Show the form for creating a new resource.
@@ -40,22 +40,16 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        
-        $this-> validate($request, [
-            'name' => ['required',  'max:255'],
-           // 'email' => [ 'email', 'max:255', 'unique:users'],
-            'username' => [ 'required', 'max:255', 'unique:users'],
-            'password' => ['required', 'min:8', 'confirmed'],
-        ]);
-
-        $user=User::create($request->all());
-
-        $user->roles()->sync($request->role);
-
-        redirect()->route('users.index')
+        //$request->validate([
+          //  'user_id' => 'required',
+            //'userName' => 'required',
+           
+        //]);
+  
+        user::create($request->all());
+   
+        return redirect()->route('users.index')
                         ->with('success','New user created successfully.');
-
-                        //return $request->all();
     }
 
     /**
@@ -66,31 +60,18 @@ class UserController extends Controller
      */
     public function show(user $user)
     {
-
-        
         return view('users.show',compact('user'));
     }
 
-
-
-
-    public function myAcc(){
-        $users = user::where('user_id',auth()->user()->id)->get();
-        return view('users.myAcc',compact('users'));
-    }
     /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\user  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(user $user)
     {
-        
-        $user= User::find($id);
-        $roles = Role::all();
-        
-        return view('users.edit',compact('user','roles'));
+        return view('users.edit',compact('user'));
     }
 
     /**
@@ -102,18 +83,16 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-       
-             $this-> validate($request, [
-            'username' => ['required',  'max:255'],
-            //'email' => [ 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'min:8'],
-        ]);
-
-        $user=User::where('id',$id)->update($request->except('_token','_method','role'));
-        User::find($id)->roles()->sync($request->role);
-
+       $user=User::find($id);
+       $user->name=$request->name;
+       $user->email=$request->email;
+       $user->username=$request->username;
+       $user->role_id=$request->role_id;
+        //$user->update($request->all());
   
-        return redirect()->back()
+
+        $user->save();
+        return redirect()->route('users.index')
                         ->with('success','user updated successfully');
     }
 
@@ -127,9 +106,7 @@ class UserController extends Controller
     {
         $user->delete();
 
-       return redirect()->back()
+       return redirect()->route('users.index')
        ->with('success','user deleted successfully');
     }
-
-   
 }

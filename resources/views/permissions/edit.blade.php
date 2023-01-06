@@ -77,10 +77,9 @@
                                 <select name="forWho" id="forWho"class="form-control">
                                 <option value=""  readonly > --SELECT--</option>
                                 <option value="user" {{ $permission->forWho == "user" ? 'selected' : '' }} > User</option>
-                                <option value="category" {{ $permission->forWho == "category" ? 'selected' : '' }} > Category</option>
-                                <option value="department" {{ $permission->forWho == "department" ? 'selected' : '' }}> Department</option>
-                                <option value="vendor" {{ $permission->forWho == "vendor" ? 'selected' : '' }}> Vendor</option>
-                                <option value="device" {{ $permission->forWho == "device" ? 'selected' : '' }}> Device</option>
+                                <option value="admin" {{ $permission->forWho == "admin" ? 'selected' : '' }} > Admin</option>
+                                <option value="viewer" {{ $permission->forWho == "viewer" ? 'selected' : '' }}> Viewer</option>
+
                                 </select>
                             </div>
           
