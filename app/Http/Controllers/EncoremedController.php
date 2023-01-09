@@ -299,9 +299,13 @@ public function importEncoremed(Request $request){
          }
     }
 
-    //(new EncoremedImport)->import($file);
-    
-}
+
+    }
+    //view device under own department
+    public function myEncoremed(){
+        $encoremeds = Encoremed::where('department_id',auth()->user()->role_id)->get();
+        return view('layouts.myEncoremed',compact('encoremeds'));
+        }
 }
 
 

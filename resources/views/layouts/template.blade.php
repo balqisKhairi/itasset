@@ -206,7 +206,7 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
        
-                <a href="{{ url('myAcc') }}" class="sidebar-user">
+                <a href="" class="sidebar-user">
                     <span class="sidebar-user-img">
                 <picture><source srcset="" type="image/webp"><img src='https://icons.iconarchive.com/icons/diversity-avatars/avatars/1024/batman-icon.png' alt="User name"></picture>
             </span>
@@ -225,6 +225,7 @@
                with font-awesome or any other icon font library -->
             
           
+               @if(Auth::user()->role_id==2)
                <li class="nav-item">
             <a href="{{ url('showStati') }}" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -234,6 +235,8 @@
             </a>
           </li>    
           
+
+
           <li class="nav-item">
             <a href="{{ route('users.index') }}"class="nav-link">
               <i class="nav-icon fa fa-user-plus"></i>
@@ -251,6 +254,8 @@
               </p>
             </a>
           </li>   
+
+          
 
 
           <li class="nav-item">
@@ -280,7 +285,6 @@
             </a>
           </li>  
 
-
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fa fa-folder-open"></i>
@@ -297,12 +301,8 @@
                   <p>Desktops</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="{{ route('osdesktops.index') }}" class="nav-link">
-                  <i class="fa fa-desktop"></i>
-                  <p>OS Desktops</p>
-                </a>
-              </li>
+
+
               <li class="nav-item">
                 <a href="{{ route('imageviewers.index') }}" class="nav-link">
                   <i class="fa fa-eye"></i>
@@ -374,7 +374,6 @@
           </li>
          
 
-          @if(Auth::user()->role_id==2)
           <li class="nav-item">
             <a href="{{ route('vendors.index') }}"class="nav-link">
               <i class="nav-icon fa fa-users"></i>
@@ -384,6 +383,99 @@
             </a>
           </li>  
 @endif
+
+@if(Auth::user()->role_id!==2)
+
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fa fa-folder-open"></i>
+              <p>
+                Record
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            
+            <ul class="nav nav-treeview">
+            <li class="nav-item">
+                <a href="{{ url('myDesktop') }}" class="nav-link">
+                  <i class="fa fa-desktop"></i>
+                  <p>Desktop</p>
+                </a>
+              </li>
+              
+
+              <li class="nav-item">
+                <a href="{{ url('myImageviewer') }}" class="nav-link">
+                  <i class="fa fa-eye"></i>
+                  <p>Image Viewer</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('myAiodesktop') }}"  class="nav-link">
+                  <i class="fa fa-window-maximize"></i>
+                  <p>AiO Desktops</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('myTablet') }}" class="nav-link">
+                  <i class="fa fa-tablet"></i>
+                  <p>Tablet</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('myLaptop') }}"class="nav-link">
+                  <i class="fa fa-laptop"></i>
+                  <p>Laptop</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('myPrinter') }}" class="nav-link">
+                  <i class="fa fa-print"></i>
+                  <p>Printer</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('myTvsharp') }}" class="nav-link">
+                  <i class="fa fa-window-maximize"></i>
+                  <p>TV Sharp</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('myCardreader') }}" class="nav-link">
+                  <i class="fa fa-credit-card"></i>
+                  <p>Card Reader</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('myBiometric') }}" class="nav-link">
+                  <i class="fa fa-eye-slash"></i>
+                  <p>Biometric</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('myEncoremed') }}" class="nav-link">
+                  <i class="fa fa-medkit"></i>
+                  <p>Encoremed</p>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a href="{{ url('myPower') }}" class="nav-link">
+                  <i class="fa fa-battery-three-quarters"></i>
+                  <p>UPS</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('myMpos') }}"class="nav-link">
+                  <i class="fa fa-book"></i>
+                  <p>MPOS</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+         @endif
+
+      
 
           <li class="nav-item">
             <a href="{{ route('logout') }}" onclick="event.preventDefault();

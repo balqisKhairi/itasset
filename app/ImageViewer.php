@@ -8,13 +8,13 @@ class ImageViewer extends Model
 {
     protected $guarded =[];
 
-    public function department(){
-        return $this->belongsTo('App\Department')
-        ->withDefault([
-            'department_id' => '-',
-        ]);
-    }
-    
+ 
+public function department(){
+    return $this->belongsTo('App\Department')
+    ->withDefault([
+        'department_id' => '-',
+    ]);
+}
     
     
     public function vendor(){
@@ -24,6 +24,7 @@ class ImageViewer extends Model
             'vendor_id' => '-',
         ]);
     }
+    
     
     
 }

@@ -279,6 +279,11 @@ public function importTvsharp(Request $request){
     //(new TvsharpImport)->import($file);
     
 }
+//view device under own department
+public function myTvsharp(){
+    $tvsharps = Tvsharp::where('department_id',auth()->user()->role_id)->get();
+    return view('layouts.myTvsharp',compact('tvsharps'));
+    }
 }
 
 

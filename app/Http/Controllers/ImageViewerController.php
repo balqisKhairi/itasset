@@ -2,15 +2,29 @@
 
 namespace App\Http\Controllers;
 
-use App\imageviewer;
+use App\Imageviewer;
 use Illuminate\Http\Request;
-
+use App\Desktop;
+use App\Aiodesktop;
+use App\Biometric;
+use App\CardReader;
+use App\Encoremed;
+use App\Laptop;
+use App\Mpos;
+use App\Osdesktop;
+use App\Printer;
+use App\Tablet;
+use App\Tvsharp;
+use App\Department;
+use App\Power;
+use App\Vendor;
 use App\Exports\ImageviewerExport;
 use App\Imports\ImageviewerImport;
 use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\DB;
 
-class imageviewerController extends Controller
+class ImageViewerController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,7 +33,7 @@ class imageviewerController extends Controller
      */
     public function index()
     {
-        $imageviewers = imageviewer::all();
+        $imageviewers = ImageViewer::all();
         //dd($ImageViewers);
         return view('imageviewers.index',compact('imageviewers'));
     }
@@ -60,8 +74,8 @@ class imageviewerController extends Controller
             }
         }
 
-        imageviewer::create($requestData);
-        return redirect()->route('imageviewers.index')->with('success','New Os ImageViewer addes succesfully');
+        ImageViewer::create($requestData);
+        return redirect()->back()->with('success','New Os ImageViewer addes succesfully');
     }
 
 
@@ -163,7 +177,7 @@ class imageviewerController extends Controller
     }
         $imageviewer->update($post);
    
-        return redirect()->route('imageviewers.index')
+        return redirect()->route('layouts.myImageviewer')
                         ->with('success',' OS ImageViewer updated successfully');
     }
 
@@ -177,7 +191,7 @@ class imageviewerController extends Controller
     {
         $imageviewer->delete();
 
-        return redirect()->route('imageviewers.index')
+        return redirect()->route('layouts.myImageviewer')
         ->with('success','imageviewer deleted successfully');
     }
 
@@ -202,7 +216,7 @@ class imageviewerController extends Controller
             'excel_file'=>'required|mimes:xlsx'
         ]);
     
-        /**Excel::import(new DesktopImport, $request->file('excel_file'));
+        /**Excel::import(new imageviewerImport, $request->file('excel_file'));
         return redirect()->back()->with('success', 'Data Successfully Imported!');
     **/
         try {
@@ -218,8 +232,16 @@ class imageviewerController extends Controller
              }
         }
     
-        //(new DesktopImport)->import($file);
+        //(new imageviewerImport)->import($file);
         
     }
+   
+
+    public function myImageviewer(){
+        $imageviewers = Imageviewer::where('department_id',auth()->user()->role_id)->get();
+        return view('layouts.myImageviewer',compact('imageviewers'));
+    }
+   
+     } 
     
-}
+

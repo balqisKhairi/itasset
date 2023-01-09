@@ -55,7 +55,7 @@
     @endif
    
     <div class="card border-primary " style="max-width: 60rem;">
-  <div class="card-header">{{ __('MY user') }}</div>
+  <div class="card-header">{{ __('MY Account') }}</div>
   <div class="card-body">
  
 <div class="row">
@@ -69,9 +69,9 @@
    
                     <a class="button2" href="{{ route('users.show',$s->id) }}">Show Detail</a>
     
-                    @can('create', App\Desktop::class)
+                   
                     <a class="button2" href="{{ route('users.edit',$s->id) }}">Edit Detail</a>
-   @endcan
+   
                      
                 </form>
             </td>

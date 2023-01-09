@@ -284,10 +284,14 @@ public function importTablet(Request $request){
              $failure->row(); // row that went wrong
          }
     }
-
-    //(new DesktopImport)->import($file);
     
 }
+
+public function myTablet(){
+    $tablets = Tablet::where('department_id',auth()->user()->role_id)->get();
+    return view('layouts.myTablet',compact('tablets'));
+}
+
 }
 
 

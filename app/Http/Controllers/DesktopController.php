@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
-
+use Auth;
 use App\Exports\UsersExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -21,7 +21,7 @@ use App\Tablet;
 use App\Tvsharp;
 use App\Department;
 use App\Power;
-use App\Vendor;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 Use Illuminate\Support\Facades\Input;
@@ -39,8 +39,8 @@ class DesktopController extends Controller
     public function index()
     {
         $desktops = Desktop::all();
-       //$desktops= Desktop::with('department','vendor')->get();
-       //$desktops= Desktop::with('department','vendor')->get();
+       //$desktops= Desktop::with('department','desktop')->get();
+       //$desktops= Desktop::with('department','desktop')->get();
        // $selectedRole = Department::first()->id;
         //dd($desktops);
        
@@ -48,11 +48,6 @@ class DesktopController extends Controller
        
     }
 
-    public function deviceDepartment(){
-        $desktops = Desktop::where('department_id',auth()->user()->role_id)->get();
-
-        return view('desktops.deviceDepartment',compact('desktops'));
-    }
   
     /**
      * Show the form for creating a new resource.
@@ -94,10 +89,10 @@ class DesktopController extends Controller
             }
         }
 
-        Desktop::create($desktop);
+        Desktop::firstOrCreate($desktop);
         //$file->folder=json_encode($desktop); 
    
-        return redirect()->route('desktops.index')
+        return redirect()->back()
                         ->with('success','New desktops added successfully.');
  
     }
@@ -197,7 +192,7 @@ class DesktopController extends Controller
             'deliveryOrder'=>$request['deliveryOrder'],
             'invoiceNo' =>$request['invoiceNo'],
             'supplier'=>$request['supplier'],
-            'vendor_id'=>$request['vendor_id'],
+            'desktop_id'=>$request['desktop_id'],
            // $trainee_id = $request->get('trainee_id');
             'pricePerUnit'=>$request['pricePerUnit'],
     
@@ -225,7 +220,7 @@ class DesktopController extends Controller
             $desktop->update($post);
        
         
-        return redirect()->route('desktops.index')
+        return redirect()->back()
                         ->with('success','Desktop updated successfully');
    
     }
@@ -241,8 +236,7 @@ class DesktopController extends Controller
     {
         $desktop->delete();
 
-        return redirect()->route('desktops.index')
-        ->with('success','desktop deleted successfully');
+        return redirect()->back()->with('success','desktop deleted successfully');
     
     }
 
@@ -260,16 +254,16 @@ class DesktopController extends Controller
         $totalEncoremed = Encoremed ::count();
         $totalMpos = Mpos ::count();
         $totalPower = Power ::count();
-        $totalVendor = Vendor ::count();
+        $totaldesktop = desktop ::count();
         //$totalUps = Ups ::count();
 
-       // $getJob = Studdent::where('studStatus','0')->count();
-        //$notJob = Studdent::where('studStatus','1')->count();
+       // $getdesktop = Studdent::where('studStatus','0')->count();
+        //$notdesktop = Studdent::where('studStatus','1')->count();
         //$needcerti = Certificate::where('certiStatus','')->count();
-        //$needjob = Job::where('jobStatus','')->count();
+        //$needdesktop = desktop::where('desktopStatus','')->count();
 
         return view('layouts.showStati',compact('totalDesk','totalOsdesk','totalImageViewer','totalAiodesk','totalTablet','totalLaptop','totalPrinter',
-    'totalTvsharp','totalCardreader','totalBiometric','totalEncoremed','totalMpos','totalPower','totalVendor'));
+    'totalTvsharp','totalCardreader','totalBiometric','totalEncoremed','totalMpos','totalPower','totaldesktop'));
 }
 
 
@@ -312,7 +306,26 @@ class DesktopController extends Controller
     //(new DesktopImport)->import($file);
     
 }
+
+
+ /**public function myDesktop(desktop $desktop){
+    $desktops = $desktop->users;
+    //dd($desktops);
+     return view('layouts.myDesktop',compact('desktops'));
+ 
+}**/
+
+public function myDesktop(){
+    $desktops = Desktop::where('department_id',auth()->user()->role_id)->get();
+    return view('layouts.myDesktop',compact('desktops'));
 }
+
+
+ 
+ 
+}
+
+
 
 
   

@@ -79,9 +79,7 @@
         
                     @else
           <li><a class="getstarted scrollto" href="{{ route('login') }}">LOGIN</a></li>
-          @if (Route::has('register'))
-          <li><a class="getstarted scrollto" href="{{ route('register') }}">REGISTER</a></li>
-          @endif
+        
                     @endauth
                 </div>
             @endif

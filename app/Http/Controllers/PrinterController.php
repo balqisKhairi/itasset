@@ -279,6 +279,11 @@ public function exportPrinter(){
         //(new PrinterImport)->import($file);
         
     }
+     //view device under own department
+     public function myPrinter(){
+        $printers = Printer::where('department_id',auth()->user()->role_id)->get();
+        return view('layouts.myPrinter',compact('printers'));
+        }
 }
 
 

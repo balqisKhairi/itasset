@@ -226,4 +226,9 @@ class osdesktopController extends Controller
         //(new DesktopImport)->import($file);
         
     }
+    //view device under own department
+    public function myOsdesktop(){
+        $osdesktops = Osdesktop::where('department_id',auth()->user()->role_id)->get();
+        return view('layouts.myOsdesktop',compact('osdesktops'));
+        }
 }

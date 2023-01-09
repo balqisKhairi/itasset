@@ -309,7 +309,10 @@ public function importAiodesktop(Request $request){
     
 }
 
-
+public function myAiodesktop(){
+    $aiodesktops = Aiodesktop::where('department_id',auth()->user()->role_id)->get();
+    return view('layouts.myAiodesktop',compact('aiodesktops'));
+}
 
 
 }

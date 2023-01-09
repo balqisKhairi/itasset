@@ -287,6 +287,12 @@ public function importPower(Request $request){
     //(new PowerImport)->import($file);
     
 }
+
+//view device under own department
+public function myPower(){
+    $powers = Power::where('department_id',auth()->user()->role_id)->get();
+    return view('layouts.myPower',compact('powers'));
+    }
 }
 
 

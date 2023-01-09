@@ -40,6 +40,8 @@ Route::delete('categorys/{category}', 'CategoryController@destroy')->name('categ
     Route::get('users/{user}/edit', 'UserController@edit')->name('users.edit');
     Route::put('users/{user}', 'UserController@update')->name('users.update');
     Route::delete('users/{user}', 'UserController@destroy')->name('users.destroy');
+    //Route::get('users/myAcc', 'UserController@myAcc')->name('users.myAcc');
+    Route::get('/myAcc', 'UserController@myAcc');
 
     //permission
     Route::get('/permissions', 'permissionController@index')->name('permissions.index');
@@ -71,11 +73,10 @@ Route::put('desktops/{desktop}', 'DesktopController@update')->name('desktops.upd
 Route::delete('desktops/{desktop}', 'DesktopController@destroy')->name('desktops.destroy');
 Route::get('desktops/{desktop}', 'DesktopController@show')->name('desktops.show');
 //Route::get('desktops/{desktop}', 'DesktopController@show')->name('desktops.show1');
-Route::get('desktops/showStati', 'DesktopController@showStati')->name('desktops.showStati');
+//Route::get('desktops/showStati', 'DesktopController@showStati')->name('desktops.showStati');
 //Route::get('desktops/showStati', 'desktopController@showStati')->name('desktops.statics');
 //Route::resource('desktops', 'DesktopController');
 Route::get('/showStati', 'DesktopController@showStati');
-
 Route::get('desktops/viewFolder/{id}', 'DesktopController@viewFolder')->name('desktops.viewFolder');
 //Route::get('jobs/showStati', 'JobController@showStati')->name('jobs.showStati')
 
@@ -304,9 +305,7 @@ Route::get('/accounts', 'accountController@index')->name('accounts.index');
  Route::get('/exportTablet', 'TabletController@exportTablet')->name('tablets.exportTablet');
  Route::get('/exportTvsharp', 'TvsharpController@exportTvsharp')->name('tvsharps.exportTvsharp');
 
-
 //import
-
 Route::post('/importDesktop', 'DesktopController@importDesktop')->name('importDesktop');
 Route::post('/importOsdesktop', 'OsdesktopController@importOsdesktop')->name('importOsdesktop');
 Route::post('/importImageviewer', 'ImageViewerController@importImageviewer')->name('importImageviewer');
@@ -321,10 +320,6 @@ Route::post('/importEncoremed', 'EncoremedController@importEncoremed')->name('im
 Route::post('/importPower', 'PowerController@importPower')->name('importPower');
 Route::post('/importMpos', 'MposController@importMpos')->name('importMpos');
 
-
-
-
-
      //role
 Route::get('/roles', 'roleController@index')->name('roles.index');
 Route::get('/roles/create', 'roleController@create')->name('roles.create');
@@ -333,3 +328,17 @@ Route::get('roles/{role}', 'roleController@show')->name('roles.show');
 Route::get('roles/{role}/edit', 'roleController@edit')->name('roles.edit');
 Route::put('roles/{role}', 'roleController@update')->name('roles.update');
 Route::delete('roles/{role}', 'roleController@destroy')->name('roles.destroy');
+
+//mydevice
+Route::get('/myDesktop', 'DesktopController@myDesktop');
+Route::get('/myImageviewer', 'ImageViewerController@myImageviewer');
+Route::get('/myAiodesktop', 'AiodesktopController@myAiodesktop');
+Route::get('/myTablet', 'TabletController@myTablet');
+Route::get('/myLaptop', 'LaptopController@myLaptop');
+Route::get('/myPrinter', 'PrinterController@myPrinter');
+Route::get('/myTvsharp', 'TvsharpController@myTvsharp');
+Route::get('/myCardreader', 'CardreaderController@myCardreader');
+Route::get('/myBiometric', 'BiometricController@myBiometric');
+Route::get('/myEncoremed', 'EncoremedController@myEncoremed');
+Route::get('/myPower', 'PowerController@myPower');
+Route::get('/myMpos', 'MposController@myMpos');

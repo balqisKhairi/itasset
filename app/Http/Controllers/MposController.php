@@ -285,9 +285,13 @@ public function importMpos(Request $request){
          }
     }
 
-    //(new MposImport)->import($file);
-    
-}
+    }
+
+    //view device under own department
+    public function myMpos(){
+        $mposs = Mpos::where('department_id',auth()->user()->role_id)->get();
+        return view('layouts.myMpos',compact('mposs'));
+        }
 }
 
 

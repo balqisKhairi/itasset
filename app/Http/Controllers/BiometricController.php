@@ -292,7 +292,11 @@ public function importBiometric(Request $request){
     //(new BiometricImport)->import($file);
     
 }
-
+//view device under own department
+public function myBiometric(){
+    $biometrics = Biometric::where('department_id',auth()->user()->role_id)->get();
+    return view('layouts.myBiometric',compact('biometrics'));
+    }
 
 
 }

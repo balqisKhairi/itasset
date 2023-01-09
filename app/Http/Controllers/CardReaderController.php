@@ -289,7 +289,12 @@ public function importCardReader(Request $request){
 
     //(new CardReaderImport)->import($file);
     
-}
+    }
+    //view device under own department
+    public function myCardreader(){
+        $cardreaders = Cardreader::where('department_id',auth()->user()->role_id)->get();
+        return view('layouts.myCardreader',compact('cardreaders'));
+        }
 }
 
 

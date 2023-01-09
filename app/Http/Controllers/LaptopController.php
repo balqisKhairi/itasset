@@ -287,9 +287,13 @@ public function importLaptop(Request $request){
          }
     }
 
-    //(new LaptopImport)->import($file);
-    
-}
+    }
+
+    //view device under own department
+    public function myLaptop(){
+    $laptops = Laptop::where('department_id',auth()->user()->role_id)->get();
+    return view('layouts.myLaptop',compact('laptops'));
+    }
 }
 
 

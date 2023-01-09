@@ -26,4 +26,9 @@ class Role extends Model
         return $this->belongsToMany('App\Permission');
        
     }
+
+    /**public function desktops(){
+        return $this->belongsToMany('App\Desktop');
+         
+     }**/
 }

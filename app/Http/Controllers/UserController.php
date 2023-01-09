@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\user;
+use App\Desktop;
+use Auth;
 use Illuminate\Http\Request;
 
 class userController extends Controller
@@ -40,13 +42,16 @@ class userController extends Controller
      */
     public function store(Request $request)
     {
-        //$request->validate([
-          //  'user_id' => 'required',
-            //'userName' => 'required',
-           
-        //]);
+        
+       $user->name=$request->name;
+       $user->email=$request->email;
+       $user->username=$request->username;
+       $user->role_id=$request->role_id;
+        //$user->update($request->all());
   
-        user::create($request->all());
+        $user=User::create($user);
+       // $user->save();
+        //user::create($request->all());
    
         return redirect()->route('users.index')
                         ->with('success','New user created successfully.');
@@ -109,4 +114,14 @@ class userController extends Controller
        return redirect()->route('users.index')
        ->with('success','user deleted successfully');
     }
+
+    
+    public function myAcc(){
+        $users = User::where('id',auth()->user()->id)->get();
+        return view('users.myAcc',compact('users'));
+    }
+
+  
+
+    
 }
