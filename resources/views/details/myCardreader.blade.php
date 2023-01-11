@@ -1,3 +1,5 @@
+@extends('layouts.template')
+
 @section('content')
 <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -30,7 +32,7 @@ input {
     border: solid #98c1eb 2px !important;
 }
 
-    .tr{
+.tr{
         color:white;
     }
 
@@ -50,6 +52,14 @@ input {
     margin-top: 20px;
 }
 
+.btn-success1 {
+    color: #000;
+    background-color: #ffd333;
+    border-color: #000000;
+    box-shadow: none;
+    margin-top: 20px;
+}
+
 .tr {
     display: table-row;
     vertical-align: inherit;
@@ -61,7 +71,10 @@ tbody:nth-child(odd) {
   background-color: #D6EEEE;
 }
 
-
+.tbody (odd) {
+    border-top: 2px solid #dee2e6;
+    background-color: #D6EEEE;
+}
 
 body {font-family: Arial, Helvetica, sans-serif;}
 * {box-sizing: border-box;}
@@ -152,75 +165,16 @@ b, h6 {
     font-size: 15px;
     margin-bottom: 5px;
 }
-
-.btn-success1 {
-    color: #000;
-    background-color: #ffd333;
-    border-color: #000000;
-    box-shadow: none;
-    margin-top: 20px;
-}
-</style>
+    </style>
     <body>
 
-<div class="row">
-        <div class="col-lg-12 margin-tb">
-            <div >
-                <h2>List of Printers</h2>
-            </div>
-            <div class>
-                <a class="btn btn-success" href="{{ route('printers.create') }}"> Add New Printers</a>
-                
-                <a class="btn btn-success1"  onclick="openForm()">Import from Excel</a>
-
-               
-         
-           
-            <div class="form-popup" id="myForm">
-            <form action="{{ url('importPrinter') }}" class="form-container" method="post" enctype="multipart/form-data">
-                @csrf
-                
-                <input type="file"  name="excel_file" required>
-
-
-                <label for="psw">
-            <h6>*Please be sure to remove header row</h6>
-            <h6>and ID column in your EXCEL.</h6>
-          </label>
-
-                <button type="submit" class="btn">Submit</button>
-                <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
-            </form>
-            </div>
-
-                
-                
-                
-                
-                
-                <div class="pull-right">
-            <a class="btn btn-primary" href="{{ route('printers.exportPrinter') }}"> Export to Excel</a>
-            </div>
-                
-                
-                
-                <br></br>
-              <div class="form-group">
-              <input id="myInput" type="text"  class="form-control" placeholder="Search..">
-
-            </div>
-        </div>
-    </div>
-    <br></br>
-   
     @if ($message = Session::get('success'))
         <div class="alert alert-success">
             <p>{{ $message }}</p>
         </div>
     @endif
 
-
-       
+    
     @if (Session::has('excel_error'))
     @foreach(Session::get('excel_error') as $failure)
         <div class="alert alert-danger">
@@ -228,6 +182,59 @@ b, h6 {
         </div>
         @endforeach
     @endif
+
+    
+    <div class="row">
+        <div class="col-lg-12 margin-tb">
+            <div>
+                <h2>List of cardReaders</h2>
+            </div>
+            <div>
+                <a class="btn btn-success" href="{{ route('cardReaders.create') }}"> Add New cardReader</a>
+
+                @if(Auth::user()->role_id==2)
+                <a class="btn btn-success1"  onclick="openForm()">Import from Excel</a>
+                
+               
+         
+           
+            <div class="form-popup" id="myForm">
+            <form action="{{ url('importCardReader') }}" class="form-container" method="post" enctype="multipart/form-data">
+                @csrf
+                
+                <input type="file"  name="excel_file" required>
+
+
+                <label for="psw">
+            <h6>*Please be sure to remove your header in Excel.</h6>
+          </label>
+
+                 <button type="submit" class="btn">Submit</button>
+                <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+            </form>
+            </div>
+
+        
+        
+             
+            <div class="pull-right">
+            <a class="btn btn-primary" href="{{ route('cardReaders.exportCardReader') }}"> Export to Excel</a>
+
+            </div>
+
+            @endif
+            <br></br>
+              <div class="form-group">
+              <input id="myInput" type="text"  class="form-control" placeholder="Search..">
+ 
+           
+
+            </div>
+        </div>
+    </div>
+   
+   
+   
    
     <table class="table table-bordered">
     <tr class="table-active">
@@ -241,10 +248,11 @@ b, h6 {
            
             <th width="350px">Action</th>
         </tr>
-        @if(count($printers))
-       @foreach ($printers as $s)
+       
+    @if(count($cardreaders))
+       @foreach ($cardreaders as $key => $s)
        <tbody id="myTable">
-        <tr>
+        <tr >
             
             <td>{{ $s->id }}</td>
             <td>{{ $s->assignedTo }}</td>
@@ -252,15 +260,14 @@ b, h6 {
             <td>{{ $s->deviceIPaddress }}</td>
             <td>{{ $s->deviceSerielNumber }}</td>
             <td>{{ $s->deviceManufacturer }}</td>
-            
             <td>
-            <form action="{{ route('printers.destroy',$s->id) }}" method="POST">
+            <form action="{{ route('cardReaders.destroy',$s->id) }}" method="POST">
    
-                    <a class="btn btn-info" href="{{ route('printers.show',$s->id) }}">View Full Details</a>
+                    <a class="btn btn-info" href="{{ route('cardReaders.show',$s->id) }}">View Full Details</a>
     
                  
     
-                    <a class="btn btn-primary" href="{{ route('printers.edit',$s->id) }}">Edit</a>
+                    <a class="btn btn-primary" href="{{ route('cardReaders.edit',$s->id) }}">Edit</a>
     
    
                     @csrf
@@ -273,11 +280,14 @@ b, h6 {
             </td>
         </tr>
         @endforeach
-        @endif
+        @else
+        <tr>
+                    <td colspan="10">There are no data.</td>
+                </tr>
+            @endif
 </tbody>
     </table>
-   
-
+  
     <script>
 function openForm() {
   document.getElementById("myForm").style.display = "block";

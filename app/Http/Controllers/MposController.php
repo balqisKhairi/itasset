@@ -216,8 +216,8 @@ class mposController extends Controller
     {
         $mpos->delete();
 
-        return redirect()->route('mposs.index')
-        ->with('success','mpos deleted successfully');
+        return redirect()->back()
+                ->with('success','mpos deleted successfully');
     
     }
 

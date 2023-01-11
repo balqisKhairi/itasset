@@ -68,7 +68,7 @@ tbody:nth-child(odd) {
                 <h2>List of Categories</h2>
             </div>
             <div>
-                <a class="btn btn-success" href="{{ route('categorys.create') }}"> Add New Category</a>
+                <a class="btn btn-success" href="{{ route('yourNames.create') }}"> Add New yourName</a>
             
                 <br></br>
               <div class="form-group">
@@ -89,22 +89,23 @@ tbody:nth-child(odd) {
     <tr class="table-active">
       <th scope="row">ID</th>
             <th>Description</th>
-           
+           <th>Info</th> <!--add your attribute based on your column in database-->
            
             <th width="500px">Action</th>
         </tr>
-        @foreach ($categorys as $s)
+        @foreach ($yourNames as $s)
         <tbody id="myTable">
         <tr>
-            
-            <td>{{ $s->category_id }}</td>
-            <td>{{ $s->categoryName }}</td>
+        <td>{{ $s->id }}</td>
+            <td>{{ $s->yourName_id }}</td>
+            <td>{{ $s->Name }}</td>
+            <td>{{ $s->yourName_info }}</td> <!--add your attribute based on your column in database-->
             
             <td>
-            <form action="{{ route('categorys.destroy',$s->id) }}" method="POST">
+            <form action="{{ route('yourNames.destroy',$s->id) }}" method="POST">
    
                 
-                    <a class="btn btn-primary" href="{{ route('categorys.edit',$s->id) }}">Edit</a>
+                    <a class="btn btn-primary" href="{{ route('yourNames.edit',$s->id) }}">Edit</a>
     
    
                     @csrf

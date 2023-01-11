@@ -3,20 +3,20 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 
-use App\Imports\CardReaderImport;
-use App\Exports\CardReaderExport;
+use App\Imports\cardreaderImport;
+use App\Exports\cardreaderExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf;
 
-use App\cardReader;
-use App\AiocardReader;
+use App\cardreader;
+use App\Aiocardreader;
 use App\Biometric;
 
 
-use App\Imageviewer;
+use App\imageviewer;
 use App\Laptop;
 use App\Mpos;
-use App\OscardReader;
+use App\Oscardreader;
 use App\Printer;
 use App\Tablet;
 use App\Tvsharp;
@@ -24,7 +24,7 @@ use App\Department;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
-class cardReaderController extends Controller
+class cardreaderController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -33,10 +33,10 @@ class cardReaderController extends Controller
      */
     public function index()
     {
-        $cardReaders = cardReader::all();
+        $cardreaders = cardreader::all();
        // $selectedRole = Department::first()->id;
-        //dd($cardReaders);
-        return view('cardReaders.index',compact('cardReaders'));
+        //dd($cardreaders);
+        return view('cardreaders.index',compact('cardreaders'));
       
     }
 
@@ -47,7 +47,7 @@ class cardReaderController extends Controller
      */
     public function create()
     {
-        return view('cardReaders.create');
+        return view('cardreaders.create');
     }
 
     /**
@@ -58,12 +58,12 @@ class cardReaderController extends Controller
      */
     public function store(Request $request)
     {
-        $cardReader = $request->all();
+        $cardreader = $request->all();
         
         if($request->hasFile('image')){
         $fileName = $request->file('image')->getClientOriginalName();
         $path = $request->file('image')->storeAs('images',$fileName,'public');
-        $cardReader["image"] = '/storage/'.$path; 
+        $cardreader["image"] = '/storage/'.$path; 
         }
 
         if($request->hasFile('folder'))
@@ -72,15 +72,15 @@ class cardReaderController extends Controller
              {
                 $name=$file->getClientOriginalName();
                 $file->move('assets',$name);
-                $cardReader['folder']='assets/'.$name;
+                $cardreader['folder']='assets/'.$name;
             }
         }
 
-        cardReader::create($cardReader);
-        //$file->folder=json_encode($cardReader); 
+        cardreader::create($cardreader);
+        //$file->folder=json_encode($cardreader); 
    
-        return redirect()->route('cardReaders.index')
-                        ->with('success','New cardReaders added successfully.');
+        return redirect()->back()
+                        ->with('success','New cardreaders added successfully.');
  
     }
 
@@ -92,16 +92,16 @@ class cardReaderController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\cardReader  $cardReader
+     * @param  \App\cardreader  $cardreader
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(cardReader $cardReader )
+    public function show(cardreader $cardreader )
     { 
    
     $departments = DB::table('departments')->select('id')->distinct()->get()->pluck('id');
     
-        return view('cardReaders.show',compact('cardReader'));
+        return view('cardreaders.show',compact('cardreader'));
     }
 
     public function studView(Request $request){
@@ -123,32 +123,32 @@ class cardReaderController extends Controller
 
         public function viewFolder($id)
         {
-            $data= cardReader::find($id);
-            return view('cardReaders.viewFolder',compact('data'));
+            $data= cardreader::find($id);
+            return view('cardreaders.viewFolder',compact('data'));
         }
    
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\cardReader  $cardReader
+     * @param  \App\cardreader  $cardreader
      * @return \Illuminate\Http\Response
      */
-    public function edit(cardReader $cardReader)
+    public function edit(cardreader $cardreader)
     {
 
-        return view('cardReaders.edit',compact('cardReader'));
+        return view('cardreaders.edit',compact('cardreader'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\cardReader  $cardReader
+     * @param  \App\cardreader  $cardreader
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, cardReader $cardReader)
+    public function update(Request $request, cardreader $cardreader)
     {
-        //$cardReader->update($request->all());
+        //$cardreader->update($request->all());
 
 
         $post = [
@@ -198,11 +198,11 @@ class cardReaderController extends Controller
                 $post['folder']='assets/'.$name;
             }
         }
-            $cardReader->update($post);
+            $cardreader->update($post);
        
         
-        return redirect()->route('cardReaders.index')
-                        ->with('success','cardReader updated successfully');
+        return redirect()->back()
+                        ->with('success','cardreader updated successfully');
    
     }
 
@@ -210,15 +210,15 @@ class cardReaderController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\cardReader  $cardReader
+     * @param  \App\cardreader  $cardreader
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, cardReader $cardReader)
+    public function destroy(Request $request, cardreader $cardreader)
     {
-        $cardReader->delete();
+        $cardreader->delete();
 
-        return redirect()->route('cardReaders.index')
-        ->with('success','cardReader deleted successfully');
+        return redirect()->back()
+                ->with('success','cardreader deleted successfully');
     
     }
 
@@ -226,17 +226,17 @@ class cardReaderController extends Controller
 
 
     public function showStati(){
-        $totalDesk = cardReader ::count();
-        $totalOsdesk = OscardReader ::count();
-        $totalImageViewer = Imageviewer ::count();
-        $totalAiodesk = AiocardReader ::count();
+        $totalDesk = cardreader ::count();
+        $totalOsdesk = Oscardreader ::count();
+        $totalcardreader = cardreader ::count();
+        $totalAiodesk = Aiocardreader ::count();
         $totalTablet = Tablet ::count();
         $totalLaptop = Laptop ::count();
         $totalPrinter = Printer ::count();
         $totalTvsharp = Tvsharp ::count();
-        $totalCardreader = CardReader ::count();
+        $totalcardreader = cardreader ::count();
         $totalBiometric = Biometric ::count();
-        $totalcardReader = cardReader ::count();
+        $totalcardreader = cardreader ::count();
         $totalMpos = Mpos ::count();
 
        // $getJob = Studdent::where('studStatus','0')->count();
@@ -244,8 +244,8 @@ class cardReaderController extends Controller
         //$needcerti = Certificate::where('certiStatus','')->count();
         //$needjob = Job::where('jobStatus','')->count();
 
-        return view('cardReaders.showStati',compact('totalDesk','totalOsdesk','totalImageViewer','totalAiodesk','totalTablet','totalLaptop','totalPrinter',
-    'totalTvsharp','totalCardreader','totalBiometric','totalcardReader','totalMpos'));
+        return view('cardreaders.showStati',compact('totalDesk','totalOsdesk','totalcardreader','totalAiodesk','totalTablet','totalLaptop','totalPrinter',
+    'totalTvsharp','totalcardreader','totalBiometric','totalcardreader','totalMpos'));
 }
 
 
@@ -257,25 +257,25 @@ class cardReaderController extends Controller
 
 public function exportCardreader(){
 
-    $cardReaders=CardReader::orderBy('id','asc')->get();
+    $cardreaders=cardreader::orderBy('id','asc')->get();
     //dd('exportcardreader');
     //return Excel::download(new UsersExport, 'dekstops.xlsx');
-    return (new CardReaderExport($cardReaders))->download('cardreaders.csv', \Maatwebsite\Excel\Excel::CSV);
+    return (new cardreaderExport($cardreaders))->download('cardreaders.csv', \Maatwebsite\Excel\Excel::CSV);
 
 }
 
 
-public function importCardReader(Request $request){
+public function importCardreader(Request $request){
 
     $request->validate([
         'excel_file'=>'required|mimes:xlsx'
     ]);
 
-    /**Excel::import(new CardReaderImport, $request->file('excel_file'));
+    /**Excel::import(new cardreaderImport, $request->file('excel_file'));
     return redirect()->back()->with('success', 'Data Successfully Imported!');
 **/
     try {
-        Excel::import(new CardReaderImport, $request->file('excel_file'));
+        Excel::import(new cardreaderImport, $request->file('excel_file'));
         return redirect()->back()->with('success', 'Data Successfully Imported!');
 
     } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
@@ -287,12 +287,12 @@ public function importCardReader(Request $request){
          }
     }
 
-    //(new CardReaderImport)->import($file);
+    //(new cardreaderImport)->import($file);
     
-    }
+}
     //view device under own department
     public function myCardreader(){
-        $cardreaders = Cardreader::where('department_id',auth()->user()->role_id)->get();
+        $cardreaders = cardreader::where('department_id',auth()->user()->role_id)->get();
         return view('layouts.myCardreader',compact('cardreaders'));
         }
 }

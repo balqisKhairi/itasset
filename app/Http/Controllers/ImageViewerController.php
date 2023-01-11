@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Imageviewer;
+use App\imageviewer;
 use Illuminate\Http\Request;
 use App\Desktop;
 use App\Aiodesktop;
@@ -18,13 +18,13 @@ use App\Tvsharp;
 use App\Department;
 use App\Power;
 use App\Vendor;
-use App\Exports\ImageviewerExport;
-use App\Imports\ImageviewerImport;
+use App\Exports\imageviewerExport;
+use App\Imports\imageviewerImport;
 use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
 
-class ImageViewerController extends Controller
+class ImageviewerController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -33,8 +33,8 @@ class ImageViewerController extends Controller
      */
     public function index()
     {
-        $imageviewers = ImageViewer::all();
-        //dd($ImageViewers);
+        $imageviewers = imageviewer::all();
+        //dd($imageviewers);
         return view('imageviewers.index',compact('imageviewers'));
     }
 
@@ -74,8 +74,8 @@ class ImageViewerController extends Controller
             }
         }
 
-        ImageViewer::create($requestData);
-        return redirect()->back()->with('success','New Os ImageViewer addes succesfully');
+        imageviewer::create($requestData);
+        return redirect()->back()->with('success','New  imageviewer addes succesfully');
     }
 
 
@@ -177,8 +177,8 @@ class ImageViewerController extends Controller
     }
         $imageviewer->update($post);
    
-        return redirect()->route('layouts.myImageviewer')
-                        ->with('success',' OS ImageViewer updated successfully');
+        return redirect()->back()
+                        ->with('success','imageviewer updated successfully');
     }
 
     /**
@@ -191,7 +191,7 @@ class ImageViewerController extends Controller
     {
         $imageviewer->delete();
 
-        return redirect()->route('layouts.myImageviewer')
+        return redirect()->back()
         ->with('success','imageviewer deleted successfully');
     }
 
@@ -201,12 +201,12 @@ class ImageViewerController extends Controller
         return view('imageviewers.viewFolder',compact('data'));
     }
 
-    public function exportImageViewer(){
+    public function exportImageviewer(){
 
-        $imageviewers=ImageViewer::orderBy('id','asc')->get();
-        //dd('exportImageViewer');
+        $imageviewers=imageviewer::orderBy('id','asc')->get();
+        //dd('exportimageviewer');
         //return Excel::download(new UsersExport, 'dekstops.xlsx');
-        return (new ImageviewerExport($imageviewers))->download('ImageViewers.csv', \Maatwebsite\Excel\Excel::CSV);
+        return (new imageviewerExport($imageviewers))->download('imageviewers.csv', \Maatwebsite\Excel\Excel::CSV);
 
     }
 
@@ -220,7 +220,7 @@ class ImageViewerController extends Controller
         return redirect()->back()->with('success', 'Data Successfully Imported!');
     **/
         try {
-            Excel::import(new ImageviewerImport, $request->file('excel_file'));
+            Excel::import(new imageviewerImport, $request->file('excel_file'));
             return redirect()->back()->with('success', 'Data Successfully Imported!');
     
         } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
@@ -238,7 +238,7 @@ class ImageViewerController extends Controller
    
 
     public function myImageviewer(){
-        $imageviewers = Imageviewer::where('department_id',auth()->user()->role_id)->get();
+        $imageviewers = imageviewer::where('department_id',auth()->user()->role_id)->get();
         return view('layouts.myImageviewer',compact('imageviewers'));
     }
    

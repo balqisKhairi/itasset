@@ -88,7 +88,7 @@ tbody:nth-child(odd) {
       <th scope="row">ID</th>
       
             <th>Name</th>
-            <th>Email</th>
+            <th>Username</th>
             <th>Assigned Role</th>
             <th>Permissions</th>
             <th width="400px">Action</th>
@@ -99,7 +99,7 @@ tbody:nth-child(odd) {
             
             <td>{{ $s->id }}</td>
             <td>{{ $s->name }}</td>
-            <td>{{ $s->email }}</td>
+            <td>{{ $s->username }}</td>
             <td> {{$s->role->roleName}}</td>
             <td>
                 <ul>
@@ -112,8 +112,6 @@ tbody:nth-child(odd) {
             <td>
             <form action="{{ route('users.destroy',$s->id) }}" method="POST">
    
-                    <a class="btn btn-info" href="{{ route('users.show',$s->id) }}">View Full Details</a>
-    
                  
     
                     <a class="btn btn-primary" href="{{ route('users.edit',$s->id) }}">Edit</a>

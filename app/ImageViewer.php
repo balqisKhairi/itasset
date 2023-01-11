@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ImageViewer extends Model
+class Imageviewer extends Model
 {
     protected $guarded =[];
 

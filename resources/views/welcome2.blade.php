@@ -74,7 +74,7 @@
     <div class="container d-flex align-items-center justify-content-between">
 
       <div class="logo">
-        <h1><a href="">Information Technology</a></h1>
+        <h1><a href="">IT Asset Inventory System (iTiNS)</a></h1>
         <!-- Uncomment below if you prefer to use an image logo -->
         <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
       </div>
@@ -94,9 +94,7 @@
         
                     @else
           <li><a class="getstarted scrollto" href="{{ route('login') }}">LOGIN</a></li>
-          @if (Route::has('register'))
-          <li><a class="getstarted scrollto" href="{{ route('register') }}">REGISTER</a></li>
-          @endif
+         
                     @endauth
                 </div>
             @endif
@@ -190,7 +188,7 @@
       <div class="row d-flex align-items-center">
         <div class="col-lg-6 text-lg-left text-center">
           <div class="copyright">
-            &copy; Copyright for <strong>IT Department KPJBp</strong>. All Rights Reserved by BK
+            &copy; Copyright for <strong>IT Department KPJBp</strong>. All Rights Reserved by BK.
           </div>
           
         </div>

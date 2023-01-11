@@ -206,8 +206,8 @@ class printerController extends Controller
     {
         $printer->delete();
 
-        return redirect()->route('printers.index')
-        ->with('success','printer deleted successfully');
+        return redirect()->back()
+                ->with('success','printer deleted successfully');
     
     }
 

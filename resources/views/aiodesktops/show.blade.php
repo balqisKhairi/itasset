@@ -492,6 +492,9 @@ a {
 
 
 
+                <div class="card-footer text-left">
+                 <a class="btn btn-primary" onclick="history.back()">BACK</a>
+                    </div>
 
 
 

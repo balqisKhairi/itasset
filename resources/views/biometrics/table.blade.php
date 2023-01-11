@@ -180,8 +180,9 @@ b, h6 {
 
 
                 <label for="psw">
-            <h6>*Please be sure to remove your header in Excel.</h6>
-            </label>
+            <h6>*Please be sure to remove header row</h6>
+            <h6>and ID column in your EXCEL.</h6>
+          </label>
 
                 <button type="submit" class="btn">Submit</button>
                 <button type="button" class="btn cancel" onclick="closeForm()">Close</button>

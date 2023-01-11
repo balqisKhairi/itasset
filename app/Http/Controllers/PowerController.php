@@ -215,8 +215,8 @@ class powerController extends Controller
     {
         $power->delete();
 
-        return redirect()->route('powers.index')
-        ->with('success','power deleted successfully');
+        return redirect()->back()
+                ->with('success','power deleted successfully');
     
     }
 

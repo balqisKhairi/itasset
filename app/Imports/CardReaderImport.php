@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Imports;
-use App\CardReader;
+use App\cardreader;
 
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
@@ -11,14 +11,14 @@ use Maatwebsite\Excel\Concerns\withHeadingRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
 use Maatwebsite\Excel\Concerns\Importable;
 
-class CardReaderImport implements ToModel, WithValidation
+class cardreaderImport implements ToModel, WithValidation
 {
     use Importable;
 
 
     public function model(array $row)
     {
-        return new CardReader([
+        return new cardreader([
             'id'     => $row[0],
            // 'vendor_id'     => $row[1],
             'assignedTo'     => $row[1],
@@ -34,7 +34,7 @@ class CardReaderImport implements ToModel, WithValidation
             'deviceLocation'     => $row[8],
             'level'    => $row[9], 
 
-            'cpu'     => $row[10],
+            /**'cpu'     => $row[10],
             'monitor'    => $row[11], 
             'deployment'     => $row[12],
         
@@ -44,7 +44,7 @@ class CardReaderImport implements ToModel, WithValidation
             'supplier'    => $row[16], 
             'pricePerUnit'    => $row[17], 
             'statusAsset'=>$row[18]
-          
+          **/
             
           // 'vendor_id'     => $row[30],
             
@@ -55,10 +55,10 @@ class CardReaderImport implements ToModel, WithValidation
     public function rules(): array
     {
         return [
-            '6' => 'unique:CardReaders,deviceSerielNumber',
+            '6' => 'unique:cardreaders,deviceSerielNumber',
             '6.required' => 'We need to know your e-mail address!',
             //'*.6' => 'required|unique',
-            //'*.6' => ['6','unique:CardReaders']
+            //'*.6' => ['6','unique:cardreaders']
         ];
     }
 }

@@ -167,7 +167,7 @@ b, h6 {
                 <h2>List of Card Readers</h2>
             </div>
             <div>
-                <a class="btn btn-success" href="{{ route('cardReaders.create') }}"> Add New Card Reader</a>
+                <a class="btn btn-success" href="{{ route('cardreaders.create') }}"> Add New Card Reader</a>
             
                 <a class="btn btn-success1"  onclick="openForm()">Import from Excel</a>
 
@@ -175,15 +175,16 @@ b, h6 {
                         
                         
                 <div class="form-popup" id="myForm">
-                <form action="{{ url('importcardReader') }}" class="form-container" method="post" enctype="multipart/form-data">
+                <form action="{{ url('importCardreader') }}" class="form-container" method="post" enctype="multipart/form-data">
                     @csrf
                     
                     <input type="file"  name="excel_file" required>
 
 
                     <label for="psw">
-                <h6>*Please be sure to remove your header in Excel.</h6>
-                </label>
+            <h6>*Please be sure to remove header row</h6>
+            <h6>and ID column in your EXCEL.</h6>
+          </label>
 
                     <button type="submit" class="btn">Submit</button>
                     <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
@@ -194,7 +195,7 @@ b, h6 {
 
 
                 <div class="pull-right">
-            <a class="btn btn-primary" href="{{ route('cardReaders.exportCardreader') }}"> Export to Excel</a>
+            <a class="btn btn-primary" href="{{ route('cardreaders.exportCardreader') }}"> Export to Excel</a>
             </div>
                 <br></br>
               <div class="form-group">
@@ -231,8 +232,8 @@ b, h6 {
            
             <th width="350px">Action</th>
         </tr>
-        @if(count($cardReaders))
-       @foreach ($cardReaders as $s)
+        @if(count($cardreaders))
+       @foreach ($cardreaders as $s)
        <tbody id="myTable">
 
         <tr>
@@ -245,13 +246,13 @@ b, h6 {
             <td>{{ $s->deviceManufacturer }}</td>
 
             <td>
-            <form action="{{ route('cardReaders.destroy',$s->id) }}" method="POST">
+            <form action="{{ route('cardreaders.destroy',$s->id) }}" method="POST">
    
-                    <a class="btn btn-info" href="{{ route('cardReaders.show',$s->id) }}">View Full Details</a>
+                    <a class="btn btn-info" href="{{ route('cardreaders.show',$s->id) }}">View Full Details</a>
     
                  
     
-                    <a class="btn btn-primary" href="{{ route('cardReaders.edit',$s->id) }}">Edit</a>
+                    <a class="btn btn-primary" href="{{ route('cardreaders.edit',$s->id) }}">Edit</a>
     
    
                     @csrf

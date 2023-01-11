@@ -180,7 +180,7 @@
                                 <div class="nav-item dropdown no-arrow">
                                     <a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#">
                                     <span class="d-none d-lg-inline me-2 text-gray-600 small" style="color: rgb(0,0,0);font-size: 15px;"> {{ Auth::user()->name }}<br>  {{ Auth::user()->email }}</span>
-                                    <img class="border rounded-circle img-profile"  src="{{ asset('hai2/assets/img/avatars/profile.jpg') }}"></a>
+                                    <img class="border rounded-circle img-profile"  src="https://assets.stickpng.com/images/585e4bf3cb11b227491c339a.png"></a>
 
 
                                     <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in">
@@ -208,7 +208,7 @@
        
                 <a href="" class="sidebar-user">
                     <span class="sidebar-user-img">
-                <picture><source srcset="" type="image/webp"><img src='https://icons.iconarchive.com/icons/diversity-avatars/avatars/1024/batman-icon.png' alt="User name"></picture>
+                <picture><source srcset="" type="image/webp"><img src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/2048px-User_icon_2.svg.png' alt="User name"></picture>
             </span>
                     <div class="sidebar-user-info">
                         <span class="sidebar-user__title">{{ Auth::user()->name }}</span>
@@ -260,7 +260,7 @@
 
           <li class="nav-item">
             <a href="{{ route('permissions.index') }}"class="nav-link">
-              <i class="nav-icon fa fa-suitcase"></i>
+              <i class="nav-icon fa fa-key"></i>
               <p>
                 Permissions
               </p>
@@ -335,12 +335,12 @@
               </li>
               <li class="nav-item">
                 <a href="{{ route('tvsharps.index') }}" class="nav-link">
-                  <i class="fa fa-window-maximize"></i>
+                  <i class="fa fa fa-television"></i>
                   <p>TV Sharp</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ route('cardReaders.index') }}" class="nav-link">
+                <a href="{{ route('cardreaders.index') }}" class="nav-link">
                   <i class="fa fa-credit-card"></i>
                   <p>Card Reader</p>
                 </a>
@@ -373,6 +373,7 @@
             </ul>
           </li>
          
+          
 
           <li class="nav-item">
             <a href="{{ route('vendors.index') }}"class="nav-link">
@@ -471,6 +472,10 @@
                   <p>MPOS</p>
                 </a>
               </li>
+
+
+         
+
             </ul>
           </li>
          @endif

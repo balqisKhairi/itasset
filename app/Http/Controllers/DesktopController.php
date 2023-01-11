@@ -21,7 +21,7 @@ use App\Tablet;
 use App\Tvsharp;
 use App\Department;
 use App\Power;
-
+use App\Vendor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 Use Illuminate\Support\Facades\Input;
@@ -89,7 +89,7 @@ class DesktopController extends Controller
             }
         }
 
-        Desktop::firstOrCreate($desktop);
+        Desktop::create($desktop);
         //$file->folder=json_encode($desktop); 
    
         return redirect()->back()
@@ -192,7 +192,7 @@ class DesktopController extends Controller
             'deliveryOrder'=>$request['deliveryOrder'],
             'invoiceNo' =>$request['invoiceNo'],
             'supplier'=>$request['supplier'],
-            'desktop_id'=>$request['desktop_id'],
+            'vendor_id'=>$request['vendor_id'],
            // $trainee_id = $request->get('trainee_id');
             'pricePerUnit'=>$request['pricePerUnit'],
     
@@ -220,7 +220,7 @@ class DesktopController extends Controller
             $desktop->update($post);
        
         
-        return redirect()->back()
+        return view('desktops.show1',compact('desktop'))
                         ->with('success','Desktop updated successfully');
    
     }
@@ -254,7 +254,7 @@ class DesktopController extends Controller
         $totalEncoremed = Encoremed ::count();
         $totalMpos = Mpos ::count();
         $totalPower = Power ::count();
-        $totaldesktop = desktop ::count();
+        $totalVendor = Vendor ::count();
         //$totalUps = Ups ::count();
 
        // $getdesktop = Studdent::where('studStatus','0')->count();
@@ -263,7 +263,7 @@ class DesktopController extends Controller
         //$needdesktop = desktop::where('desktopStatus','')->count();
 
         return view('layouts.showStati',compact('totalDesk','totalOsdesk','totalImageViewer','totalAiodesk','totalTablet','totalLaptop','totalPrinter',
-    'totalTvsharp','totalCardreader','totalBiometric','totalEncoremed','totalMpos','totalPower','totaldesktop'));
+    'totalTvsharp','totalCardreader','totalBiometric','totalEncoremed','totalMpos','totalPower','totalVendor'));
 }
 
 
@@ -281,7 +281,7 @@ class DesktopController extends Controller
 
    public function importDesktop(Request $request){
 
-    $this->authorize('create', Desktop::class);
+    //$this->authorize('create', Desktop::class);
 
     $request->validate([
         'excel_file'=>'required|mimes:xlsx'

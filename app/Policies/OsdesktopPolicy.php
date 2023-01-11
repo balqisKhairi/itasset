@@ -54,7 +54,7 @@ class OsdesktopPolicy
      */
     public function update(User $user, Osdesktop $osdesktop)
     {
-        //
+        return $user->hasPermission('manage_items');
     }
 
     /**
@@ -66,7 +66,7 @@ class OsdesktopPolicy
      */
     public function delete(User $user, Osdesktop $osdesktop)
     {
-        //
+        return $user->hasPermission('manage_items');
     }
 
     /**

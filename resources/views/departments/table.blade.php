@@ -100,10 +100,7 @@ tbody:nth-child(odd) {
             <td>
             <form action="{{ route('departments.destroy',$s->id) }}" method="POST">
    
-                    <a class="btn btn-info" href="{{ route('departments.show',$s->id) }}">View Full Details</a>
-    
-                 
-    
+                  
                     <a class="btn btn-primary" href="{{ route('departments.edit',$s->id) }}">Edit</a>
     
    

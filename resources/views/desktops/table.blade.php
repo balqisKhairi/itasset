@@ -187,10 +187,13 @@ b, h6 {
             <div>
                 <h2>List of Desktops</h2>
             </div>
-            <div>
+            <div>      
                 <a class="btn btn-success" href="{{ route('desktops.create') }}"> Add New Desktop</a>
+               
 
-                @can('create', App\Desktop::class)
+
+                @if(Auth::user()->role_id==2)
+          
                 <a class="btn btn-success1"  onclick="openForm()">Import from Excel</a>
                 
                
@@ -204,7 +207,8 @@ b, h6 {
 
 
                 <label for="psw">
-            <h6>*Please be sure to remove your header in Excel.</h6>
+            <h6>*Please be sure to remove header row</h6>
+            <h6>and ID column in your EXCEL.</h6>
           </label>
 
                  <button type="submit" class="btn">Submit</button>
@@ -220,12 +224,12 @@ b, h6 {
 
             </div>
 
-            @endcan
+            
             <br></br>
               <div class="form-group">
               <input id="myInput" type="text"  class="form-control" placeholder="Search..">
  
-           
+           @endif
 
             </div>
         </div>

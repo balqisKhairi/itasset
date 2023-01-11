@@ -219,8 +219,8 @@ class biometricController extends Controller
     {
         $biometric->delete();
 
-        return redirect()->route('biometrics.index')
-        ->with('success','biometric deleted successfully');
+        return redirect()->back()
+                ->with('success','biometric deleted successfully');
     
     }
 

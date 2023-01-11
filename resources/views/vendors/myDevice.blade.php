@@ -73,7 +73,7 @@ tr:nth-child(odd) {
             <th>Department</th> 
             <th>Purchase Order(PO)</th> 
         </tr>
-       
+        @if(count($desktops))
         @foreach($desktops as $s)
        <tbody>
            <tr >
@@ -88,7 +88,11 @@ tr:nth-child(odd) {
 </tbody>
 
 @endforeach
-
+@else
+        <tr>
+                    <td colspan="10">There are no data.</td>
+                </tr>
+            @endif
     </table>
    
 </div>
@@ -111,6 +115,7 @@ tr:nth-child(odd) {
             <th>Department</th> 
             <th>Purchase Order(PO)</th> 
         </tr>
+        @if(count($aiodesktops))
         @foreach($aiodesktops as $s)
        <tbody>
            <tr >
@@ -124,6 +129,11 @@ tr:nth-child(odd) {
 </tr>
 </tbody>
 @endforeach
+@else
+        <tr>
+                    <td colspan="10">There are no data.</td>
+                </tr>
+            @endif
     </table>
 </div>
 </div>
@@ -145,6 +155,7 @@ tr:nth-child(odd) {
             <th>Device Seriel Number</th>
             <th>Department</th> 
         </tr>
+        @if(count($osdesktops))
         @foreach($osdesktops as $s)
        <tbody>
            <tr >
@@ -157,6 +168,11 @@ tr:nth-child(odd) {
 </tr>
 </tbody>
 @endforeach
+@else
+        <tr>
+                    <td colspan="10">There are no data.</td>
+                </tr>
+            @endif
     </table>
 </div>
 </div>
@@ -178,6 +194,7 @@ tr:nth-child(odd) {
             <th>Department</th> 
             <th>Purchase Order</th> 
         </tr>
+        @if(count($laptops))
         @foreach($laptops as $s)
        <tbody>
            <tr >
@@ -191,6 +208,11 @@ tr:nth-child(odd) {
 </tr>
 </tbody>
 @endforeach
+@else
+        <tr>
+                    <td colspan="10">There are no data.</td>
+                </tr>
+            @endif
     </table>
 </div>
 </div>
@@ -212,6 +234,7 @@ tr:nth-child(odd) {
             <th>Department</th> 
             <th>Purchase Order(PO)</th> 
         </tr>
+        @if(count($tablets))
         @foreach($tablets as $s)
        <tbody>
            <tr >
@@ -225,6 +248,11 @@ tr:nth-child(odd) {
 </tr>
 </tbody>
 @endforeach
+@else
+        <tr>
+                    <td colspan="10">There are no data.</td>
+                </tr>
+            @endif
     </table>
 </div>
 </div>
@@ -247,6 +275,7 @@ tr:nth-child(odd) {
             <th>Department</th> 
             <th>Purchase Order(PO)</th> 
         </tr>
+        @if(count($printers))
         @foreach($printers as $s)
        <tbody>
            <tr >
@@ -259,6 +288,11 @@ tr:nth-child(odd) {
 </tr>
 </tbody>
 @endforeach
+@else
+        <tr>
+                    <td colspan="10">There are no data.</td>
+                </tr>
+            @endif
     </table>
 </div>
 </div>
@@ -281,6 +315,7 @@ tr:nth-child(odd) {
             <th>Department</th> 
             <th>Purchase Order(PO)</th> 
         </tr>
+        @if(count($imageviewers))
         @foreach($imageviewers as $s)
        <tbody>
            <tr >
@@ -295,6 +330,11 @@ tr:nth-child(odd) {
 </tr>
 </tbody>
 @endforeach
+@else
+        <tr>
+                    <td colspan="10">There are no data.</td>
+                </tr>
+            @endif
     </table>
 </div>
 </div>
@@ -317,6 +357,7 @@ tr:nth-child(odd) {
             <th>Department</th> 
             <th>Purchase Order(PO)</th> 
         </tr>
+        @if(count($tvsharps))
         @foreach($tvsharps as $s)
        <tbody>
            <tr >
@@ -330,6 +371,11 @@ tr:nth-child(odd) {
 </tr>
 </tbody>
 @endforeach
+@else
+        <tr>
+                    <td colspan="10">There are no data.</td>
+                </tr>
+            @endif
     </table>
 </div>
 </div>
@@ -351,6 +397,7 @@ tr:nth-child(odd) {
             <th>Device Seriel Number</th>
             <th>Department</th> 
         </tr>
+        @if(count($cardreaders))
         @foreach($cardreaders as $s)
        <tbody>
            <tr >
@@ -363,6 +410,11 @@ tr:nth-child(odd) {
 </tr>
 </tbody>
 @endforeach
+@else
+        <tr>
+                    <td colspan="10">There are no data.</td>
+                </tr>
+            @endif
     </table>
 </div>
 </div>
@@ -384,6 +436,7 @@ tr:nth-child(odd) {
             <th>Device Seriel Number</th>
             <th>Department</th> 
         </tr>
+        @if(count($biometrics))
         @foreach($biometrics as $s)
        <tbody>
            <tr >
@@ -396,6 +449,11 @@ tr:nth-child(odd) {
 </tr>
 </tbody>
 @endforeach
+@else
+        <tr>
+                    <td colspan="10">There are no data.</td>
+                </tr>
+            @endif
     </table>
 </div>
 </div>
@@ -416,6 +474,7 @@ tr:nth-child(odd) {
             <th>Device Seriel Number</th>
             <th>Department</th> 
         </tr>
+        @if(count($encoremeds))
         @foreach($encoremeds as $s)
        <tbody>
            <tr >
@@ -428,6 +487,11 @@ tr:nth-child(odd) {
 </tr>
 </tbody>
 @endforeach
+@else
+        <tr>
+                    <td colspan="10">There are no data.</td>
+                </tr>
+            @endif
     </table>
 </div>
 </div>
@@ -448,6 +512,7 @@ tr:nth-child(odd) {
             <th>Device Seriel Number</th>
             <th>Department</th> 
         </tr>
+        @if(count($powers))
         @foreach($powers as $s)
        <tbody>
            <tr >
@@ -460,6 +525,11 @@ tr:nth-child(odd) {
 </tr>
 </tbody>
 @endforeach
+@else
+        <tr>
+                    <td colspan="10">There are no data.</td>
+                </tr>
+            @endif
     </table>
 </div>
 </div>
@@ -482,6 +552,7 @@ tr:nth-child(odd) {
             <th>Device Seriel Number</th>
             <th>Department</th> 
         </tr>
+        @if(count($mpos))
         @foreach($mpos as $s)
        <tbody>
            <tr >
@@ -494,6 +565,11 @@ tr:nth-child(odd) {
 </tr>
 </tbody>
 @endforeach
+@else
+        <tr>
+                    <td colspan="10">There are no data.</td>
+                </tr>
+            @endif
     </table>
 </div>
 </div>

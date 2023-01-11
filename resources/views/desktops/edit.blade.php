@@ -344,7 +344,7 @@
 
                             <div class="form-group">
                                 <label for="description">File:</label>
-                                <input type="file"  value="{{ asset($desktop->folder) }}" class="form-control"  name="folder[]" multiple/>
+                                <input type="file"  value="{{{ $desktop->folder }}}" src="{{ asset($desktop->folder) }}" class="form-control"  name="folder[]" multiple/>
                             </div>
 
                        
@@ -352,11 +352,11 @@
 </div>
 </div>
 
-                  <div class="card-footer text-right">
-                        <button type="submit" onclick="return confirm('Are you sure want to save this change?')" class="btn btn-primary">UPDATE</button>
+                  <div class="card-footer text-left">
+                 <button type="submit" onclick="return confirm('Are you sure want to save this change?')" class="btn btn-primary">UPDATE</button>
                     </div>
 
-
+</div>
             </form>
         </div>
 

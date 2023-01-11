@@ -216,8 +216,8 @@ class tabletController extends Controller
     {
         $tablet->delete();
 
-        return redirect()->route('tablets.index')
-        ->with('success','tablet deleted successfully');
+        return redirect()->back()
+                ->with('success','tablet deleted successfully');
     
     }
 

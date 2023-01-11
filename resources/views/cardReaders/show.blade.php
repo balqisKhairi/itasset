@@ -182,7 +182,7 @@ a {
             <h4 class="card-header" align="center" >Details</h4>
                 <div class="card-body text-center">
                     <!-- monitor picture image-->
-                    <img class="img img-responsive"  width='400' height='250' src="{{ asset($cardReader->image) }}" alt=""/>
+                    <img class="img img-responsive"  width='400' height='250' src="{{ asset($cardreader->image) }}" alt=""/>
                     
                     
 
@@ -194,17 +194,17 @@ a {
                 <tbody>
                  <tr >
                 <th scope="row">Assigned To:</th>
-                <td>{{ $cardReader->assignedTo }}</td>
+                <td>{{ $cardreader->assignedTo }}</td>
                 </tr>
 
                 <tr>
                 <th scope="row">Device Hostname:</th>
-                <td>{{ $cardReader->deviceHostname }}</td>
+                <td>{{ $cardreader->deviceHostname }}</td>
                 </tr>
 
                 <tr>
                 <th scope="row">Device Seriel Number:</th>
-                <td>{{ $cardReader->deviceSerielNumber }}</td>
+                <td>{{ $cardreader->deviceSerielNumber }}</td>
                 </tr>
 
             </tbody>
@@ -247,17 +247,17 @@ a {
                 <div class="card-body">
                    <!--<div class="row">
                   <div class="bio-row">
-                      <p><span>IP Address </span>: {{ $cardReader->deviceIPaddress }}</p>
+                      <p><span>IP Address </span>: {{ $cardreader->deviceIPaddress }}</p>
                   </div>
                   <div class="bio-row">
-                      <p><span>Manufacturer </span>: {{ $cardReader->deviceManufacturer }}</p>
+                      <p><span>Manufacturer </span>: {{ $cardreader->deviceManufacturer }}</p>
                   </div>
                   
                   <div class="bio-row">
-                      <p><span>Model </span>: {{ $cardReader->deviceModel }}</p>
+                      <p><span>Model </span>: {{ $cardreader->deviceModel }}</p>
                   </div>
                   <div class="bio-row">
-                      <p><span>Warranty Date </span>: {{ $cardReader->warrantyDate }}</p>
+                      <p><span>Warranty Date </span>: {{ $cardreader->warrantyDate }}</p>
                   </div>
                 </div>
                 </div>-->
@@ -267,22 +267,22 @@ a {
                 <tbody>
                 <tr class="table-warning">
                 <th scope="row">IP Address:</th>
-                <td> {{ $cardReader->deviceIPaddress }}</td>
+                <td> {{ $cardreader->deviceIPaddress }}</td>
                 </tr>
 
                 <tr>
                 <th scope="row">Device Manufacturer:</th>
-                <td>{{ $cardReader->deviceManufacturer }}</td>
+                <td>{{ $cardreader->deviceManufacturer }}</td>
                 </tr>
 
                 <tr class="table-warning">
                 <th scope="row">Device Model:</th>
-                <td>{{ $cardReader->deviceModel }}</td>
+                <td>{{ $cardreader->deviceModel }}</td>
                 </tr>
 
                 <tr >
                 <th scope="row">Warranty Date:</th>
-                <td>{{ $cardReader->warrantyDate }}</td>
+                <td>{{ $cardreader->warrantyDate }}</td>
                 </tr>
                 </tbody>
                 </table>
@@ -300,17 +300,17 @@ a {
                  
                 <tr class="table-warning"> 
                 <th scope="row">Department:</th>
-                <td> {{ $cardReader->department->departName }}</td>
+                <td> {{ $cardreader->department->departName }}</td>
                 </tr>
 
                 <tr>
                 <th scope="row">Location:</th>
-                <td>{{ $cardReader->deviceLocation }}</td>
+                <td>{{ $cardreader->deviceLocation }}</td>
                 </tr>
       
                 <tr class="table-warning">
                 <th scope="row">Level:</th>
-                <td>{{ $cardReader->level }}</td>
+                <td>{{ $cardreader->level }}</td>
                 </tr>
 
                 
@@ -330,12 +330,12 @@ a {
                  
                 <tr class="table-warning"> 
                 <th scope="row">CPU Condition:</th>
-                <td>{{ $cardReader->cpu }}</td>
+                <td>{{ $cardreader->cpu }}</td>
                 </tr>
 
                 <tr>
                 <th scope="row">Monitor Condition:</th>
-                <td>{{ $cardReader->monitor }}</td>
+                <td>{{ $cardreader->monitor }}</td>
                 </tr>
       
                 </tbody>
@@ -351,7 +351,7 @@ a {
                  
                 <tr class="table-warning"> 
                 <th scope="row">Deployement:</th>
-                <td>{{ $cardReader->deployment }}</td>
+                <td>{{ $cardreader->deployment }}</td>
                 </tr>
                 </tbody>
                 </table>
@@ -367,38 +367,38 @@ a {
                 <tr class="table-warning"> 
                 <th scope="row">Purchase Order(PO):</th>
                 <td>
-                <a href ="{{ route('cardReaders.viewFolder',$cardReader->id) }}" >{{ $cardReader->purchaseOrder }} </a>    
+                <a href ="{{ route('cardreaders.viewFolder',$cardreader->id) }}" >{{ $cardreader->purchaseOrder }} </a>    
                 </td>
                 </tr>
 
                 <tr>
                 <th scope="row">Delivery Order(DO):</th>
                 <td>
-                <a href ="{{ route('cardReaders.viewFolder',$cardReader->id) }}">{{ $cardReader->deliveryOrder }}</a>    
+                <a href ="{{ route('cardreaders.viewFolder',$cardreader->id) }}">{{ $cardreader->deliveryOrder }}</a>    
                 </td>
                 </tr>
 
                 <tr class="table-warning"> 
                 <th scope="row">Invoive No:</th>
                 <td>
-                <a href ="{{ route('cardReaders.viewFolder',$cardReader->id) }}">{{ $cardReader->invoiceNo }}</a>    
+                <a href ="{{ route('cardreaders.viewFolder',$cardreader->id) }}">{{ $cardreader->invoiceNo }}</a>    
               
                 </td>
                 </tr>
 
                 <tr>
                 <th scope="row">Supplier:</th>
-                <td>{{ $cardReader->vendor->companyName}}</td>
+                <td>{{ $cardreader->vendor->companyName}}</td>
                 </tr>
 
                 <tr class="table-warning"> 
                 <th scope="row">Price Per Unit(RM):</th>
-                <td>{{ $cardReader->pricePerUnit }}</td>
+                <td>{{ $cardreader->pricePerUnit }}</td>
                 </tr>
 
                 <tr > 
                 <th scope="row">Status Asset:</th>
-                <td>{{ $cardReader->statusAsset }}</td>
+                <td>{{ $cardreader->statusAsset }}</td>
                 </tr>
 
                
@@ -409,7 +409,9 @@ a {
 
 
 
-
+                <div class="card-footer text-left">
+                 <a class="btn btn-primary" onclick="history.back()">BACK</a>
+                    </div>
 
 
 

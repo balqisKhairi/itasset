@@ -180,11 +180,10 @@ b, h6 {
                     
                     <input type="file"  name="excel_file" required>
 
-
                     <label for="psw">
-                <h6>*Please be sure to remove your header in Excel.</h6>
-                </label>
-
+            <h6>*Please be sure to remove header row</h6>
+            <h6>and ID column in your EXCEL.</h6>
+          </label>
                     <button type="submit" class="btn">Submit</button>
                     <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
                 </form>
@@ -226,8 +225,7 @@ b, h6 {
     <table class="table table-bordered">
     <tr class="table-active">
       <th scope="row">ID</th>
-      
-      <th>Device Manufacturer</th>
+     
             <th>Device Model</th>
             <th>Device Seriel Number</th>
             <th>Device Manufacturer</th>
@@ -242,7 +240,6 @@ b, h6 {
        <tr>
             
             <td>{{ $s->id }}</td>
-            <td>{{ $s->deviceManufacturer }}</td>
             <td>{{ $s->deviceModel }}</td>
             <td>{{ $s->deviceSerielNumber }}</td>
             <td>{{ $s->deviceManufacturer }}</td>

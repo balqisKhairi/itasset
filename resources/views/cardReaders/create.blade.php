@@ -38,7 +38,7 @@
    
 <div class="card-body">
 
-<form action="{{ route('cardReaders.store') }}" method="POST" enctype="multipart/form-data">
+<form action="{{ route('cardreaders.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
    
         
@@ -47,24 +47,24 @@
 
             <div class="form-group avatar">
                                 <figure class="figure col-md-2 col-sm-3 col-xs-12">
-                                    <img class="img-rounded img-responsive" id="output" height="100%" width="100%" style="width:100%;" src="{{ asset($cardReader->image ?? '' ) }}" alt="">
+                                    <img class="img-rounded img-responsive" id="output" height="100%" width="100%" style="width:100%;" src="{{ asset($cardreader->image ?? '' ) }}" alt="">
                                 </figure>
 
               </div>
             <label for="title">Picture:</label>
-            <input class="form-control " id="image"  name="image" value="{{$cardReader->image?? '' }}" src="{{ asset($cardReader->image?? '' ) }}"type="file" onchange="loadFile(event)"/>
+            <input class="form-control " id="image"  name="image" value="{{$cardreader->image?? '' }}" src="{{ asset($cardreader->image?? '' ) }}"type="file" onchange="loadFile(event)"/>
            
             <div class="small text-muted mt-2">Upload your picture. Max file size 50 MB</div>
 
            
 
                                 <label for="title">Assigned To:</label>
-                                <input type="text" value="{{ $cardReader->assignedTo ?? '' }}" class="form-control"  name="assignedTo" placeholder="NAME">
+                                <input type="text" value="{{ $cardreader->assignedTo ?? '' }}" class="form-control"  name="assignedTo" placeholder="NAME">
                             </div>
                       
                             <div class="form-group">
                                 <label for="description">Device Hostname:</label>
-                                <input type="text"  value="{{{ $cardReader->deviceHostname ?? '' }}}" class="form-control"  name="deviceHostname"/>
+                                <input type="text"  value="{{{ $cardreader->deviceHostname ?? '' }}}" class="form-control"  name="deviceHostname"/>
                             </div>
                            
    
@@ -78,23 +78,23 @@
 
                     <div class="form-group">
                                 <label for="description">Device IP Address:</label>
-                                <input type="text"  value="{{{ $cardReader->deviceIPaddress ?? '' }}}" class="form-control"  name="deviceIPaddress" placeholder="Ex: 10.31.0.0"/>
+                                <input type="text"  value="{{{ $cardreader->deviceIPaddress ?? '' }}}" class="form-control"  name="deviceIPaddress" placeholder="Ex: 10.31.0.0"/>
                             </div>
                             <div class="form-group">
                                 <label for="title">Device Manufacturer:</label>
-                                <input type="text" value="{{ $cardReader->deviceManufacturer ?? '' }}" class="form-control"  name="deviceManufacturer">
+                                <input type="text" value="{{ $cardreader->deviceManufacturer ?? '' }}" class="form-control"  name="deviceManufacturer">
                             </div>
                             <div class="form-group">
                                 <label for="description">Device Model:</label>
-                                <input type="text"  value="{{{ $cardReader->deviceModel ?? '' }}}" class="form-control"  name="deviceModel"/>
+                                <input type="text"  value="{{{ $cardreader->deviceModel ?? '' }}}" class="form-control"  name="deviceModel"/>
                             </div>
                             <div class="form-group">
                                 <label for="description">Device Seriel Number:</label>
-                                <input type="text"  value="{{{ $cardReader->deviceSerielNumber ?? '' }}}" class="form-control"  name="deviceSerielNumber"/>
+                                <input type="text"  value="{{{ $cardreader->deviceSerielNumber ?? '' }}}" class="form-control"  name="deviceSerielNumber"/>
                             </div>
                             <div class="form-group">
                                 <label for="description">Warranty Date:</label>
-                                <input type="date"  value="{{{ $cardReader->warrantyDate ?? '' }}}" class="form-control"  name="warrantyDate"/>
+                                <input type="date"  value="{{{ $cardreader->warrantyDate ?? '' }}}" class="form-control"  name="warrantyDate"/>
                             </div>
 
 
@@ -124,7 +124,7 @@
 
                             <div class="form-group">
                                 <label for="title">Device Location:</label>
-                                <input type="text" value="{{ $cardReader->deviceLocation ?? '' }}" class="form-control"  name="deviceLocation">
+                                <input type="text" value="{{ $cardreader->deviceLocation ?? '' }}" class="form-control"  name="deviceLocation">
                             </div>
 
                             <div class="form-group">
@@ -202,15 +202,15 @@
 
                     <div class="form-group">
                                 <label for="description">Purchase Order(PO):</label>
-                                <input type="text"  value="{{{ $cardReader->purchaseOrder ?? '' }}}" class="form-control"  name="purchaseOrder"/>
+                                <input type="text"  value="{{{ $cardreader->purchaseOrder ?? '' }}}" class="form-control"  name="purchaseOrder"/>
                             </div>
                             <div class="form-group">
                                 <label for="title">Delivery Oder(DO):</label>
-                                <input type="text" value="{{ $cardReader->deliveryOrder ?? '' }}" class="form-control"  name="deliveryOrder"/>
+                                <input type="text" value="{{ $cardreader->deliveryOrder ?? '' }}" class="form-control"  name="deliveryOrder"/>
                             </div>
                             <div class="form-group">
                                 <label for="description">Invoice No:</label>
-                                <input type="text"  value="{{{ $cardReader->noInvoice ?? '' }}}" class="form-control"  name="noInvoice"/>
+                                <input type="text"  value="{{{ $cardreader->noInvoice ?? '' }}}" class="form-control"  name="noInvoice"/>
                             </div>
                            
                             
@@ -225,7 +225,7 @@
                 </div>
                             <div class="form-group">
                                 <label for="description">Price Per Unit(RM):</label>
-                                <input type="text"  value="{{{ $cardReader->pricePerUnit ?? '' }}}" class="form-control"  name="pricePerUnit" placeholder="RM 000.00"/>
+                                <input type="text"  value="{{{ $cardreader->pricePerUnit ?? '' }}}" class="form-control"  name="pricePerUnit" placeholder="RM 000.00"/>
                             </div>
 
                             <div class="form-group">
@@ -242,7 +242,7 @@
 
                             <div class="form-group">
                                 <label for="description">File:</label>
-                                <input type="file"  value="{{{ $cardReader->folder ?? '' }}}" class="form-control"  name="folder[]" multiple/>
+                                <input type="file"  value="{{{ $cardreader->folder ?? '' }}}" class="form-control"  name="folder[]" multiple/>
                             </div>
 
                        

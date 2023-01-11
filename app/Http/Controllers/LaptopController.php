@@ -216,8 +216,8 @@ class laptopController extends Controller
     {
         $laptop->delete();
 
-        return redirect()->route('laptops.index')
-        ->with('success','laptop deleted successfully');
+        return redirect()->back()
+                ->with('success','laptop deleted successfully');
     
     }
 

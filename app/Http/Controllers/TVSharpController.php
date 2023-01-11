@@ -207,8 +207,8 @@ class tvsharpController extends Controller
     {
         $tvsharp->delete();
 
-        return redirect()->route('tvsharps.index')
-        ->with('success','tvsharp deleted successfully');
+        return redirect()->back()
+                ->with('success','tvsharp deleted successfully');
     
     }
 

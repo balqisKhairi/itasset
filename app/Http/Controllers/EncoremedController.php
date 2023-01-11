@@ -230,8 +230,8 @@ class encoremedController extends Controller
     {
         $encoremed->delete();
 
-        return redirect()->route('encoremeds.index')
-        ->with('success','encoremed deleted successfully');
+        return redirect()->back()
+                ->with('success','encoremed deleted successfully');
     
     }
 

@@ -54,7 +54,7 @@ class DesktopPolicy
      */
     public function update(User $user, Desktop $desktop)
     {
-        //
+        return $user->hasPermission('manage_items');
     }
 
     /**
@@ -66,7 +66,7 @@ class DesktopPolicy
      */
     public function delete(User $user, Desktop $desktop)
     {
-        //
+        return $user->hasPermission('manage_items');
     }
 
     /**

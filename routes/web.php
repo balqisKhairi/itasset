@@ -101,18 +101,18 @@ Route::delete('osdesktops/{osdesktop}', 'OsdesktopController@destroy')->name('os
 Route::get('osdesktops/{osdesktop}', 'OsdesktopController@show')->name('osdesktops.show');
 
 //Image Viewer
-Route::get('/imageviewers', 'ImageViewerController@index')->name('imageviewers.index');
+Route::get('/imageviewers', 'imageviewerController@index')->name('imageviewers.index');
 //Route::get('/desktops/create', 'DesktopController@create')->name('desktops.create');
 //Route::post('/desktops', 'DesktopController@store')->name('desktops.store');
 
-Route::get('imageviewers/create', 'ImageViewerController@create')->name('imageviewers.create');
-Route::post('imageviewers/store', 'ImageViewerController@store')->name('imageviewers.store');
+Route::get('imageviewers/create', 'imageviewerController@create')->name('imageviewers.create');
+Route::post('imageviewers/store', 'imageviewerController@store')->name('imageviewers.store');
 
-Route::get('imageviewers/{imageviewer}/edit', 'ImageviewerController@edit')->name('imageviewers.edit');
-Route::put('imageviewers/{imageviewer}', 'ImageviewerController@update')->name('imageviewers.update');
-Route::delete('imageviewers/{imageviewer}', 'ImageviewerController@destroy')->name('imageviewers.destroy');
-Route::get('imageviewers/{imageviewer}', 'ImageviewerController@show')->name('imageviewers.show');
-Route::get('imageviewers/viewFolder/{id}', 'ImageViewerController@viewFolder')->name('imageviewers.viewFolder');
+Route::get('imageviewers/{imageviewer}/edit', 'imageviewerController@edit')->name('imageviewers.edit');
+Route::put('imageviewers/{imageviewer}', 'imageviewerController@update')->name('imageviewers.update');
+Route::delete('imageviewers/{imageviewer}', 'imageviewerController@destroy')->name('imageviewers.destroy');
+Route::get('imageviewers/{imageviewer}', 'imageviewerController@show')->name('imageviewers.show');
+Route::get('imageviewers/viewFolder/{id}', 'imageviewerController@viewFolder')->name('imageviewers.viewFolder');
 
 //Aiodesktop
 Route::get('/aiodesktops', 'AiodesktopController@index')->name('aiodesktops.index');
@@ -182,8 +182,8 @@ Route::get('laptops/viewFolder/{id}', 'LaptopController@viewFolder')->name('lapt
 
   //tvsharp
 Route::get('/tvsharps', 'TvsharpController@index')->name('tvsharps.index');
-//Route::get('/imageviewers/create', 'ImageviewerController@create')->name('imageviewers.create');
-//Route::post('/imageviewers', 'ImageviewerController@store')->name('imageviewers.store');
+//Route::get('/imageviewers/create', 'imageviewerController@create')->name('imageviewers.create');
+//Route::post('/imageviewers', 'imageviewerController@store')->name('imageviewers.store');
 
 Route::get('tvsharps/create', 'TvsharpController@create')->name('tvsharps.create');
 Route::post('tvsharps/store', 'TvsharpController@store')->name('tvsharps.store');
@@ -198,8 +198,8 @@ Route::get('tvsharps/viewFolder/{id}', 'TvsharpController@viewFolder')->name('tv
 
  //mpos
  Route::get('/mposs', 'MposController@index')->name('mposs.index');
- //Route::get('/imageviewers/create', 'ImageviewerController@create')->name('imageviewers.create');
- //Route::post('/imageviewers', 'ImageviewerController@store')->name('imageviewers.store');
+ //Route::get('/imageviewers/create', 'imageviewerController@create')->name('imageviewers.create');
+ //Route::post('/imageviewers', 'imageviewerController@store')->name('imageviewers.store');
  
             
  Route::get('mposs/create', 'mposController@create')->name('mposs.create');
@@ -222,16 +222,16 @@ Route::get('tvsharps/viewFolder/{id}', 'TvsharpController@viewFolder')->name('tv
  Route::get('encoremeds/{encoremed}', 'encoremedController@show')->name('encoremeds.show');
  Route::get('encoremeds/viewFolder/{id}', 'encoremedController@viewFolder')->name('encoremeds.viewFolder');
  
-//cardReader
-Route::get('/cardReaders', 'cardReaderController@index')->name('cardReaders.index');
-Route::get('cardReaders/create', 'cardReaderController@create')->name('cardReaders.create');
-Route::post('cardReaders/store', 'cardReaderController@store')->name('cardReaders.store');
-Route::delete('cardReaders/{cardReader}', 'cardReaderController@destroy')->name('cardReaders.destroy');
-Route::get('cardReaders/{cardReader}/edit', 'cardReaderController@edit')->name('cardReaders.edit');
-Route::put('cardReaders/{cardReader}', 'cardReaderController@update')->name('cardReaders.update');
-Route::delete('cardReaders/{cardReader}', 'cardReaderController@destroy')->name('cardReaders.destroy');
-Route::get('cardReaders/{cardReader}', 'cardReaderController@show')->name('cardReaders.show');
-Route::get('cardReaders/viewFolder/{id}', 'cardReaderController@viewFolder')->name('cardReaders.viewFolder');
+//cardreader
+Route::get('/cardreaders', 'cardreaderController@index')->name('cardreaders.index');
+Route::get('cardreaders/create', 'cardreaderController@create')->name('cardreaders.create');
+Route::post('cardreaders/store', 'cardreaderController@store')->name('cardreaders.store');
+Route::delete('cardreaders/{cardreader}', 'cardreaderController@destroy')->name('cardreaders.destroy');
+Route::get('cardreaders/{cardreader}/edit', 'cardreaderController@edit')->name('cardreaders.edit');
+Route::put('cardreaders/{cardreader}', 'cardreaderController@update')->name('cardreaders.update');
+Route::delete('cardreaders/{cardreader}', 'cardreaderController@destroy')->name('cardreaders.destroy');
+Route::get('cardreaders/{cardreader}', 'cardreaderController@show')->name('cardreaders.show');
+Route::get('cardreaders/viewFolder/{id}', 'cardreaderController@viewFolder')->name('cardreaders.viewFolder');
 
 
 
@@ -293,9 +293,9 @@ Route::get('/accounts', 'accountController@index')->name('accounts.index');
  Route::get('/exportDesktop', 'DesktopController@exportDesktop')->name('desktops.exportDesktop');
  Route::get('/exportAioDesktop', 'AiodesktopController@exportAioDesktop')->name('aiodesktops.exportAioDesktop');
  Route::get('/exportBiometric', 'BiometricController@exportBiometric')->name('biometrics.exportBiometric');
- Route::get('/exportCardreader', 'CardReaderController@exportCardreader')->name('cardReaders.exportCardreader');
+ Route::get('/exportCardreader', 'cardreaderController@exportCardreader')->name('cardreaders.exportCardreader');
  Route::get('/exportEncoremed', 'EncoremedController@exportEncoremed')->name('encoremeds.exportEncoremed');
- Route::get('/exportImageViewer', 'ImageViewerController@exportImageViewer')->name('imageviewers.exportImageViewer');
+ Route::get('/exportImageviewer', 'imageviewerController@exportImageviewer')->name('imageviewers.exportImageviewer');
  Route::get('/exportLaptop', 'LaptopController@exportLaptop')->name('laptops.exportLaptop');
  Route::get('/exportMpos', 'MposController@exportMpos')->name('mposs.exportMpos');
  Route::get('/exportOsdesktop', 'OsdesktopController@exportOsdesktop')->name('osdesktops.exportOsdesktop');
@@ -308,13 +308,13 @@ Route::get('/accounts', 'accountController@index')->name('accounts.index');
 //import
 Route::post('/importDesktop', 'DesktopController@importDesktop')->name('importDesktop');
 Route::post('/importOsdesktop', 'OsdesktopController@importOsdesktop')->name('importOsdesktop');
-Route::post('/importImageviewer', 'ImageViewerController@importImageviewer')->name('importImageviewer');
+Route::post('/importImageviewer', 'imageviewerController@importImageviewer')->name('importImageviewer');
 Route::post('/importAiodesktop', 'AiodesktopController@importAiodesktop')->name('importAiodesktop');
 Route::post('/importTablet', 'TabletController@importTablet')->name('importTablet');
 Route::post('/importLaptop', 'LaptopController@importLaptop')->name('importLaptop');
 Route::post('/importPrinter', 'PrinterController@importPrinter')->name('importPrinter');
 Route::post('/importTvsharp', 'TvsharpController@importTvsharp')->name('importTvsharp');
-Route::post('/importCardReader', 'CardReaderController@importCardReader')->name('importCardReader');
+Route::post('/importCardreader', 'cardreaderController@importCardreader')->name('importCardreader');
 Route::post('/importBiometric', 'BiometricController@importBiometric')->name('importBiometric');
 Route::post('/importEncoremed', 'EncoremedController@importEncoremed')->name('importEncoremed');
 Route::post('/importPower', 'PowerController@importPower')->name('importPower');
@@ -331,14 +331,16 @@ Route::delete('roles/{role}', 'roleController@destroy')->name('roles.destroy');
 
 //mydevice
 Route::get('/myDesktop', 'DesktopController@myDesktop');
-Route::get('/myImageviewer', 'ImageViewerController@myImageviewer');
+Route::get('/myImageviewer', 'imageviewerController@myImageviewer');
 Route::get('/myAiodesktop', 'AiodesktopController@myAiodesktop');
 Route::get('/myTablet', 'TabletController@myTablet');
 Route::get('/myLaptop', 'LaptopController@myLaptop');
 Route::get('/myPrinter', 'PrinterController@myPrinter');
 Route::get('/myTvsharp', 'TvsharpController@myTvsharp');
-Route::get('/myCardreader', 'CardreaderController@myCardreader');
+Route::get('/myCardreader', 'cardreaderController@myCardreader');
 Route::get('/myBiometric', 'BiometricController@myBiometric');
 Route::get('/myEncoremed', 'EncoremedController@myEncoremed');
 Route::get('/myPower', 'PowerController@myPower');
 Route::get('/myMpos', 'MposController@myMpos');
+
+

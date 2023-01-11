@@ -234,8 +234,8 @@ class aiodesktopController extends Controller
     {
         $aiodesktop->delete();
 
-        return redirect()->route('aiodesktops.index')
-        ->with('success','aiodesktop deleted successfully');
+        return redirect()->back()
+                ->with('success','aiodesktop deleted successfully');
     
     }
 

@@ -181,8 +181,8 @@ class osdesktopController extends Controller
     {
         $osdesktop->delete();
 
-        return redirect()->route('osdesktops.index')
-        ->with('success','osdesktop deleted successfully');
+        return redirect()->back()
+                ->with('success','osdesktop deleted successfully');
     }
 
     public function viewFolder($id)

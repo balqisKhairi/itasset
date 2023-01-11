@@ -187,19 +187,19 @@ b, h6 {
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div>
-                <h2>List of Desktops</h2>
+                <h2>List of cardreaders</h2>
             </div>
             <div>
-                <a class="btn btn-success" href="{{ route('desktops.create') }}"> Add New Desktop</a>
+                <a class="btn btn-success" href="{{ route('cardreaders.create') }}"> Add New cardreader</a>
 
-                @can('create', App\Desktop::class)
+                @if(Auth::user()->role_id==2)
                 <a class="btn btn-success1"  onclick="openForm()">Import from Excel</a>
                 
                
          
            
             <div class="form-popup" id="myForm">
-            <form action="{{ url('importDesktop') }}" class="form-container" method="post" enctype="multipart/form-data">
+            <form action="{{ url('importCardreader') }}" class="form-container" method="post" enctype="multipart/form-data">
                 @csrf
                 
                 <input type="file"  name="excel_file" required>
@@ -218,11 +218,11 @@ b, h6 {
         
              
             <div class="pull-right">
-            <a class="btn btn-primary" href="{{ route('desktops.exportDesktop') }}"> Export to Excel</a>
+            <a class="btn btn-primary" href="{{ route('cardreaders.exportCardreader') }}"> Export to Excel</a>
 
             </div>
 
-            @endcan
+            @endif
             <br></br>
               <div class="form-group">
               <input id="myInput" type="text"  class="form-control" placeholder="Search..">
@@ -261,13 +261,13 @@ b, h6 {
             <td>{{ $s->deviceSerielNumber }}</td>
             <td>{{ $s->deviceManufacturer }}</td>
             <td>
-            <form action="{{ route('desktops.destroy',$s->id) }}" method="POST">
+            <form action="{{ route('cardreaders.destroy',$s->id) }}" method="POST">
    
-                    <a class="btn btn-info" href="{{ route('desktops.show',$s->id) }}">View Full Details</a>
+                    <a class="btn btn-info" href="{{ route('cardreaders.show',$s->id) }}">View Full Details</a>
     
                  
     
-                    <a class="btn btn-primary" href="{{ route('desktops.edit',$s->id) }}">Edit</a>
+                    <a class="btn btn-primary" href="{{ route('cardreaders.edit',$s->id) }}">Edit</a>
     
    
                     @csrf

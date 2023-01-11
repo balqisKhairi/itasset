@@ -88,7 +88,7 @@ tbody:nth-child(odd) {
             <th>role Name</th>
            
            
-            <th width="500px">Action</th>
+            <th width="400px">Action</th>
         </tr>
        @foreach ($roles as $s)
        <tbody id="myTable">
@@ -100,10 +100,7 @@ tbody:nth-child(odd) {
             <td>
             <form action="{{ route('roles.destroy',$s->id) }}" method="POST">
    
-                    <a class="btn btn-info" href="{{ route('roles.show',$s->id) }}">View Full Details</a>
-    
-                 
-    
+               
                     <a class="btn btn-primary" href="{{ route('roles.edit',$s->id) }}">Edit</a>
     
    

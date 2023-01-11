@@ -43,15 +43,8 @@ class userController extends Controller
     public function store(Request $request)
     {
         
-       $user->name=$request->name;
-       $user->email=$request->email;
-       $user->username=$request->username;
-       $user->role_id=$request->role_id;
-        //$user->update($request->all());
-  
-        $user=User::create($user);
-       // $user->save();
-        //user::create($request->all());
+      
+        user::create($request->all());
    
         return redirect()->route('users.index')
                         ->with('success','New user created successfully.');

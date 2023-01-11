@@ -45,7 +45,7 @@
    
 <div class="card-body">
 
-<form action="{{ route('cardReaders.update',$cardReader->id) }}" method="POST" enctype="multipart/form-data">
+<form action="{{ route('cardreaders.update',$cardreader->id) }}" method="POST" enctype="multipart/form-data">
     @csrf
     @method('PUT')
         
@@ -53,25 +53,25 @@
 
             <div class="form-group avatar">
                                 <figure class="figure col-md-2 col-sm-3 col-xs-12">
-                                    <img class="img-rounded img-responsive" id="output" height="100%" width="100%" style="width:100%;" src="{{ asset($cardReader->image) }}" alt="">
+                                    <img class="img-rounded img-responsive" id="output" height="100%" width="100%" style="width:100%;" src="{{ asset($cardreader->image) }}" alt="">
                                 </figure>
 
               </div>
 
               
             <label for="image">Picture:</label>
-            <input class="form-control "  id="image" name="image" value="{{$cardReader->image}}" src="{{ asset($cardReader->image) }}"type="file" onchange="loadFile(event)"/>
+            <input class="form-control "  id="image" name="image" value="{{$cardreader->image}}" src="{{ asset($cardreader->image) }}"type="file" onchange="loadFile(event)"/>
             <div class="small text-muted mt-2">Upload your picture. Max file size 50 MB</div>
 
            
 
                                 <label for="title">Assigned To:</label>
-                                <input type="text" value="{{ $cardReader->assignedTo }}" class="form-control"  name="assignedTo" placeholder="NAME">
+                                <input type="text" value="{{ $cardreader->assignedTo }}" class="form-control"  name="assignedTo" placeholder="NAME">
                             </div>
                       
                             <div class="form-group">
                                 <label for="description">Device Hostname:</label>
-                                <input type="text"  value="{{{ $cardReader->deviceHostname }}}" class="form-control"  name="deviceHostname"/>
+                                <input type="text"  value="{{{ $cardreader->deviceHostname }}}" class="form-control"  name="deviceHostname"/>
                             </div>
                            
    
@@ -85,23 +85,23 @@
 
                     <div class="form-group">
                                 <label for="description">Device IP Address:</label>
-                                <input type="text"  value="{{{ $cardReader->deviceIPaddress }}}" class="form-control"  name="deviceIPaddress" placeholder="Ex: 10.31.0.0"/>
+                                <input type="text"  value="{{{ $cardreader->deviceIPaddress }}}" class="form-control"  name="deviceIPaddress" placeholder="Ex: 10.31.0.0"/>
                             </div>
                             <div class="form-group">
                                 <label for="title">Device Manufacturer:</label>
-                                <input type="text" value="{{ $cardReader->deviceManufacturer }}" class="form-control"  name="deviceManufacturer">
+                                <input type="text" value="{{ $cardreader->deviceManufacturer }}" class="form-control"  name="deviceManufacturer">
                             </div>
                             <div class="form-group">
                                 <label for="description">Device Model:</label>
-                                <input type="text"  value="{{{ $cardReader->deviceModel }}}" class="form-control"  name="deviceModel"/>
+                                <input type="text"  value="{{{ $cardreader->deviceModel }}}" class="form-control"  name="deviceModel"/>
                             </div>
                             <div class="form-group">
                                 <label for="description">Device Seriel Number:</label>
-                                <input type="text"  value="{{{ $cardReader->deviceSerielNumber }}}" class="form-control"  name="deviceSerielNumber"/>
+                                <input type="text"  value="{{{ $cardreader->deviceSerielNumber }}}" class="form-control"  name="deviceSerielNumber"/>
                             </div>
                             <div class="form-group">
                                 <label for="description">Warranty Date:</label>
-                                <input type="date"  value="{{{ $cardReader->warrantyDate }}}" class="form-control"  name="warrantyDate"/>
+                                <input type="date"  value="{{{ $cardreader->warrantyDate }}}" class="form-control"  name="warrantyDate"/>
                             </div>
 
 
@@ -123,27 +123,27 @@
                     <select name="department_id" id="skill_filter" class="form-control">
                     <option value=""> --SELECT--</option>
                     @foreach(App\Department::all() ->sortBy('departName') as $cat)
-                    <option value="{{$cat->id}}" {{$cardReader->department_id == $cat->id  ? 'selected' : ''}}>{{$cat->departName}}</option>
+                    <option value="{{$cat->id}}" {{$cardreader->department_id == $cat->id  ? 'selected' : ''}}>{{$cat->departName}}</option>
                     @endforeach
                     </select>
                     </div>
 
                             <div class="form-group">
                                 <label for="title">Device Location:</label>
-                                <input type="text" value="{{ $cardReader->deviceLocation }}" class="form-control"  name="deviceLocation">
+                                <input type="text" value="{{ $cardreader->deviceLocation }}" class="form-control"  name="deviceLocation">
                             </div>
 
                             <div class="form-group">
                                 <label>Level :&nbsp; &nbsp;</label>
                                 <select name="level" id="level"class="form-control">
                                 <option value=""  readonly > --SELECT--</option>
-                                <option value="1" {{ $cardReader->level == 1 ? 'selected' : '' }} >1</option>
-                                <option value="2" {{ $cardReader->level == 2 ? 'selected' : '' }} > 2</option>
-                                <option value="3" {{ $cardReader->level == 3 ? 'selected' : '' }}> 3</option>
-                                <option value="4" {{ $cardReader->level == 4 ? 'selected' : '' }}> 4</option>
-                                <option value="5" {{ $cardReader->level == 5 ? 'selected' : '' }}> 5</option>
-                                <option value="6" {{ $cardReader->level == 6 ? 'selected' : '' }}> 6</option>
-                                <option value="7" {{ $cardReader->level == 7 ? 'selected' : '' }}> 7</option>
+                                <option value="1" {{ $cardreader->level == 1 ? 'selected' : '' }} >1</option>
+                                <option value="2" {{ $cardreader->level == 2 ? 'selected' : '' }} > 2</option>
+                                <option value="3" {{ $cardreader->level == 3 ? 'selected' : '' }}> 3</option>
+                                <option value="4" {{ $cardreader->level == 4 ? 'selected' : '' }}> 4</option>
+                                <option value="5" {{ $cardreader->level == 5 ? 'selected' : '' }}> 5</option>
+                                <option value="6" {{ $cardreader->level == 6 ? 'selected' : '' }}> 6</option>
+                                <option value="7" {{ $cardreader->level == 7 ? 'selected' : '' }}> 7</option>
                                 </select>
                             </div>
                     
@@ -164,8 +164,8 @@
                                 <label>Condition(CPU) :&nbsp; &nbsp;</label>
                                 <select name="cpu" id="cpu"class="form-control">
                                 <option value=""> --SELECT--</option>
-                                <option value="Good" {{ $cardReader->cpu == "Good" ? 'selected' : '' }} >Good</option>
-                                <option value="Faulty" {{ $cardReader->cpu == "Faulty" ? 'selected' : '' }} > Faulty</option>
+                                <option value="Good" {{ $cardreader->cpu == "Good" ? 'selected' : '' }} >Good</option>
+                                <option value="Faulty" {{ $cardreader->cpu == "Faulty" ? 'selected' : '' }} > Faulty</option>
                     </select> 
                             </div>
 
@@ -176,8 +176,8 @@
                                 <label>Condition(monitor) : &nbsp; &nbsp;</label>
                                 <select name="monitor" id="monitor"class="form-control">
                                 <option value=""> --SELECT--</option>
-                                <option value="Good" {{ $cardReader->monitor == "Good" ? 'selected' : '' }} >Good</option>
-                                <option value="Faulty" {{ $cardReader->monitor == "Faulty" ? 'selected' : '' }} > Faulty</option>
+                                <option value="Good" {{ $cardreader->monitor == "Good" ? 'selected' : '' }} >Good</option>
+                                <option value="Faulty" {{ $cardreader->monitor == "Faulty" ? 'selected' : '' }} > Faulty</option>
                                 </select> 
                             </div>
 
@@ -187,9 +187,9 @@
                                 <label>Deployement :&nbsp; &nbsp;</label>
                                 <select name="deployment" id="deployment"class="form-control">
                                 <option value=""> --SELECT--</option>
-                                <option value="Ready Deploy" {{ $cardReader->deployment == "Ready Deploy" ? 'selected' : '' }} >Ready Deploy</option>
-                                <option value="Pending" {{ $cardReader->deployment == "Pending" ? 'selected' : '' }} > Pending</option>
-                                <option value="Not Deploy" {{ $cardReader->deployment == "Not Deploy" ? 'selected' : '' }}> Not Deploy</option>
+                                <option value="Ready Deploy" {{ $cardreader->deployment == "Ready Deploy" ? 'selected' : '' }} >Ready Deploy</option>
+                                <option value="Pending" {{ $cardreader->deployment == "Pending" ? 'selected' : '' }} > Pending</option>
+                                <option value="Not Deploy" {{ $cardreader->deployment == "Not Deploy" ? 'selected' : '' }}> Not Deploy</option>
                             </select> 
                             </div>
 
@@ -208,15 +208,15 @@
 
                     <div class="form-group">
                                 <label for="description">Purchase Order(PO):</label>
-                                <input type="text"  value="{{{ $cardReader->purchaseOrder }}}" class="form-control"  name="purchaseOrder"/>
+                                <input type="text"  value="{{{ $cardreader->purchaseOrder }}}" class="form-control"  name="purchaseOrder"/>
                             </div>
                             <div class="form-group">
                                 <label for="title">Delivery Oder(DO):</label>
-                                <input type="text" value="{{ $cardReader->deliveryOrder }}" class="form-control"  name="deliveryOrder"/>
+                                <input type="text" value="{{ $cardreader->deliveryOrder }}" class="form-control"  name="deliveryOrder"/>
                             </div>
                             <div class="form-group">
                                 <label for="description">Invoice No:</label>
-                                <input type="text"  value="{{{ $cardReader->noInvoice }}}" class="form-control"  name="noInvoice"/>
+                                <input type="text"  value="{{{ $cardreader->noInvoice }}}" class="form-control"  name="noInvoice"/>
                             </div>
                            
                             
@@ -225,7 +225,7 @@
                                 <select name="vendor_id" id="vendor_id" class="form-control">
                                 <option value=""> --SELECT--</option>
                                 @foreach(App\Vendor::all() ->sortBy('companyName') as $cat)
-                                <option value="{{$cat->id}}" {{$cardReader->vendor_id == $cat->id  ? 'selected' : ''}}>{{$cat->companyName}}</option>
+                                <option value="{{$cat->id}}" {{$cardreader->vendor_id == $cat->id  ? 'selected' : ''}}>{{$cat->companyName}}</option>
                                 @endforeach
                                 </select>
                                 </div>
@@ -233,7 +233,7 @@
 
                             <div class="form-group">
                                 <label for="description">Price Per Unit(RM):</label>
-                                <input type="text"  value="{{{ $cardReader->pricePerUnit }}}" class="form-control"  name="pricePerUnit" placeholder="RM 000.00"/>
+                                <input type="text"  value="{{{ $cardreader->pricePerUnit }}}" class="form-control"  name="pricePerUnit" placeholder="RM 000.00"/>
                             </div>
 
                             <div class="form-group">
@@ -241,10 +241,10 @@
                                <label>Status Asset : &nbsp; &nbsp;</label>
                                <select name="statusAsset" id="statusAsset"class="form-control">
                                <option value=""> --SELECT--</option>
-                               <option value="IT Asset" {{ $cardReader->statusAsset == "IT Asset" ? 'selected' : '' }} >IT Asset</option>
-                               <option value="Vendor" {{ $cardReader->statusAsset == "Vendor" ? 'selected' : '' }} > Vendor</option>
-                               <option value="Biomedical Engineering" {{ $cardReader->statusAsset == "Biomedical Engineering" ? 'selected' : '' }}> Biomedical Engineering</option>
-                               <option value="Lablink" {{ $cardReader->statusAsset == "Lablink" ? 'selected' : '' }}> Lablink</option>
+                               <option value="IT Asset" {{ $cardreader->statusAsset == "IT Asset" ? 'selected' : '' }} >IT Asset</option>
+                               <option value="Vendor" {{ $cardreader->statusAsset == "Vendor" ? 'selected' : '' }} > Vendor</option>
+                               <option value="Biomedical Engineering" {{ $cardreader->statusAsset == "Biomedical Engineering" ? 'selected' : '' }}> Biomedical Engineering</option>
+                               <option value="Lablink" {{ $cardreader->statusAsset == "Lablink" ? 'selected' : '' }}> Lablink</option>
                           
                              </select> 
                            </div>
@@ -252,7 +252,7 @@
 
                             <div class="form-group">
                                 <label for="description">File:</label>
-                                <input type="file"  value="{{ asset($cardReader->folder) }}" class="form-control"  name="folder[]" multiple/>
+                                <input type="file"  value="{{ asset($cardreader->folder) }}" class="form-control"  name="folder[]" multiple/>
                             </div>
 
                        

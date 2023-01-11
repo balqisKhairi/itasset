@@ -19,53 +19,53 @@ class DesktopImport implements ToModel, WithValidation
     public function model(array $row)
     {
         return new Desktop([
-            'id'     => $row[0],
+            //'id'     => $row[0],
            // 'vendor_id'     => $row[1],
-            'assignedTo'     => $row[1],
-            'deviceHostname'    => $row[2], 
+            'assignedTo'     => $row[0],
+            'deviceHostname'    => $row[1], 
             //'password' => Hash::make($row[2]),
-            'deviceIPaddress'     => $row[3],
-            'deviceManufacturer'    => $row[4], 
-            'deviceModel'     => $row[5],
-            'deviceSerielNumber'    => $row[6], 
+            'deviceIPaddress'     => $row[2],
+            'deviceManufacturer'    => $row[3], 
+            'deviceModel'     => $row[4],
+            'deviceSerielNumber'    => $row[5], 
  
  
-            'warrantyDate'     => $row[7],
-            'monitorModel'    => $row[8], 
+            'warrantyDate'     => $row[6],
+            'monitorModel'    => $row[7], 
             //'password' => Hash::make($row[2]),
-            'monitorManufacturer'     => $row[9],
-            'monitorSize'    => $row[10], 
-            'monitorSerielNumber'     => $row[11],
+            'monitorManufacturer'     => $row[8],
+            'monitorSize'    => $row[9], 
+            'monitorSerielNumber'     => $row[10],
             //'department_id'    => $row[12], 
  
-            'deviceLocation'     => $row[13],
+            'deviceLocation'     => $row[12],
  
-            'level'    => $row[14], 
-            'operatingSystem'     => $row[15],
-            'windowVersion'    => $row[16], 
+            'level'    => $row[13], 
+            'operatingSystem'     => $row[14],
+            'windowVersion'    => $row[15], 
             //'password' => Hash::make($row[2]),
-            'msOfficeAndVersion'     => $row[17],
-            'officeSerielKey'    => $row[18], 
-            'antivirusAndVersion'     => $row[19],
-            'domain'    => $row[20], 
+            'msOfficeAndVersion'     => $row[16],
+            'officeSerielKey'    => $row[17], 
+            'antivirusAndVersion'     => $row[18],
+            'domain'    => $row[19], 
  
  
-            'internetConnection'     => $row[21],
-            'policyRebootAndShutdown'    => $row[22], 
+            'internetConnection'     => $row[20],
+            'policyRebootAndShutdown'    => $row[21], 
             //'password' => Hash::make($row[2]),
            
-            'purchaseOrder'    => $row[23], 
+            'purchaseOrder'    => $row[22], 
  
-            'deliveryOrder'     => $row[24],
-            'invoiceNo'    => $row[25], 
+            'deliveryOrder'     => $row[23],
+            'invoiceNo'    => $row[24], 
  
-            'supplier'    => $row[26], 
-            'pricePerUnit'    => $row[27], 
+            'supplier'    => $row[25], 
+            'pricePerUnit'    => $row[26], 
             //statusAsset=>$row[28]
-            'cpu'     => $row[29],
-            'monitor'    => $row[30], 
+            'cpu'     => $row[28],
+            'monitor'    => $row[29], 
            
-            'deployment'     => $row[31],
+            'deployment'     => $row[30],
             
           // 'vendor_id'     => $row[30],
             
