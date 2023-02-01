@@ -19,45 +19,43 @@ class TabletImport implements ToModel, WithValidation
     public function model(array $row)
     {
         return new Tablet([
-            'id'     => $row[0],
+             //'id'     => $row[0],
            // 'vendor_id'     => $row[1],
-            'assignedTo'     => $row[1],
-            'deviceHostname'    => $row[2], 
-            //'password' => Hash::make($row[2]),
-            'deviceIPaddress'     => $row[3],
-            'deviceManufacturer'    => $row[4], 
-            'deviceModel'     => $row[5],
-            'deviceSerielNumber'    => $row[6], 
- 
- 
-            'warrantyDate'     => $row[7],
+           'assignedTo'     => $row[0],
+           'deviceHostname'    => $row[1], 
+           //'password' => Hash::make($row[2]),
+           'deviceIPaddress'     => $row[2],
+           'deviceManufacturer'    => $row[3], 
+           'deviceModel'     => $row[4],
+           'deviceSerielNumber'    => $row[5], 
+
+
+           'warrantyDate'     => $row[6],
            
- 
-            'deviceLocation'     => $row[9],
- 
-            'level'    => $row[10], 
-            'operatingSystem'     => $row[11],
-            'windowVersion'    => $row[12], 
-            //'password' => Hash::make($row[2]),
-            'msOfficeAndVersion'     => $row[13],
-            'officeSerielKey'    => $row[14], 
-            'antivirusAndVersion'     => $row[15],
-            'domain'    => $row[16], 
- 
- 
-            'internetConnection'     => $row[17],
-            'policyRebootAndShutdown'    => $row[18], 
-            //'password' => Hash::make($row[2]),
-           
+           'deviceLocation'     => $row[8],
+
+           'level'    => $row[9], 
+           'operatingSystem'     => $row[10],
+           'windowVersion'    => $row[11], 
+           //'password' => Hash::make($row[2]),
+           'msOfficeAndVersion'     => $row[12],
+           'officeSerielKey'    => $row[13], 
+           'antivirusAndVersion'     => $row[14],
+           'domain'    => $row[15], 
+
+
+           'internetConnection'     => $row[16],
+           'policyRebootAndShutdown'    => $row[17], 
+           //'password' => Hash::make($row[2]),
+    
+          // 'statusAsset'=>$row[25],
+           'cpu'     => $row[25],
+           'monitor'    => $row[26], 
           
-            //statusAsset=>$row[28]
-            'cpu'     => $row[19],
-            'monitor'    => $row[20], 
+           'deployment'     => $row[27],
            
-            'deployment'     => $row[21],
-            
-          // 'vendor_id'     => $row[30],
-            
+         // 'vendor_id'     => $row[30],
+           
         ]);
     }
 
@@ -65,7 +63,7 @@ class TabletImport implements ToModel, WithValidation
     public function rules(): array
     {
         return [
-            '6' => 'unique:Tablets,deviceSerielNumber',
+            '5' => 'unique:Tablets,deviceSerielNumber',
             '6.required' => 'We need to know your e-mail address!',
             //'*.6' => 'required|unique',
             //'*.6' => ['6','unique:Tablets']

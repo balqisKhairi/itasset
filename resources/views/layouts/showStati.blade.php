@@ -211,7 +211,7 @@
                                 <div class="stat-cards-info">
                                 <p class="stat-cards">Total Card Reader</p>
                                     <p class="stat-cards-info__num">{{$totalCardreader}}</p>
-                                    <a class="button button1" href="{{ route('cardReaders.index') }}"> <span>View </span></a>
+                                    <a class="button button1" href="{{ route('cardreaders.index') }}"> <span>View </span></a>
                                 </div>
                             </article>
                         </div>

@@ -31,10 +31,10 @@ class PowerImport implements ToModel, WithValidation
   
   
              'warrantyDate'     => $row[7],
-             'deviceLocation'     => $row[8],
-             'level'    => $row[9], 
+             'deviceLocation'     => $row[9],
+             'level'    => $row[10], 
  
-             'cpu'     => $row[10],
+            /**'cpu'     => $row[10],
              'monitor'    => $row[11], 
              'deployment'     => $row[12],
          
@@ -43,7 +43,7 @@ class PowerImport implements ToModel, WithValidation
              'invoiceNo'    => $row[15], 
              'supplier'    => $row[16], 
              'pricePerUnit'    => $row[17], 
-             'statusAsset'=>$row[18]
+             'statusAsset'=>$row[18] */ 
         ]);
     }
 

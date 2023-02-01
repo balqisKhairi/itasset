@@ -31,41 +31,41 @@ class MposImport implements ToModel, WithValidation
  
  
             'warrantyDate'     => $row[7],
-            'monitorModel'    => $row[8], 
+            /**'monitorModel'    => $row[8], 
             //'password' => Hash::make($row[2]),
             'monitorManufacturer'     => $row[9],
             'monitorSize'    => $row[10], 
             'monitorSerielNumber'     => $row[11],
-            //'department_id'    => $row[12], 
+            //'department_id'    => $row[12], */
  
-            'deviceLocation'     => $row[13],
+            'deviceLocation'     => $row[9],
  
-            'level'    => $row[14], 
-            'operatingSystem'     => $row[15],
-            'windowVersion'    => $row[16], 
+            'level'    => $row[10], 
+            'operatingSystem'     => $row[11],
+            'windowVersion'    => $row[12], 
             //'password' => Hash::make($row[2]),
-            'msOfficeAndVersion'     => $row[17],
-            'officeSerielKey'    => $row[18], 
-            'antivirusAndVersion'     => $row[19],
-            'domain'    => $row[20], 
+            'msOfficeAndVersion'     => $row[13],
+            'officeSerielKey'    => $row[14], 
+            'antivirusAndVersion'     => $row[15],
+            'domain'    => $row[16], 
  
  
-            'internetConnection'     => $row[21],
-            'policyRebootAndShutdown'    => $row[22], 
+            'internetConnection'     => $row[17],
+            'policyRebootAndShutdown'    => $row[18], 
             //'password' => Hash::make($row[2]),
            
-            'purchaseOrder'    => $row[23], 
+            //'purchaseOrder'    => $row[23], 
  
-            'deliveryOrder'     => $row[24],
-            'invoiceNo'    => $row[25], 
+            //'deliveryOrder'     => $row[24],
+            //'invoiceNo'    => $row[25], 
  
-            'supplier'    => $row[26], 
-            'pricePerUnit'    => $row[27], 
+           // 'supplier'    => $row[26], 
+            //'pricePerUnit'    => $row[27], 
             //statusAsset=>$row[28]
-            'cpu'     => $row[29],
-            'monitor'    => $row[30], 
+            'cpu'     => $row[19],
+            'monitor'    => $row[20], 
            
-            'deployment'     => $row[31],
+            'deployment'     => $row[21],
             
           // 'vendor_id'     => $row[30],
             

@@ -172,15 +172,7 @@ b, h6 {
         </div>
     @endif
 
-    
-    @if (Session::has('excel_error'))
-    @foreach(Session::get('excel_error') as $failure)
-        <div class="alert alert-danger">
-            <p>{{ $failure->errors()[0] }} 6 is for row Seriel number at line no {{ $failure->row()}} from your Excel.</p>
-        </div>
-        @endforeach
-    @endif
-
+  
     
     <div class="row">
         <div class="col-lg-12 margin-tb">
@@ -235,7 +227,15 @@ b, h6 {
         </div>
     </div>
    
-   
+     
+    @if (Session::has('excel_error'))
+    @foreach(Session::get('excel_error') as $failure)
+        <div class="alert alert-danger">
+            <p>{{ $failure->errors()[0] }} 6 is for row Seriel number at line no {{ $failure->row()}} from your Excel.</p>
+        </div>
+        @endforeach
+    @endif
+
    
    
     <table class="table table-bordered">

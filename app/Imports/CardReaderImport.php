@@ -21,16 +21,16 @@ class cardreaderImport implements ToModel, WithValidation
         return new cardreader([
             'id'     => $row[0],
            // 'vendor_id'     => $row[1],
-            'assignedTo'     => $row[1],
-            'deviceHostname'    => $row[2], 
+           // 'assignedTo'     => $row[1],
+            //'deviceHostname'    => $row[2], 
             //'password' => Hash::make($row[2]),
-            'deviceIPaddress'     => $row[3],
-            'deviceManufacturer'    => $row[4], 
-            'deviceModel'     => $row[5],
-            'deviceSerielNumber'    => $row[6], 
+            //'deviceIPaddress'     => $row[3],
+            'deviceManufacturer'    => $row[3], 
+            'deviceModel'     => $row[4],
+            'deviceSerielNumber'    => $row[5], 
  
  
-            'warrantyDate'     => $row[7],
+           // 'warrantyDate'     => $row[7],
             'deviceLocation'     => $row[8],
             'level'    => $row[9], 
 
@@ -40,11 +40,11 @@ class cardreaderImport implements ToModel, WithValidation
         
             'purchaseOrder'    => $row[13], 
              'deliveryOrder'     => $row[14],
-            'invoiceNo'    => $row[15], 
+           'noInvoice'    => $row[15], 
             'supplier'    => $row[16], 
             'pricePerUnit'    => $row[17], 
             'statusAsset'=>$row[18]
-          **/
+         **/
             
           // 'vendor_id'     => $row[30],
             
@@ -55,7 +55,7 @@ class cardreaderImport implements ToModel, WithValidation
     public function rules(): array
     {
         return [
-            '6' => 'unique:cardreaders,deviceSerielNumber',
+            '5' => 'unique:cardreaders,deviceSerielNumber',
             '6.required' => 'We need to know your e-mail address!',
             //'*.6' => 'required|unique',
             //'*.6' => ['6','unique:cardreaders']

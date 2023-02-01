@@ -216,7 +216,7 @@ b, h6 {
     @if (Session::has('excel_error'))
     @foreach(Session::get('excel_error') as $failure)
         <div class="alert alert-danger">
-            <p>{{ $failure->errors()[0] }} 6 is for row Seriel number at line no {{ $failure->row()}} from your Excel.</p>
+            <p>{{ $failure->errors()[0] }} 3 is for row Seriel number at row no {{ $failure->row()}} from your Excel.</p>
         </div>
         @endforeach
     @endif

@@ -26,17 +26,17 @@ class TvsharpImport implements ToModel, WithValidation
             'deviceSerielNumber'    => $row[3], 
             'warrantyDate'     => $row[4],
 
-            'deviceLocation'     => $row[5],
-            'level'    => $row[6], 
+            'deviceLocation'     => $row[7],
+            'level'    => $row[8], 
 
-            'cpu'     => $row[7],
-            'monitor'    => $row[8], 
-           'deployment'     => $row[9],
+            'cpu'     => $row[16],
+            'monitor'    => $row[17], 
+           'deployment'     => $row[18],
             
            
             'purchaseOrder'    => $row[10], 
             'deliveryOrder'     => $row[11],
-            'invoiceNo'    => $row[12], 
+            //'invoiceNo'    => $row[12], 
             'supplier'    => $row[13], 
             'pricePerUnit'    => $row[14], 
             //statusAsset=>$row[28]
@@ -50,7 +50,7 @@ class TvsharpImport implements ToModel, WithValidation
     public function rules(): array
     {
         return [
-            '6' => 'unique:Tvsharps,deviceSerielNumber',
+            '3' => 'unique:Tvsharps,deviceSerielNumber',
             '6.required' => 'We need to know your e-mail address!',
             //'*.6' => 'required|unique',
             //'*.6' => ['6','unique:Tvsharps']

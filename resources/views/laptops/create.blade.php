@@ -93,7 +93,7 @@
                                 <input type="text"  value="{{{ $laptop->deviceSerielNumber ?? '' }}}" class="form-control"  name="deviceSerielNumber"/>
                             </div>
                             <div class="form-group">
-                                <label for="description">Warranty Date:</label>
+                                <label for="date">Warranty Date:</label>
                                 <input type="date"  value="{{{ $laptop->warrantyDate ?? '' }}}" class="form-control"  name="warrantyDate"/>
                             </div>
 

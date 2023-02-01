@@ -19,53 +19,40 @@ class LaptopImport implements ToModel, WithValidation
     public function model(array $row)
     {
         return new Laptop([
-            'id'     => $row[0],
+            //'id'     => $row[0],
            // 'vendor_id'     => $row[1],
-            'assignedTo'     => $row[1],
-            'deviceHostname'    => $row[2], 
+            'assignedTo'     => $row[0],
+            'deviceHostname'    => $row[1], 
             //'password' => Hash::make($row[2]),
-            'deviceIPaddress'     => $row[3],
-            'deviceManufacturer'    => $row[4], 
-            'deviceModel'     => $row[5],
-            'deviceSerielNumber'    => $row[6], 
+            'deviceIPaddress'     => $row[2],
+            'deviceManufacturer'    => $row[3], 
+            'deviceModel'     => $row[4],
+            'deviceSerielNumber'    => $row[5], 
  
  
-            'warrantyDate'     => $row[7],
-            'monitorModel'    => $row[8], 
+            'warrantyDate'     => $row[6],
+            
+            'deviceLocation'     => $row[8],
+ 
+            'level'    => $row[9], 
+            'operatingSystem'     => $row[10],
+            'windowVersion'    => $row[11], 
             //'password' => Hash::make($row[2]),
-            'monitorManufacturer'     => $row[9],
-            'monitorSize'    => $row[10], 
-            'monitorSerielNumber'     => $row[11],
-            //'department_id'    => $row[12], 
+            'msOfficeAndVersion'     => $row[12],
+            'officeSerielKey'    => $row[13], 
+            'antivirusAndVersion'     => $row[14],
+            'domain'    => $row[15], 
  
-            'deviceLocation'     => $row[13],
  
-            'level'    => $row[14], 
-            'operatingSystem'     => $row[15],
-            'windowVersion'    => $row[16], 
+            'internetConnection'     => $row[16],
+            'policyRebootAndShutdown'    => $row[17], 
             //'password' => Hash::make($row[2]),
-            'msOfficeAndVersion'     => $row[17],
-            'officeSerielKey'    => $row[18], 
-            'antivirusAndVersion'     => $row[19],
-            'domain'    => $row[20], 
- 
- 
-            'internetConnection'     => $row[21],
-            'policyRebootAndShutdown'    => $row[22], 
-            //'password' => Hash::make($row[2]),
+     
+           // 'statusAsset'=>$row[25],
+            'cpu'     => $row[26],
+            'monitor'    => $row[27], 
            
-            'purchaseOrder'    => $row[23], 
- 
-            'deliveryOrder'     => $row[24],
-            'invoiceNo'    => $row[25], 
- 
-            'supplier'    => $row[26], 
-            'pricePerUnit'    => $row[27], 
-            //statusAsset=>$row[28]
-            'cpu'     => $row[29],
-            'monitor'    => $row[30], 
-           
-            'deployment'     => $row[31],
+            'deployment'     => $row[28],
             
           // 'vendor_id'     => $row[30],
             
@@ -76,7 +63,7 @@ class LaptopImport implements ToModel, WithValidation
     public function rules(): array
     {
         return [
-            '6' => 'unique:Laptops,deviceSerielNumber',
+            '5' => 'unique:Laptops,deviceSerielNumber',
             '6.required' => 'We need to know your e-mail address!',
             //'*.6' => 'required|unique',
             //'*.6' => ['6','unique:Laptops']
